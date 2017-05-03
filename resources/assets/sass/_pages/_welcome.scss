@@ -1,0 +1,57 @@
+
+
+#welcome,#register{
+  #banner{
+    height:490px;
+    background:$firecat-primary;
+    position:relative;
+    display:table;
+    width:100%;
+    padding:0 10%;
+    border-bottom:10px solid $firecat-secondary;
+
+    #banner-image{
+      background:url(/images/city.png);
+      background-position: center center;
+      background-size:cover;
+      opacity:0.5;
+      position: absolute;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+    }
+
+    #banner-text{
+      display:table-cell;
+      padding-top:75px;
+      vertical-align: middle;
+      position: relative;
+      z-index: 2;
+      color:$firecat-white;
+
+      h2{
+        font-weight:200;
+        font-size:4rem;
+      }
+
+      #banner-button{
+        display:block;
+        margin:auto;
+        margin-top:75px;
+      }
+
+      #banner-extra{
+        position: absolute;
+        bottom:0;
+        right:0;
+      }
+    }
+  }
+
+  #soon{
+    p{
+      font-size:2rem;
+    }
+  }
+}

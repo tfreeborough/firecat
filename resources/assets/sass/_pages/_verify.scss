@@ -1,0 +1,20 @@
+
+
+#verify{
+  #verify-wrapper{
+    padding-top:50px;
+    padding-bottom:50px;
+
+
+    > div{
+      display:table;
+      height:300px;
+
+      .content{
+        display:table-cell;
+        width:100%;
+        vertical-align: middle;
+      }
+    }
+  }
+}

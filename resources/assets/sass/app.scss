@@ -7,3 +7,23 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Override
+@import "overrides";
+
+// Partials
+@import "_partials/menu";
+@import "_partials/buttons";
+
+// Pages
+@import "_pages/register";
+@import "_pages/welcome";
+@import "_pages/verify";
+
+#app{
+  padding-top:$menu-height;
+}
+
+.container{
+  background:$centerpiece;
+}

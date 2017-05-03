@@ -1,0 +1,54 @@
+
+
+
+
+#menu{
+  position: fixed;
+  z-index: 999;
+  top:0;
+  left:0;
+  right:0;
+  background:$firecat-dark-grey;
+  height:$menu-height;
+
+  #menu-logo{
+    font-size:3rem;
+    padding-left:1rem;
+
+    .fire{
+      color:$firecat-secondary;
+      font-weight:200;
+    }
+
+    .cat{
+      color:$firecat-white;
+      font-weight:bold;
+    }
+  }
+
+  #menu-links{
+    height: $menu-height;
+
+    ul{
+      height:100%;
+      margin:0;
+      display:table;
+
+      a{
+        display:table-cell;
+        vertical-align: middle;
+        padding:0 2rem;
+        color:$firecat-white;
+        font-size:1.7rem;
+
+        &:hover{
+          color:$firecat-secondary;
+        }
+
+        li{
+          list-style-type: none;
+        }
+      }
+    }
+  }
+}

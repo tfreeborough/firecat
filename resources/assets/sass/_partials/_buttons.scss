@@ -1,0 +1,21 @@
+
+
+.button{
+  border:none;
+  border-radius:4px;
+  text-align: center;
+
+  &.large{
+    padding:0.5rem 2rem;
+    font-size:2rem;
+  }
+
+  &.small{
+    padding:0 1rem;
+  }
+
+  &.action{
+    background:$firecat-secondary;
+    color:$firecat-white!important;
+  }
+}

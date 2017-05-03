@@ -1,0 +1,35 @@
+
+
+#register{
+  #registration-supplement{
+    padding-top:15px;
+    padding-bottom:15px;
+
+    > div{
+      height:300px;
+      padding:1rem;
+
+      .supplement{
+        background:$firecat-primary;
+        height:100%;
+        padding:1rem;
+        color:$firecat-white;
+        display:table;
+        width:100%;
+
+        .supplement-content{
+          display:table-cell;
+          vertical-align: middle;
+
+          i{
+            font-size:64px;
+            display:block;
+            margin:auto;
+            text-align: center;
+            margin-bottom:1rem;
+          }
+        }
+      }
+    }
+  }
+}
