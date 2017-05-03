@@ -9,7 +9,12 @@
             <a href="{{route('home')}}"><li>Features</li></a>
             <a href="{{route('home')}}"><li>Pricing</li></a>
             <a href="{{route('register')}}"><li>Create Account</li></a>
-            <a href="{{route('home')}}"><li>Login</li></a>
+            @if(Auth::user())
+                <a href="{{route('logout')}}"><li>Logout</li></a>
+            @else
+                <a href="{{route('login')}}"><li>Login</li></a>
+            @endif
+
         </ul>
     </div>
 </div>

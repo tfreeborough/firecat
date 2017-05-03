@@ -36,4 +36,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function isPartner()
+    {
+        return $this->partner;
+    }
+
+    public function isVendor()
+    {
+        return $this->vendor;
+    }
+
+    public function isAdmin()
+    {
+        return $this->admin;
+    }
+    
+    public function isVerified()
+    {
+        return $this->email_verified;
+    }
 }
