@@ -31,6 +31,6 @@ class Verify extends Mailable
      */
     public function build()
     {
-        return $this->from('no-reply@firecat.io')->view('email.verify');
+        return $this->subject('Please verify your account')->from('no-reply@firecat.io')->view('email.verify');
     }
 }

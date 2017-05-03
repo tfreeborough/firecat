@@ -16,7 +16,7 @@
                         <div class="content">
                             <h1>Thanks for that!</h1>
                             <p>
-                                Thanks for registering as a partner with Firecat. We've send you an email to verify that it belongs to you, could you go
+                                Thanks for registering as a partner with Firecat. We've sent you an email to verify your account belongs to you, could you go
                                 ahead and check your email and click the link inside.
                             </p>
                             <p>
