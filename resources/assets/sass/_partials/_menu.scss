@@ -11,21 +11,6 @@
   background:$firecat-dark-grey;
   height:$menu-height;
 
-  #menu-logo{
-    font-size:3rem;
-    padding-left:1rem;
-
-    .fire{
-      color:$firecat-secondary;
-      font-weight:200;
-    }
-
-    .cat{
-      color:$firecat-white;
-      font-weight:bold;
-    }
-  }
-
   #menu-links{
     height: $menu-height;
 
@@ -50,5 +35,20 @@
         }
       }
     }
+  }
+}
+
+#menu-logo{
+  font-size:3rem;
+  padding-left:1rem;
+
+  .fire{
+    color:$firecat-secondary;
+    font-weight:200;
+  }
+
+  .cat{
+    color:$firecat-white;
+    font-weight:bold;
   }
 }

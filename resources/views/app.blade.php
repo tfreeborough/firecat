@@ -17,9 +17,16 @@
     @section('menu')
     @show
 
-    <div id="app">
-        @yield('content')
-    </div>
+    @if(Auth::user())
+        <div id="app" class="authenticated">
+            @yield('content')
+        </div>
+    @else
+        <div id="app">
+            @yield('content')
+        </div>
+    @endif
+
 </div>
 </body>
 </html>

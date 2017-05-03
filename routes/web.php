@@ -26,10 +26,19 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+Route::get('dashboard', 'Account\AccountController@directToDashboard')->name('dashboard');
+
+Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' => 'admin'], function () {
+    Route::get('/', 'Admin\AdminController@showDashboard')->name('admin.dashboard');
+});
+
 Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' => 'partner'], function () {
-    Route::get('/', 'Partner\PartnerController@showHome');
+    Route::get('/', 'Partner\PartnerController@showDashboard')->Name('partner.dashboard');
+    Route::get('/test', 'Vendor\VendorController@showDashboard')->name('vendor.dashboard');
 });
 
 Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' => 'vendor'], function () {
-    Route::get('/', 'Vendor\VendorController@showHome');
+    Route::get('/', 'Vendor\VendorController@showDashboard')->name('vendor.dashboard');
+    Route::get('/test', 'Vendor\VendorController@showDashboard')->name('vendor.dashboard');
 });
+

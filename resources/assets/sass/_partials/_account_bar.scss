@@ -1,0 +1,28 @@
+
+#account-bar{
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:$menu-height;
+  background:$firecat-dark-grey;
+
+  #menu-links{
+    height:$menu-height;
+
+    a{
+      color:$firecat-white;
+
+      &:hover{
+        color:$firecat-secondary;
+      }
+
+      li{
+        line-height: $menu-height;
+        display:inline-block;
+        padding:0 1rem;
+      }
+    }
+
+  }
+}

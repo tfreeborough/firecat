@@ -14,6 +14,8 @@
 // Partials
 @import "_partials/menu";
 @import "_partials/buttons";
+@import "_partials/account_bar.scss";
+@import "_partials/_authenticated_menu.scss";
 
 // Pages
 @import "_pages/register";
@@ -21,8 +23,23 @@
 @import "_pages/verify";
 @import '_pages/login';
 
+@import "_pages/vendor/dashboard";
+@import "_pages/partner/dashboard";
+@import "_pages/admin/dashboard";
+@import "_pages/dashboard";
+
 #app{
   padding-top:$menu-height;
+
+  &.authenticated{
+    position: absolute;
+    top:$menu-height;
+    left:300px;
+    right:0;
+    bottom:0;
+    padding:2rem;
+    overflow-y:auto;
+  }
 }
 
 .container{

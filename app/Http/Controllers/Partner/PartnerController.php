@@ -16,8 +16,8 @@ class PartnerController extends Controller
     
     
     
-    public function showHome()
+    public function showDashboard()
     {
-        return view('partner.home');
+        return view('partner.dashboard');
     }
 }
