@@ -16,6 +16,9 @@
 @import "_partials/buttons";
 @import "_partials/account_bar.scss";
 @import "_partials/_authenticated_menu.scss";
+@import "_partials/form";
+@import "_partials/structure";
+@import "_partials/status_code_display.scss";
 
 // Pages
 @import "_pages/register";
@@ -25,7 +28,11 @@
 
 @import "_pages/vendor/dashboard";
 @import "_pages/partner/dashboard";
+  @import "_pages/partner/opportunities";
+  @import "_pages/partner/end_users";
 @import "_pages/admin/dashboard";
+  @import "_pages/admin/onboarding";
+  @import "_pages/admin/partners";
 @import "_pages/dashboard";
 
 #app{
@@ -39,6 +46,8 @@
     bottom:0;
     padding:2rem;
     overflow-y:auto;
+    border-left:1rem solid $firecat-primary;
+    border-collapse: collapse;
   }
 }
 

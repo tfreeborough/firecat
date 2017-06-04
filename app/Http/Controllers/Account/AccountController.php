@@ -47,4 +47,17 @@ class AccountController extends Controller
         }
     }
 
+    public function showAccount()
+    {
+        if($this->user->isAdmin()){
+            return view('account.admin');
+        }else if($this->user->isVendor()){
+            return view('account.vendor');
+        }else if($this->user->isPartner()){
+            return view('account.partner');
+        }else{
+            return redirect('/logout');
+        }
+    }
+
 }

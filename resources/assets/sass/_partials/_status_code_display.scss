@@ -1,0 +1,47 @@
+
+.status-code-display{
+  table{
+    width:100%;
+
+    thead{
+      th{
+        padding:2rem;
+        border-right:1px solid rgba($firecat-dark-grey,0.1);
+        text-align: center;
+      }
+
+      th:last-child{
+        border-right:none;
+      }
+    }
+
+    tbody{
+      td{
+        text-align: center;
+        border-right:1px solid rgba($firecat-dark-grey,0.1);
+
+        i{
+          font-size:4rem;
+        }
+
+        .grey,.good{
+          padding:2rem;
+        }
+
+        .grey{
+          color:$firecat-dark-grey;
+          background:$centerpiece;
+        }
+
+        .good{
+          color:$firecat-white;
+          background:$brand-success;
+        }
+      }
+
+      td:last-child{
+        border-right:none;
+      }
+    }
+  }
+}

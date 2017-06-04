@@ -1,0 +1,107 @@
+#page-topper{
+  background: $firecat-primary;
+
+  position: relative;
+  padding:2rem;
+  margin:-2rem;
+  box-shadow:0px 0px 8px $firecat-primary;
+  margin-bottom:2rem;
+
+  #page-topper-bg{
+    position: absolute;
+    background: url(images/page-topper.png);
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index: 1;
+  }
+
+  #page-title{
+    color:$firecat-white;
+    font-weight:300;
+    margin:0;
+    position: relative;
+    z-index: 2;
+  }
+
+  #page-subtitle{
+    color:$firecat-secondary;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 2;
+  }
+
+  #page-topper-breadcrumbs{
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid rgba($firecat-white, 0.3);
+    padding-top: 1.3rem;
+    margin-top: 1.3rem;
+    line-height: 1.3rem;
+    font-size: 1.3rem;
+
+    ul{
+      padding:0px;
+
+      li{
+        display:inline-block;
+        list-style-type: none;
+        color:$firecat-secondary;
+
+        a{
+          color:$firecat-white;
+
+          &:hover{
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    ul{
+      li:not(:last-child){
+        &::after{
+          content: "/\00a0";
+          color:$firecat-white;
+          margin:0 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+#dashboard{
+  .dashboard-panel{
+    padding:2rem;
+    background:$centerpiece;
+    height:250px;
+    margin-bottom:2rem;
+    display:table;
+
+    &:nth-child(even){
+      border-right:2rem solid $body-bg;
+    }
+
+    .dashboard-panel-wrapper{
+      display:table-cell;
+      vertical-align: middle;
+      padding:2rem;
+    }
+
+    .dashboard-panel-big{
+      text-align: center;
+      font-size:6rem;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color:$firecat-secondary;
+    }
+
+    .dashboard-panel-small{
+      text-align: center;
+      color:$firecat-primary;
+      font-size:2.2rem;
+    }
+  }
+}
+
+

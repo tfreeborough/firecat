@@ -1,0 +1,15 @@
+
+
+.form-group{
+  .required{
+    &::after{
+      content: '*';
+      color: $firecat-secondary;
+      font-size: 3rem;
+      font-weight: bold;
+      vertical-align: middle;
+      margin-left: 0.25rem;
+      line-height: 1rem;
+    }
+  }
+}

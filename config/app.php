@@ -233,6 +233,7 @@ return [
         'Uuid' => Webpatser\Uuid\Uuid::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Helper' => App\Helpers\Helper::class
 
     ],
 

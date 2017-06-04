@@ -9,6 +9,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +39,32 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    public function organisation()
+    {
+        return $this->belongsTo('App\Models\Organisation');
+    }
+
+    public function deals()
+    {
+        return $this->hasMany('App\Models\Deal');
+    }
+
+    public function opportunities()
+    {
+        return $this->hasMany('App\Models\Opportunity');
+    }
+    
+    public function endUsers()
+    {
+        return $this->hasMany('App\Models\EndUser');
+    }
+
+    public function extra()
+    {
+        return $this->hasOne('App\Models\UserExtra');
+    }
+    
     public function isPartner()
     {
         return $this->partner;
@@ -55,5 +83,16 @@ class User extends Authenticatable
     public function isVerified()
     {
         return $this->email_verified;
+    }
+    
+    public function hasOpportunity($id)
+    {
+        $opportunity = Opportunity::find($id);
+
+        if(!is_null($opportunity)){
+            return $opportunity->partner->id === $this->id;
+        }
+        
+        return false;
     }
 }

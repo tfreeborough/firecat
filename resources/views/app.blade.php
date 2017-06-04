@@ -27,6 +27,8 @@
         </div>
     @endif
 
+
+    @include('scripts.main')
 </div>
 </body>
 </html>

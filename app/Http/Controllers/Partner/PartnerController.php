@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Partner;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PartnerController extends Controller
 {
@@ -19,5 +20,12 @@ class PartnerController extends Controller
     public function showDashboard()
     {
         return view('partner.dashboard');
+    }
+
+    public function showDeals()
+    {
+        return view('partner.deals', [
+            'deals' => Auth::user()->deals
+        ]);
     }
 }
