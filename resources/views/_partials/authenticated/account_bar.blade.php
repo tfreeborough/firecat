@@ -7,11 +7,32 @@
     <div id="menu-links" class="pull-right">
         <ul>
             @if(Auth::user()->isAdmin())
-                <a class="{{ Helper::isActiveRoute('admin.account') }}" href="{{route('admin.account')}}"><li>Account</li></a>
+                <a class="{{ Helper::isActiveRoute('admin.account') }}" href="{{route('admin.account')}}">
+                    <li>
+                        <div class="avatar">
+                            <img src="{{Auth::user()->getAvatar()}}" />
+                        </div>
+                        Account
+                    </li>
+                </a>
             @elseif(Auth::user()->isVendor())
-                <a class="{{ Helper::isActiveRoute('vendor.account') }}" href="{{route('vendor.account')}}"><li>Account</li></a>
+                <a class="{{ Helper::isActiveRoute('vendor.account') }}" href="{{route('vendor.account')}}">
+                    <li>
+                        <div class="avatar">
+                            <img src="{{Auth::user()->getAvatar()}}" />
+                        </div>
+                        Account
+                    </li>
+                </a>
             @elseif(Auth::user()->isPartner())
-                <a class="{{ Helper::isActiveRoute('partner.account') }}" href="{{route('partner.account')}}"><li>Account</li></a>
+                <a class="{{ Helper::isActiveRoute('partner.account') }}" href="{{route('partner.account')}}">
+                    <li>
+                        <div class="avatar">
+                            <img src="{{Auth::user()->getAvatar()}}" />
+                        </div>
+                        Account
+                    </li>
+                </a>
             @endif
             <a href="{{route('logout')}}"><li>Logout</li></a>
         </ul>
