@@ -39,8 +39,17 @@ Route::group(['prefix' => 'docs'], function () {
 });
 
 Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' => 'admin'], function () {
+    /*
+     * ADMIN ROUTES
+     */
     Route::get('/', 'Admin\AdminController@showDashboard')->name('admin.dashboard');
+
+    /*
+     * Account Routes
+     */
     Route::get('account', 'Account\AccountController@showAccount')->name('admin.account');
+    Route::post('account/avatar', 'Account\AccountController@postAvatar');
+    Route::post('account/additional', 'Account\AccountController@postAdditional');
 
     Route::group(['prefix' => 'onboarding'], function () {
         Route::get('/', 'Admin\OrganisationController@showOnboarding')->name('admin.onboarding');
@@ -66,8 +75,17 @@ Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' =>
 });
 
 Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' => 'partner'], function () {
+    /*
+     * PARTNER ROUTES
+     */
     Route::get('/', 'Partner\PartnerController@showDashboard')->Name('partner.dashboard');
+
+    /*
+     * Account Routes
+     */
     Route::get('account', 'Account\AccountController@showAccount')->name('partner.account');
+    Route::post('account/avatar', 'Account\AccountController@postAvatar');
+    Route::post('account/additional', 'Account\AccountController@postAdditional');
     Route::get('deals', 'Partner\PartnerController@showDeals')->name('partner.deals');
 
     Route::get('end-users', 'Partner\EndUserController@showEndUsers')->name('partner.endUsers');
@@ -82,10 +100,23 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
 });
 
 Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' => 'vendor'], function () {
+    /*
+     * VENDOR ROUTES
+     */
     Route::get('/', 'Vendor\VendorController@showDashboard')->name('vendor.dashboard');
+
+    /*
+     * Account Routes
+     */
     Route::get('account', 'Account\AccountController@showAccount')->name('vendor.account');
+    Route::post('account/avatar', 'Account\AccountController@postAvatar');
+    Route::post('account/additional', 'Account\AccountController@postAdditional');
+
+
     Route::get('activity', 'Vendor\VendorController@showActivity')->name('vendor.activity');
     Route::get('deals', 'Vendor\VendorController@showDeals')->name('vendor.deals');
     Route::get('opportunities', 'Vendor\VendorController@showOpportunities')->name('vendor.opportunities');
+
+    Route::get('opportunities/{uuid}', 'Vendor\OpportunityController@showOpportunity')->name('vendor.opportunity');
 });
 
