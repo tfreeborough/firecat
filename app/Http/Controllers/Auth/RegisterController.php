@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Mail\Verify;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\UserExtra;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -110,5 +111,9 @@ class RegisterController extends Controller
     protected function registered(Request $request, $user)
     {
         Mail::to($user->email)->send(new Verify($user));
+        UserExtra::create([
+            'id' => Uuid::generate(),
+            'user_id' => $user->id,
+        ]);
     }
 }
