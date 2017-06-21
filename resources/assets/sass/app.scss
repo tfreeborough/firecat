@@ -19,6 +19,7 @@
 @import "_partials/form";
 @import "_partials/structure";
 @import "_partials/status_code_display.scss";
+@import "_partials/404";
 
 // Pages
 @import "_pages/register";
@@ -27,13 +28,19 @@
 @import '_pages/login';
 
 @import "_pages/vendor/dashboard";
+  @import "_pages/vendor/opportunities";
+  @import "_pages/vendor/opportunity";
+
 @import "_pages/partner/dashboard";
   @import "_pages/partner/opportunities";
   @import "_pages/partner/end_users";
+
 @import "_pages/admin/dashboard";
   @import "_pages/admin/onboarding";
   @import "_pages/admin/partners";
+
 @import "_pages/dashboard";
+@import "_pages/account/account";
 
 #app{
   padding-top:$menu-height;
@@ -53,4 +60,19 @@
 
 .container{
   background:$centerpiece;
+}
+
+.avatar{
+  border-radius:50%;
+  display: inline-block;
+  overflow: hidden;
+
+  .default-avatar{
+    width:128px;
+    height:128px;
+  }
+
+  img{
+    width:100%;
+  }
 }
