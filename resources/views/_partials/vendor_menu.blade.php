@@ -9,7 +9,7 @@
                 </li>
             </a>
             <a href="{{route('vendor.opportunities')}}"
-               class="{{ Helper::isActiveRoute('vendor.opportunities') }}"
+               class="{{ Helper::areActiveRoutes(['vendor.opportunities','vendor.opportunity']) }}"
             >
                 <li>
                     <i class="fa fa-file-text" aria-hidden="true"></i> Opportunities
