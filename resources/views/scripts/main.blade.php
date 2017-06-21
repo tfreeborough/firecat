@@ -16,5 +16,13 @@
 <link rel="stylesheet" href="/css/vex.css" />
 <link rel="stylesheet" href="/css/vex-theme-os.css" />
 
+<!-- Add Dropzone -->
+<script src="/js/dropzone.js"></script>
+
+<!-- Cloudinary jQuery -->
+<script src="https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.min.js"></script>
+<script>
+    $.cloudinary.config({ cloud_name: '{{ env('CLOUDINARY_CLOUD_NAME') }}' });
+</script>
 
 @yield('scripts')
