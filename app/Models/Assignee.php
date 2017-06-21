@@ -11,7 +11,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Assigned extends Model
+class Assignee extends Model
 {
 
     public $incrementing = false;
@@ -22,9 +22,9 @@ class Assigned extends Model
         return $this->hasOne('App\Models\User');
     }
 
-    public function deal()
+    public function opportunity()
     {
-        return $this->hasOne('App\Models\Deal');
+        return $this->hasOne('App\Models\Opportunity');
     }
 
 }
