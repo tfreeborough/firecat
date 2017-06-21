@@ -36,4 +36,20 @@ class Organisation extends Model
         return $this->hasMany('App\Models\User');
     }
 
+    public function opportunities()
+    {
+        return $this->hasMany('App\Models\Opportunity');
+    }
+
+    public function hasOpportunity($id)
+    {
+        $opportunity = Opportunity::find($id);
+
+        if(!is_null($opportunity)){
+            return $opportunity->organisation->id === $this->id;
+        }
+
+        return false;
+    }
+
 }

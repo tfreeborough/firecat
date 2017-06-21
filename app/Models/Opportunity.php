@@ -66,4 +66,9 @@ class Opportunity extends Model
     {
         return $this->hasOne('App\Models\OpportunityStatus', '');
     }
+
+    public function assignees()
+    {
+        return $this->hasMany('App\Models\Assignee');
+    }
 }
