@@ -44,7 +44,7 @@ class VendorController extends Controller
 
     public function showOpportunities()
     {
-        return view('vendor.opportunities', [
+        return view('vendor.opportunities.index', [
             'organisation' => Auth::user()->organisation,
         ]);
     }
