@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use JD\Cloudder\Facades\Cloudder;
 
 class User extends Authenticatable
 {
@@ -54,6 +56,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Opportunity');
     }
+
+    public function assignments()
+    {
+        return $this->hasMany('App\Models\Assignee');
+    }
     
     public function endUsers()
     {
@@ -94,5 +101,22 @@ class User extends Authenticatable
         }
         
         return false;
+    }
+
+    public function isAssigned($id)
+    {
+        $opportunity = Opportunity::find($id);
+        
+        foreach($opportunity->assignees as $assignee){
+            if($assignee->user->id === Auth::user()->id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function getAvatar()
+    {
+        return ($this->extra->avatar_id ? Cloudder::show($this->extra->avatar_id) : '/images/avatar.png');
     }
 }
