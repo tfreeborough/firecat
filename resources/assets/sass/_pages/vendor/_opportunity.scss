@@ -1,6 +1,20 @@
 
 #vendor-opportunity{
 
+  .assignment-block{
+    img{
+      width:100%;
+      border-radius:50%;
+    }
+
+    p{
+      font-weight:bold;
+      margin-top:1rem;
+    }
+
+    text-align: center;
+  }
+
   > .row{
     margin-bottom:1rem;
   }
@@ -33,6 +47,63 @@
       display:table-cell;
       vertical-align: middle;
       padding:2rem;
+    }
+  }
+
+  #partner-information{
+
+    #partner-contact-information{
+      tr{
+        td:first-child{
+          text-align: right;
+          font-weight:500;
+          color:$firecat-secondary;
+        }
+      }
+    }
+  }
+
+  #opportunity-created-bar{
+    background:$firecat-secondary;
+    color:$firecat-white;
+    text-align: center;
+    padding:1rem;
+
+    h5{
+      font-size:2rem!important;
+    }
+  }
+
+  #opportunity-information{
+
+    tr{
+      td:first-child{
+        width:40%;
+        min-width:200px;
+      }
+    }
+
+    ul{
+      list-style-type: none;
+      padding:0;
+      margin:0;
+
+      li:not(:first-child){
+        &.more-info{
+          margin-top:1rem;
+        }
+      }
+
+      li{
+        &.more-info{
+          color:$brand-primary;
+          font-weight:500;
+        }
+      }
+    }
+
+    #justification{
+      font-size:1.6rem;
     }
   }
 }

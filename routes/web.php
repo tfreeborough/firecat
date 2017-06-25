@@ -118,5 +118,6 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::get('opportunities', 'Vendor\VendorController@showOpportunities')->name('vendor.opportunities');
 
     Route::get('opportunities/{uuid}', 'Vendor\OpportunityController@showOpportunity')->name('vendor.opportunity');
+    Route::get('opportunities/{uuid}/assign', 'Vendor\OpportunityController@assignOpportunity')->name('vendor.opportunity.assign');
 });
 

@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Auth;
 class VendorController extends Controller
 {
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showDashboard()
     {
         $organisation = Auth::user()->organisation;
@@ -27,13 +30,19 @@ class VendorController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showActivity()
     {
         return view('vendor.activity', [
             'organisation' => Auth::user()->organisation
         ]);
     }
-    
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showDeals()
     {
         return view('vendor.deals', [
@@ -42,6 +51,9 @@ class VendorController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showOpportunities()
     {
         return view('vendor.opportunities.index', [

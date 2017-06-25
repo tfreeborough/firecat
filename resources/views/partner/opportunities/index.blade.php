@@ -27,6 +27,11 @@
         <div id="opportunities">
             <div class="row">
                 <div class="col-xs-12">
+                    <a href="{{route('partner.opportunities.create')}}"><button class="button">Create opportunity</button></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
                     <table id="opportunities-table" class="table">
                         <thead>
                         <tr>

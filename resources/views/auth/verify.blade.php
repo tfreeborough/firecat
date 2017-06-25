@@ -1,4 +1,4 @@
-@extends('app')
+@extends('app_frontend')
 
 @section('title', 'Thanks!')
 

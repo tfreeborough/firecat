@@ -16,7 +16,6 @@
                 <a href="{{route('register')}}"><li>Create Account</li></a>
                 <a href="{{route('login')}}"><li>Login</li></a>
             @endif
-
         </ul>
     </div>
 </div>

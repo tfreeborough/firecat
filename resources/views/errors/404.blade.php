@@ -2,8 +2,9 @@
 
 @section('title', 'End Users')
 
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.partner_menu')
+@if(Auth::user())
+    @extends('_partials.menu')
+@endif
 
 @section('content')
     <div id="dashboard">
