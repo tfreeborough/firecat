@@ -20,6 +20,11 @@ class OpportunitiesController extends Controller
 
     public function statuses()
     {
-        return view('docs.opportunities.statuses');
+        return view('docs.opportunities.index');
+    }
+
+    public function considerations()
+    {
+        return view('docs.opportunities.index');
     }
 }

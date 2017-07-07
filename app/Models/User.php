@@ -71,6 +71,16 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Models\UserExtra');
     }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Models\OpportunityMessage');
+    }
+
+    public function activity()
+    {
+        return $this->hasMany('App\Models\OpportunityActivity');
+    }
     
     public function isPartner()
     {
@@ -119,4 +129,6 @@ class User extends Authenticatable
     {
         return ($this->extra->avatar_id ? Cloudder::show($this->extra->avatar_id) : '/images/avatar.png');
     }
+
+
 }

@@ -71,4 +71,40 @@ class Opportunity extends Model
     {
         return $this->hasMany('App\Models\Assignee');
     }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Models\OpportunityMessage');
+    }
+
+    public function getRecentMessages()
+    {
+        return OpportunityMessage::where('opportunity_id','=',$this->id)->orderBy('created_at','DESC')->limit(5)->get()->reverse();
+    }
+
+    public function getAllMessages()
+    {
+        return OpportunityMessage::where('opportunity_id','=',$this->id)->orderBy('created_at','DESC')->get()->reverse();
+    }
+
+    public function getParticipants()
+    {
+        $participants = [];
+        foreach($this->messages as $message){
+            if(!array_key_exists($message->user_id,$participants)){
+                $participants[$message->user_id] = $message;
+            }
+        }
+        return $participants;
+    }
+    
+    public function activity()
+    {
+        return $this->hasMany('App\Models\OpportunityActivity');
+    }
+    
+    public function getRecentActivity()
+    {
+        return OpportunityActivity::where('opportunity_id', '=', $this->id)->orderBy('created_at', 'DESC')->limit(5)->get()->reverse();
+    }
 }

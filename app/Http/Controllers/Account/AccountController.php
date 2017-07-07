@@ -41,14 +41,18 @@ class AccountController extends Controller
      */
     public function directToDashboard()
     {
-        if($this->user->isAdmin()){
-            return redirect('/admin');
-        }else if($this->user->isVendor()){
-            return redirect('/vendor');
-        }else if($this->user->isPartner()){
-            return redirect('/partner');
+        if($this->user){
+            if($this->user->isAdmin()){
+                return redirect('/admin');
+            }else if($this->user->isVendor()){
+                return redirect('/vendor');
+            }else if($this->user->isPartner()){
+                return redirect('/partner');
+            }else{
+                return redirect('/logout');
+            }
         }else{
-            return redirect('/logout');
+            return redirect('/login');
         }
     }
 

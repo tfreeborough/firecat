@@ -9,7 +9,7 @@
                 </li>
             </a>
             <a href="{{route('vendor.opportunities')}}"
-               class="{{ Helper::areActiveRoutes(['vendor.opportunities','vendor.opportunity']) }}"
+               class="{{ Helper::areActiveRoutes(['vendor.opportunities','vendor.opportunity','vendor.opportunity.messages']) }}"
             >
                 <li>
                     <i class="fa fa-file-text" aria-hidden="true"></i> Opportunities
@@ -27,6 +27,13 @@
             >
                 <li>
                     <i class="fa fa-heartbeat" aria-hidden="true"></i> Activity
+                </li>
+            </a>
+            <a href="{{route('docs')}}"
+               class="{{ Helper::isActiveRoute('docs') }}"
+            >
+                <li>
+                    <i class="fa fa-book" aria-hidden="true"></i> Documentation
                 </li>
             </a>
         </ul>

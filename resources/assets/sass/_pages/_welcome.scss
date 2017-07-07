@@ -1,57 +1,52 @@
 
+#welcome{
+  background:$firecat-dark-grey;
+  height:calc(100% - #{$menu-height});
+  display:table;
+  width:100%;
 
-#welcome,#register{
-  #banner{
-    height:490px;
-    background:$firecat-primary;
-    position:relative;
-    display:table;
-    width:100%;
-    padding:0 10%;
-    border-bottom:10px solid $firecat-secondary;
+  #welcome-wrapper{
+    display:table-cell;
+    vertical-align: middle;
+    text-align: center;
 
-    #banner-image{
-      background:url(/images/city.png);
-      background-position: center center;
-      background-size:cover;
-      opacity:0.5;
-      position: absolute;
-      top:0;
-      bottom:0;
-      left:0;
-      right:0;
+    #logo-wrapper{
+      #menu-logo{
+        font-size:12rem;
+      }
     }
 
-    #banner-text{
-      display:table-cell;
-      padding-top:75px;
-      vertical-align: middle;
-      position: relative;
-      z-index: 2;
-      color:$firecat-white;
+    #menu-links{
+      height: $menu-height;
+      text-align: center;
 
-      h2{
-        font-weight:200;
-        font-size:4rem;
-      }
-
-      #banner-button{
-        display:block;
+      ul{
+        height:100%;
         margin:auto;
-        margin-top:75px;
-      }
+        padding:0;
+        display:table;
 
-      #banner-extra{
-        position: absolute;
-        bottom:0;
-        right:0;
+        a{
+          display:table-cell;
+          vertical-align: middle;
+          padding:0 2rem;
+          color:$firecat-white;
+          font-size:1.7rem;
+
+          &:hover{
+            color:$firecat-secondary;
+          }
+
+          li{
+            list-style-type: none;
+          }
+        }
       }
     }
   }
+}
 
-  #soon{
-    p{
-      font-size:2rem;
-    }
-  }
+
+#register{
+
 }

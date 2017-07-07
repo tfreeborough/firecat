@@ -1,17 +1,17 @@
 @extends('app')
 
-@section('title', 'Opportunities -> Statuses')
+@section('title', 'Documentation - Opportunities')
 
 @extends('_partials.authenticated.account_bar')
 @extends('_partials.docs_menu')
 
 @section('content')
-    <div id="dashboard">
+    <div id="docs">
 
         <div id="page-topper">
             <div id="page-topper-bg"></div>
-            <h1 id="page-title">Statuses</h1>
-            <h5 id="page-subtitle">Learn more about opportunity statuses</h5>
+            <h1 id="page-title">Documentation - Opportunities</h1>
+            <h5 id="page-subtitle">Learn more about opportunities</h5>
             <div id="page-topper-breadcrumbs">
                 <ul>
                     <li>
@@ -20,21 +20,21 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('docs.opportunities')}}">
-                            Opportunities
-                        </a>
-                    </li>
-                    <li>
-                        Statuses
+                        Opportunities
                     </li>
                 </ul>
             </div>
         </div>
         <div id="opportunities">
+            <div class="alert alert-warning">
+                <p>
+                    Please note that this documentation is being progressively updated and so content may appear missing or changed
+                    over time.
+                </p>
+            </div>
             <div class="row">
-                <div class="col-xs-12">
-                    <h3>Learn more</h3>
-                </div>
+                @include('docs.opportunities._partials.statuses')
+                @include('docs.opportunities._partials.considerations')
             </div>
         </div>
     </div>

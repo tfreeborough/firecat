@@ -1,0 +1,20 @@
+
+#docs{
+  .section{
+    border-bottom:1px solid $centerpiece;
+
+    .section-title{
+      color:$firecat-primary;
+    }
+
+    p{
+      font-size:1.7rem;
+    }
+
+    .block{
+      h4{
+        margin-top:3rem;
+      }
+    }
+  }
+}

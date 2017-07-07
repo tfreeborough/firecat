@@ -6,24 +6,23 @@
 
 @section('content')
     <div id="welcome">
-        <div id="banner">
-            <div id="banner-image"></div>
-            <div id="banner-text">
-                <h2>Your partners only settle for the best tech.<br/>so why won't you?</h2>
-                <a href="{{route('register')}}">
-                    <button id="banner-button" class="button large action">Create a <strong>Free</strong> account</button>
-                </a>
+        <div id="welcome-wrapper">
+            <div id="logo-wrapper">
+                <div id="menu-logo">
+                    <span class="fire">FIRE</span><span class="cat">CAT</span>
+                </div>
             </div>
-        </div>
-        <div class="container">
-            <div id="soon">
-                <h1>Coming Soon.</h1>
-                <p>
-                    We're currently building firecat.io and when we're done, we'll be opening it up for beta testing to a small number of vendors. If you would
-                    like to learn more about getting onto the beta program then please email.
-
-                    <strong>tfreeborough@gmail.com</strong>
-                </p>
+            <div id="menu-links">
+                <ul>
+                    @if(Auth::user())
+                        <a href="{{route('dashboard')}}"><li>Dashboard</li></a>
+                        <a href="{{route('logout')}}"><li>Logout</li></a>
+                    @else
+                        <a href="{{route('register')}}"><li>Sign Up As A Partner</li></a>
+                        <a href="{{route('login')}}"><li>Login</li></a>
+                        <a href="{{route('docs')}}"><li>Documentation</li></a>
+                    @endif
+                </ul>
             </div>
         </div>
     </div>

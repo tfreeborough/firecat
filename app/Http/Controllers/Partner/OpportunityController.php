@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Partner;
 
 
+use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Opportunity;
 use App\Models\OpportunityProduct;
@@ -113,6 +114,14 @@ class OpportunityController extends Controller
             'justification' => $request->input('justification')
         ]);
 
+        $opportunity = Opportunity::find($uuid);
+        event(new CreateOpportunityActivity(
+            $opportunity,
+            Auth::user(),
+            'Opportunity created by '.Auth::user()->first_name.' '.Auth::user()->last_name.'.',
+            '/vendor/opportunities/'.$opportunity->id
+        ));
+
         OpportunityStatus::create([
             'id' => Uuid::generate(),
             'opportunity_id' => $uuid,
@@ -129,6 +138,12 @@ class OpportunityController extends Controller
                 'name' => $product['name'],
                 'description' => $product['description']
             ]);
+
+            event(new CreateOpportunityActivity(
+                $opportunity,
+                Auth::user(),
+                $product['name'].' was added to this opportunity.'
+            ));
         }
 
 

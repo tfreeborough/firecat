@@ -28,15 +28,19 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('dashboard', 'Account\AccountController@directToDashboard')->name('dashboard');
 
-Route::group(['prefix' => 'docs'], function () {
+Route::group(['middleware' => ['auth','auth.verified'], 'prefix' => 'admin'], function () {
+    Route::group(['prefix' => 'docs'], function () {
 
-    Route::get('/', 'Docs\DocsController@index')->name('docs');
-    
-    Route::group(['prefix' => 'opportunities'], function () {
-        Route::get('/', 'Docs\OpportunitiesController@index')->name('docs.opportunities');
-        Route::get('statuses','Docs\OpportunitiesController@statuses')->name('docs.opportunities.statuses');
+        Route::get('/', 'Docs\DocsController@index')->name('docs');
+
+        Route::group(['prefix' => 'opportunities'], function () {
+            Route::get('/', 'Docs\OpportunitiesController@index')->name('docs.opportunities');
+            Route::get('#statuses','Docs\OpportunitiesController@statuses')->name('docs.opportunities.statuses');
+            Route::get('#considerations', 'Docs\OpportunitiesController@considerations')->name('docs.opportunities.considerations');
+        });
     });
 });
+
 
 Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' => 'admin'], function () {
     /*
@@ -119,5 +123,8 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
 
     Route::get('opportunities/{uuid}', 'Vendor\OpportunityController@showOpportunity')->name('vendor.opportunity');
     Route::get('opportunities/{uuid}/assign', 'Vendor\OpportunityController@assignOpportunity')->name('vendor.opportunity.assign');
+    Route::get('opportunities/{uuid}/review', 'Vendor\OpportunityController@reviewOpportunity')->name('vendor.opportunity.review');
+    Route::get('opportunities/{uuid}/messages', 'Vendor\OpportunityController@showMessages')->name('vendor.opportunity.messages');
+    Route::post('opportunities/{uuid}/messages', 'Vendor\OpportunityController@postMessage')->name('vendor.opportunity.postMessage');
 });
 
