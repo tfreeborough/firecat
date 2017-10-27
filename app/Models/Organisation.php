@@ -52,4 +52,19 @@ class Organisation extends Model
         return false;
     }
 
+    public function defaultConsiderations()
+    {
+        return [];
+    }
+
+    public function deals()
+    {
+        return $this->hasManyThrough('App\Models\Deal', 'App\Models\Opportunity');
+    }
+
+    public function tags()
+    {
+        return $this->hasMany('App\Models\OrganisationTag');
+    }
+
 }

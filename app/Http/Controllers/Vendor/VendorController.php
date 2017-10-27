@@ -26,7 +26,7 @@ class VendorController extends Controller
             'opportunitiesCreated' => $organisation->getOpportunitiesCreated,
             'averageDealValue' => $organisation->getAverageDealValue,
             'averageResponseTime' => $organisation->getResponseTime,
-            'deals' => $organisation->deals === null ? [] : $organisation->deals
+            'assignments' => Auth::user()->assignments
         ]);
     }
 
@@ -45,7 +45,7 @@ class VendorController extends Controller
      */
     public function showDeals()
     {
-        return view('vendor.deals', [
+        return view('vendor.deals.index', [
             'organisation' => Auth::user()->organisation,
             'deals' => Auth::user()->organisation->deals 
         ]);

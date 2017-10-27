@@ -22,22 +22,25 @@ Route::get('verify/resend', 'Auth\VerifyController@showResend')->name('resend-ve
 Route::post('verify/resend', 'Auth\VerifyController@resend');
 Route::get('verify/{token}', 'Auth\VerifyController@verify');
 
+// Password Reset Routes...
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset.view');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.request');
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('dashboard', 'Account\AccountController@directToDashboard')->name('dashboard');
 
-Route::group(['middleware' => ['auth','auth.verified'], 'prefix' => 'admin'], function () {
-    Route::group(['prefix' => 'docs'], function () {
+Route::group(['middleware' => ['auth','auth.verified'], 'prefix' => 'docs'], function () {
+    Route::get('/', 'Docs\DocsController@index')->name('docs');
 
-        Route::get('/', 'Docs\DocsController@index')->name('docs');
-
-        Route::group(['prefix' => 'opportunities'], function () {
-            Route::get('/', 'Docs\OpportunitiesController@index')->name('docs.opportunities');
-            Route::get('#statuses','Docs\OpportunitiesController@statuses')->name('docs.opportunities.statuses');
-            Route::get('#considerations', 'Docs\OpportunitiesController@considerations')->name('docs.opportunities.considerations');
-        });
+    Route::group(['prefix' => 'opportunities'], function () {
+        Route::get('/', 'Docs\OpportunitiesController@index')->name('docs.opportunities');
+        Route::get('#statuses','Docs\OpportunitiesController@statuses')->name('docs.opportunities.statuses');
+        Route::get('#considerations', 'Docs\OpportunitiesController@considerations')->name('docs.opportunities.considerations');
     });
 });
 
@@ -90,7 +93,9 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     Route::get('account', 'Account\AccountController@showAccount')->name('partner.account');
     Route::post('account/avatar', 'Account\AccountController@postAvatar');
     Route::post('account/additional', 'Account\AccountController@postAdditional');
+    
     Route::get('deals', 'Partner\PartnerController@showDeals')->name('partner.deals');
+    Route::get('deals/{uuid}', 'Partner\PartnerController@showDeal')->name('partner.deal');
 
     Route::get('end-users', 'Partner\EndUserController@showEndUsers')->name('partner.endUsers');
     Route::get('end-users/create', 'Partner\EndUserController@showCreateEndUser')->name('partner.endUsers.create');
@@ -126,5 +131,10 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::get('opportunities/{uuid}/review', 'Vendor\OpportunityController@reviewOpportunity')->name('vendor.opportunity.review');
     Route::get('opportunities/{uuid}/messages', 'Vendor\OpportunityController@showMessages')->name('vendor.opportunity.messages');
     Route::post('opportunities/{uuid}/messages', 'Vendor\OpportunityController@postMessage')->name('vendor.opportunity.postMessage');
+    Route::post('opportunities/{uuid}/convert', 'Vendor\OpportunityController@postConvert')->name('vendor.opportunity.postConvert');
+    
+    Route::get('deals/{uuid}', 'Vendor\DealController@showDeal')->name('vendor.deal');
+    Route::get('deals/{uuid}/tag', 'Vendor\DealController@showDealTag')->name('vendor.deal.tag');
+    Route::post('deals/{uuid}/tag', 'Vendor\DealController@postDealTag')->name('vendor.deal.tag.post');
 });
 

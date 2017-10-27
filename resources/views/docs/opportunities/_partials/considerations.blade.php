@@ -23,8 +23,7 @@
                 </p>
             </div>
             <p>
-                Partners are not given access to see which considerations have been completed, furthermore, partners are not
-                made aware that any such feature exists, to protect data security.
+                Partners are not given access to see which considerations have been completed to protect Vendor security.
             </p>
         </div>
     </div>

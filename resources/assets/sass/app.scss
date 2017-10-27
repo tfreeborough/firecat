@@ -32,6 +32,9 @@
 @import "_pages/vendor/dashboard";
   @import "_pages/vendor/opportunities";
   @import "_pages/vendor/opportunity";
+  @import "_pages/vendor/deals";
+  @import "_pages/vendor/deal";
+  @import "_pages/vendor/deal_tag";
 
 @import "_pages/partner/dashboard";
   @import "_pages/partner/opportunities";
@@ -55,7 +58,8 @@
     bottom:0;
     padding:2rem;
     overflow-y:auto;
-    border-left:1rem solid $firecat-primary;
+    border-left:1rem solid $firecat-light-grey;
+    box-shadow:inset 0px 0px 5px $firecat-dark-grey;
     border-collapse: collapse;
   }
 }
@@ -81,4 +85,13 @@
 
 .row{
   margin-bottom:1rem;
+}
+
+.link{
+  color:$firecat-link;
+
+  &:hover{
+    text-decoration: underline;
+    cursor:pointer;
+  }
 }

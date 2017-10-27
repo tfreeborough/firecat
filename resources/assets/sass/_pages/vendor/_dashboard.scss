@@ -1,0 +1,67 @@
+
+
+#vendor-overview{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows:auto 1fr;
+  grid-gap:1rem;
+  margin-bottom:2rem;
+  grid-template-areas:
+    "title title title title"
+    "acceptance opportunities_created deal_value response_time";
+
+  .title{
+    grid-area: title;
+  }
+
+  #acceptance{
+    grid-area: acceptance;
+  }
+
+  #opportunities_created{
+    grid-area: opportunities_created;
+  }
+
+  #deal_value{
+    grid-area: deal_value;
+  }
+
+  #response_time{
+    grid-area: response_time;
+  }
+}
+
+#recent-deals{
+  table{
+    ul{
+      list-style-type: none;
+      padding:0;
+      margin:0;
+
+      li{
+        display:inline-block;
+
+        img{
+          width:32px;
+          height:32px;
+        }
+      }
+    }
+
+    tr{
+      .deal{
+        width:64px;
+        text-align: center;
+
+        i{
+          color:$firecat-primary;
+          font-size:3rem;
+        }
+      }
+
+      td{
+        vertical-align: middle;
+      }
+    }
+  }
+}

@@ -134,8 +134,6 @@
         function submitMessage(){
             var message = $('#new-message-textarea').val();
 
-            console.log(message);
-
             if(message.length > 0){
                 $.ajax({
                     type: "POST",

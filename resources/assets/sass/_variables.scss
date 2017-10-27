@@ -10,10 +10,10 @@ $panel-default-border: $laravel-border-color;
 $panel-inner-border: $laravel-border-color;
 
 // Brands
-$brand-primary: #3097D1;
+$brand-primary: #98ADDF;
 $brand-info: #8eb4cb;
-$brand-success: #2ab27b;
-$brand-warning: #cbb956;
+$brand-success: #C3F0EE;
+$brand-warning: #E08237;
 $brand-danger: #bf5329;
 
 // Typography
@@ -46,8 +46,17 @@ $authenticated-menu-width: 300px;
 $background:#F7F7F7;
 $centerpiece: #ECECEC;
 
-$firecat-primary:#1A2851;
-$firecat-secondary:#F0AE2D;
+$firecat-primary:#5DBBB7;
+$firecat-primary-dark:#218884;
+$firecat-primary-light:#C3F0EE;
+$firecat-secondary:#FFB87F;
+$firecat-secondary-dark:#E08237;
+$firecat-secondary-light:#FFE4CF;
 $firecat-dark-grey:#1E1E1E;
+$firecat-light-grey:#ECECEC;
 $firecat-black:#0f0f0f;
 $firecat-white:#FFFFFF;
+$menu-item:#5DBBB7;
+$menu-item-active:#C3F0EE;
+
+$firecat-link:#305196;

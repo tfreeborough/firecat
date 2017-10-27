@@ -10,7 +10,7 @@
                             <strong>{{ $message->user->first_name }} {{ $message->user->last_name }}:</strong> {{ str_limit($message->message, $limit = 64, $end = '...') }}
                         </p>
                         <p>
-                            <small>{{ \Carbon\Carbon::parse($message->create_at)->toFormattedDateString() }}</small> |
+                            <small>{{ \Carbon\Carbon::parse($message->created_at)->toFormattedDateString() }}</small> |
                             <a title="Permalink" href="/vendor/opportunities/{{$opportunity->id}}/messages#{{$message->id}}"><i class="fa fa-link" aria-hidden="true"></i></a>
                         </p>
                     </li>
@@ -20,7 +20,7 @@
                             <strong>{{ $message->user->first_name }} {{ $message->user->last_name }}:</strong> {{ str_limit($message->message, $limit = 64, $end = '...') }}
                         </p>
                         <p>
-                            <small>{{ \Carbon\Carbon::parse($message->create_at)->toFormattedDateString() }}</small>
+                            <small>{{ \Carbon\Carbon::parse($message->created_at)->toFormattedDateString() }}</small>
                         </p>
                     </li>
                 @endif

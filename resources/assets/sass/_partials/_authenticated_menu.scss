@@ -31,22 +31,22 @@
 
       a{
         margin-bottom:1rem;
-        color:$firecat-primary;
+        color:$firecat-dark-grey;
         font-size:2rem;
 
         &.active{
-          color:$firecat-secondary;
+          color:$firecat-primary;
         }
 
         &:hover{
-          color:$firecat-white;
+          color:$firecat-primary-dark;
 
           li{
-            background:$firecat-dark-grey;
+            background:$firecat-light-grey;
           }
 
           &.active{
-            color:$firecat-secondary;
+            color:$firecat-primary-dark;
           }
         }
 

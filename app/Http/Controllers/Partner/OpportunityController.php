@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Partner;
 use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Opportunity;
+use App\Models\OpportunityConsideration;
 use App\Models\OpportunityProduct;
 use App\Models\OpportunityStatus;
 use App\Models\Organisation;
@@ -129,6 +130,22 @@ class OpportunityController extends Controller
             'in_review' => false,
             'accepted' => null
         ]);
+        
+        foreach($opportunity->getDefaultConsiderations() as $consideration){
+            OpportunityConsideration::create([
+                'id' => Uuid::generate(),
+                'opportunity_id' => $uuid,
+                'user_id' => Auth::user()->id,
+                'title' => $consideration->title,
+                'achieved' => false
+            ]);
+        }
+
+        event(new CreateOpportunityActivity(
+            $opportunity,
+            Auth::user(),
+            'Considerations were generated for this opportunity.'
+        ));
 
         foreach($request->get('products') as $key => $product)
         {

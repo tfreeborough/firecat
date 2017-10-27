@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Partner;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Deal;
 use Illuminate\Support\Facades\Auth;
 
 class PartnerController extends Controller
@@ -24,8 +25,15 @@ class PartnerController extends Controller
 
     public function showDeals()
     {
-        return view('partner.deals', [
+        return view('partner.deals.index', [
             'deals' => Auth::user()->deals
+        ]);
+    }
+
+    public function showDeal($uuid)
+    {
+        return view('partner.deals.deal', [
+           'deal' => Deal::find($uuid)
         ]);
     }
 }

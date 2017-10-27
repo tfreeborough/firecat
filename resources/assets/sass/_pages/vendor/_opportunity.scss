@@ -135,10 +135,6 @@
         border:1px solid $centerpiece;
         margin-bottom:5px;
 
-        &.me{
-          color:$brand-primary;
-        }
-
         p{
           margin:0;
           height: 19px;
@@ -158,10 +154,46 @@
 
           &:last-child{
             small{
-              color:$firecat-secondary;
+              color:$firecat-dark-grey;
               font-weight:bold;
             }
           }
+        }
+      }
+    }
+  }
+
+  #opportunity-review-panel{
+    background:$firecat-light-grey;
+    border:1px solid $firecat-primary;
+    box-shadow:2px 2px 5px $firecat-dark-grey;
+    padding:2rem;
+    margin-bottom:2rem;
+
+    .row{
+      margin-bottom:0;
+    }
+
+    #consideration-complete-table{
+      text-align: center;
+      margin-top: 3rem;
+      margin-bottom:0;
+
+      td{
+        vertical-align: middle;
+        border:none;
+        color:$firecat-dark-grey;
+        padding: 2rem;
+        width:50%;
+
+        &:last-child{
+          button{
+            font-size:1.2rem;
+          }
+        }
+
+        h3,p{
+          margin:0;
         }
       }
     }

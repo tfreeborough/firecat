@@ -44,7 +44,7 @@ class Opportunity extends Model
     
     public function deal()
     {
-        return $this->belongsTo('App\Models\Deal');
+        return $this->hasOne('App\Models\Deal');
     }
     
     public function endUser()
@@ -75,6 +75,35 @@ class Opportunity extends Model
     public function messages()
     {
         return $this->hasMany('App\Models\OpportunityMessage');
+    }
+
+    public function considerations()
+    {
+        return $this->hasMany('App\Models\OpportunityConsideration');
+    }
+
+    public function getConsiderationsCompleted()
+    {
+        $count = 0;
+        foreach($this->considerations() as $consideration){
+            if($consideration->achieved){
+                $count++;
+            }
+        }
+        return $count;
+    }
+    
+    public function getDefaultConsiderations()
+    {
+        if(count($this->organisation->defaultConsiderations) > 0){
+            return $this->organisation()->defaultConsiderations;
+        }else{
+            return [
+                [ 'title' => 'Liaised with partner to confirm details of opportunity.' ], 
+                [ 'title' => 'Checked for duplicate opportunities that may pre-date this one' ],
+                [ 'title' => 'Confirm "Green Light" to go ahead with deal registration.' ]
+            ];
+        }
     }
 
     public function getRecentMessages()

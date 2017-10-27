@@ -1,10 +1,10 @@
 #page-topper{
-  background: $firecat-primary;
+  background: $firecat-light-grey;
 
   position: relative;
   padding:2rem;
   margin:-2rem;
-  box-shadow:0px 0px 8px $firecat-primary;
+  box-shadow:0px 0px 8px $firecat-dark-grey;
   margin-bottom:2rem;
 
   #page-topper-bg{
@@ -18,7 +18,7 @@
   }
 
   #page-title{
-    color:$firecat-white;
+    color:$firecat-dark-grey;
     font-weight:300;
     margin:0;
     position: relative;
@@ -26,7 +26,7 @@
   }
 
   #page-subtitle{
-    color:$firecat-secondary;
+    color:$firecat-dark-grey;
     letter-spacing: 1px;
     position: relative;
     z-index: 2;
@@ -47,10 +47,10 @@
       li{
         display:inline-block;
         list-style-type: none;
-        color:$firecat-secondary;
+        color:$firecat-dark-grey;
 
         a{
-          color:$firecat-white;
+          color:$firecat-primary;
 
           &:hover{
             text-decoration: underline;
@@ -63,7 +63,7 @@
       li:not(:last-child){
         &::after{
           content: "/\00a0";
-          color:$firecat-white;
+          color:$firecat-dark-grey;
           margin:0 0.5rem;
         }
       }
@@ -74,14 +74,11 @@
 #dashboard{
   .dashboard-panel{
     padding:2rem;
-    background:$centerpiece;
+    background:$firecat-secondary-light;
     height:250px;
-    margin-bottom:2rem;
     display:table;
-
-    &:nth-child(even){
-      border-right:2rem solid $body-bg;
-    }
+    width:100%;
+    border:1px solid $firecat-light-grey;
 
     .dashboard-panel-wrapper{
       display:table-cell;
@@ -93,7 +90,7 @@
       text-align: center;
       font-size:6rem;
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color:$firecat-secondary;
+      color:$firecat-primary-dark;
     }
 
     .dashboard-panel-small{

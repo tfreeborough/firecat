@@ -31,6 +31,23 @@
             </div>
         </div>
         <div id="opportunity">
+            @if($opportunity->deal !== null)
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="text-left">
+                            <div class="alert alert-success">
+                                <p>
+                                    This opportunity has been converted to a deal registration, you can view that by clicking on the button below
+                                </p>
+                                <br/>
+                                <a href="{{ route('partner.deal',$opportunity->deal->id) }}">
+                                    <button class="button">View Deal Registration</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     @include('_partials.opportunities.status_code_display')
@@ -165,11 +182,19 @@
                     </table>
                 </div>
             </div>
+            @if($opportunity->deal === null)
             <div class="row">
                 <div class="col-xs-12">
                     <button onClick="confirmDelete()" class="button pull-right">Delete this Opportunity</button>
                 </div>
             </div>
+            @else
+                <div class="row">
+                    <div class="col-xs-12">
+                        <a href="{{ route('partner.deal',$opportunity->deal->id) }}"><button class="button pull-right">View Deal</button></a>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

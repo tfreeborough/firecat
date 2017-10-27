@@ -27,4 +27,8 @@
   &:hover{
     opacity:0.7;
   }
+
+  &.disabled{
+    color:rgba($firecat-dark-grey,0.2);
+  }
 }

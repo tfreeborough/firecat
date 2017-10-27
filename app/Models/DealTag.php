@@ -11,9 +11,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DealInformation extends Model
+class DealTag extends Model
 {
-
+    use \App\Traits\Uuids;
+    
     public $incrementing = false;
 
     /**
@@ -23,12 +24,21 @@ class DealInformation extends Model
      */
     protected $fillable = [
         'id',
-        'name'
+        'organisation_tag_id',
+        'deal_id',
+        'created_at',
+        'updated_at'
     ];
+
+    public function base_tag()
+    {
+        return $this->belongsTo('App\Models\OrganisationTag');
+    }
 
     public function deal()
     {
-        return $this->belongsTo('App\Models\Deal');
+        return $this->hasOne('App\Models\Deal');
     }
+
 
 }

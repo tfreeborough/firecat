@@ -5,12 +5,13 @@
         @foreach($opportunity->getRecentActivity() as $activity)
             <li>
                 <p>
+                    {{ $activity->description }}
+                </p>
+                <p><small>{{ \Carbon\Carbon::parse($activity->created_at)->toFormattedDateString() }}</small> |
                     @if($activity->link && Auth::user()->isAssigned($opportunity->id))
                         <a href="{{$activity->link}}"><i class="fa fa-link" aria-hidden="true"></i></a>
                     @endif
-                    {{ $activity->description }}
                 </p>
-                <p><small>{{ \Carbon\Carbon::parse($activity->create_at)->toFormattedDateString() }}</small></p>
             </li>
         @endforeach
     </ul>

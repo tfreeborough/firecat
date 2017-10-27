@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Vendor;
 use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Assignee;
+use App\Models\Deal;
 use App\Models\Opportunity;
 use App\Models\OpportunityMessage;
 use Illuminate\Http\Request;
@@ -116,6 +117,10 @@ class OpportunityController extends Controller
         return abort(404);
     }
 
+    /**
+     * @param $uuid
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     */
     public function showMessages($uuid)
     {
         if(Auth::user()->organisation->hasOpportunity($uuid)){
@@ -129,6 +134,12 @@ class OpportunityController extends Controller
         return abort(404);
     }
 
+    /**
+     * @param $uuid
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response|void
+     * @throws \Exception
+     */
     public function postMessage($uuid, Request $request)
     {
         if(Auth::user()->organisation->hasOpportunity($uuid)){
@@ -155,6 +166,45 @@ class OpportunityController extends Controller
                 ));
 
                 return response(200);
+            }
+        }
+        return abort(404);
+    }
+
+    /**
+     * @param $uuid
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response|void
+     * @throws \Exception
+     */
+    public function postConvert($uuid, Request $request)
+    {
+        if(Auth::user()->organisation->hasOpportunity($uuid)){
+            if(Auth::user()->isAssigned($uuid)){
+                $opportunity = Opportunity::find($uuid);
+                if($opportunity->getConsiderationsCompleted() === count($opportunity->considerations)){
+                    if($opportunity->status->in_review){
+                        $deal_id = Uuid::generate();
+                        $deal = new Deal();
+                        $deal->id = $deal_id;
+                        $deal->opportunity_id = $uuid;
+                        $deal->save();
+                        
+                        $opportunity->status->accepted = true;
+                        $opportunity->status->save();
+
+                        event(new CreateOpportunityActivity(
+                            $opportunity,
+                            Auth::user(),
+                            Auth::user()->first_name.' '.Auth::user()->last_name.' converted this opportunity into a deal.',
+                            '/vendor/deals/'.$deal_id
+                        ));
+                        return response(200);
+                    }
+                    return response('This opportunity cannot be converted into a deal until it has gone under review.', 500);
+                }else{
+                    return response('Not all considerations have been achieved, please attempt to convert this opportunity once they are completed.', 500);
+                }
             }
         }
         return abort(404);

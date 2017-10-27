@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function deals()
     {
-        return $this->hasMany('App\Models\Deal');
+        return $this->hasManyThrough('App\Models\Deal', 'App\Models\Opportunity');
     }
 
     public function opportunities()

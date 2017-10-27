@@ -11,11 +11,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Deal extends Model
+class OrganisationTag extends Model
 {
-
+    use \App\Traits\Uuids;
+    
     public $incrementing = false;
-
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -23,21 +24,21 @@ class Deal extends Model
      */
     protected $fillable = [
         'id',
-        'reference',
+        'name',
+        'organisation_id',
+        'user_id',
         'created_at',
-        'updated_at',
-        'deleted_at'
+        'updated_at'
     ];
 
-    public function opportunity()
+    public function creator()
     {
-        return $this->belongsTo('App\Models\Opportunity');
-    }
-    
-    public function tags()
-    {
-        return $this->hasMany('App\Models\DealTag');
+        return $this->belongsTo('App\Models\User');
     }
 
+    public function organisation()
+    {
+        return $this->belongsTo('App\Models\Organisation');
+    }
 
 }

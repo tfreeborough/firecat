@@ -46,10 +46,7 @@
                 </div>
             @endif
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6">
-
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                     <p>Deals: {{ count($partner->deals) }}</p>
                     <table id="partner-deals" class="table">
                         <thead>
@@ -63,8 +60,22 @@
                         <tbody>
                             @foreach($partner->deals as $deal)
                                 <tr>
-                                    <td>{{ $deal->name }}</td>
-                                    <td>{{ $deal->information->status }}</td>
+                                    <td>{{ $deal->opportunity->name }}</td>
+                                    <td>
+                                        @if($deal->opportunity->status->getStatusCode() === 1)
+                                            Awaiting Association
+                                        @elseif($deal->opportunity->status->getStatusCode() === 2)
+                                            Associated
+                                        @elseif($deal->opportunity->status->getStatusCode() === 3)
+                                            In Review
+                                        @elseif($deal->opportunity->status->getStatusCode() === 4)
+                                            Deal Accepted
+                                        @elseif($deal->opportunity->status->getStatusCode() === 5)
+                                            Deal Rejected
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
                                     <td>{{ $deal->created_at }}</td>
                                     <td>&nbsp;</td>
                                 </tr>
