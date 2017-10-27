@@ -25,21 +25,23 @@
                         </div>
                     </div>
                 @endif
-                    <h1>Log in</h1>
-                    {!! Form::open(['url' => '/login']) !!}
-                    <div class="form-group">
-                        {{ Form::label('email', null, ['class' => 'control-label']) }}
-                        {{ Form::text('email', null, array_merge(['class' => 'form-control'])) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::label('password', null, ['class' => 'control-label']) }}
-                        {{ Form::password('password', array_merge(['class' => 'form-control'])) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::submit('Login', array_merge(['class' => 'form-control button action'])) }}
-                    </div>
-                    {!! Form::close() !!}
+                <h1>Log in</h1>
+                {!! Form::open(['url' => '/login']) !!}
+                <div class="form-group">
+                    {{ Form::label('email', null, ['class' => 'control-label']) }}
+                    {{ Form::text('email', null, array_merge(['class' => 'form-control'])) }}
                 </div>
+                <div class="form-group">
+                    {{ Form::label('password', null, ['class' => 'control-label']) }}
+                    {{ Form::password('password', array_merge(['class' => 'form-control'])) }}
+                </div>
+                <div class="form-group">
+                    {{ Form::submit('Login', array_merge(['class' => 'form-control button action'])) }}
+                </div>
+                {!! Form::close() !!}
+            </div>
+            <div class="row">
+                <a href="{{ route('password.reset.view') }}">Forgotten your password?</a>
             </div>
         </div>
     </div>
