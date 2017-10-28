@@ -82,6 +82,11 @@ class Opportunity extends Model
         return $this->hasMany('App\Models\OpportunityConsideration');
     }
 
+    public function threads()
+    {
+        return $this->hasMany('App\Models\OpportunityThread');
+    }
+
     public function getConsiderationsCompleted()
     {
         $count = 0;
