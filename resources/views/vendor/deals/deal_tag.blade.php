@@ -116,20 +116,21 @@
             vex.dialog.confirm({
                 message: 'Are you sure you want to unlink this tag?',
                 callback: function (value) {
-                    console.log(value)
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        url: '{{route('vendor.deal.tag.unlink', $deal->id)}}',
-                        type: 'POST',
-                        data: {
-                            tag: id
-                        },
-                        success: function(result) {
-                            window.location.reload();
-                        }
-                    });
+                    if(value === true){
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            url: '{{route('vendor.deal.tag.unlink', $deal->id)}}',
+                            type: 'POST',
+                            data: {
+                                tag: id
+                            },
+                            success: function(result) {
+                                window.location.reload();
+                            }
+                        });
+                    }
                 }
             })
         }
