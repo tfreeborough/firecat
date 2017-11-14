@@ -60,9 +60,13 @@ class VerifyController extends Controller
             if($user->isAdmin()){
                 return redirect('/admin');
             }else if($user->isVendor()){
-                return redirect('/vendor');
+                return redirect('/vendor')->with([
+                    'alert-success' => 'You have been successfully verified, welcome to your new account.'
+                ]);
             }else if($user->isPartner()){
-                return redirect('/partner');
+                return redirect('/partner')->with([
+                    'alert-success' => 'You have been successfully verified, welcome to your new account.'
+                ]);
             }else{
                 return redirect('/logout');
             }

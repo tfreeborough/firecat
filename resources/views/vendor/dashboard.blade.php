@@ -21,6 +21,11 @@
         </div>
         <div id="vendor-dashboard">
             <div class="row">
+                <div class="col-xs-12">
+                    @include('_partials.flash_message')
+                </div>
+            </div>
+            <div class="row">
                 <div id="vendor-overview" class="col-xs-12">
                     <h3 class="title">Organisation statistics (last 30 days)</h3>
                     <div id="acceptance" class="dashboard-panel">

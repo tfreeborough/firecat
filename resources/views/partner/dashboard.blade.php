@@ -20,7 +20,11 @@
             </div>
         </div>
         <div id="partner-dashboard">
-
+            <div class="row">
+                <div class="col-xs-12">
+                    @include('_partials.flash_message')
+                </div>
+            </div>
         </div>
     </div>
 @endsection
