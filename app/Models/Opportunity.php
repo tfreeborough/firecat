@@ -113,12 +113,12 @@ class Opportunity extends Model
 
     public function getRecentMessages()
     {
-        return OpportunityMessage::where('opportunity_id','=',$this->id)->orderBy('created_at','DESC')->limit(5)->get()->reverse();
+        return OpportunityMessage::where('opportunity_id','=',$this->id)->orderBy('created_at','DESC')->limit(5)->get();
     }
 
     public function getAllMessages()
     {
-        return OpportunityMessage::where('opportunity_id','=',$this->id)->orderBy('created_at','DESC')->get()->reverse();
+        return OpportunityMessage::where('opportunity_id','=',$this->id)->orderBy('created_at','DESC')->get();
     }
 
     public function getParticipants()
@@ -134,11 +134,11 @@ class Opportunity extends Model
     
     public function activity()
     {
-        return $this->hasMany('App\Models\OpportunityActivity');
+        return $this->hasMany('App\Models\OpportunityActivity')->orderBy('created_at','DESC');
     }
     
     public function getRecentActivity()
     {
-        return OpportunityActivity::where('opportunity_id', '=', $this->id)->orderBy('created_at', 'DESC')->limit(5)->get()->reverse();
+        return OpportunityActivity::where('opportunity_id', '=', $this->id)->orderBy('created_at', 'DESC')->limit(5)->get();
     }
 }
