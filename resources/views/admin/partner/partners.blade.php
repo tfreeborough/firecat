@@ -25,6 +25,11 @@
             </div>
         </div>
         <div id="partners">
+            <div class="row">
+                <div class="col-xs-12">
+                    @include('_partials.flash_message')
+                </div>
+            </div>
             <a href="{{route('admin.partners.create')}}">
                 <button class="btn btn-primary">Create New Partner <i class="fa fa-users" aria-hidden="true"></i></button>
             </a>

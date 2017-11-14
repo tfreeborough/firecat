@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' =>
         Route::get('create', 'Admin\PartnerController@showPartnerCreation')->name('admin.partners.create');
         Route::post('create', 'Admin\PartnerController@postPartnerCreation');
         Route::get('{uuid}', 'Admin\PartnerController@showPartner')->name('admin.partners.index');
+        Route::get('{uuid}/delete', 'Admin\PartnerController@deletePartner')->name('admin.partners.index.delete');
     });
 
 });

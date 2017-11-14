@@ -30,22 +30,15 @@
             </div>
         </div>
         <div id="create_partner">
-            @if (count($errors) > 0)
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div id="login-errors" class="text-left">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{!! $error !!}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
             <div class="row">
+                <div class="col-xs-12">
+                    @include('_partials.flash_message')
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button class="button action" onclick="confirmDelete()">Delete partner</button>
+                </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <p>Deals: {{ count($partner->deals) }}</p>
                     <table id="partner-deals" class="table">
@@ -90,5 +83,18 @@
 @section('scripts')
     <script>
         $('#partner-deals').DataTable();
+
+        function confirmDelete()
+        {
+            vex.dialog.confirm({
+                message: 'Are you sure you want to delete this user?',
+                callback: function (value) {
+                    if(value === true){
+                        window.location.href = '{{route('admin.partners.index.delete', $partner->id)}}';
+                    }
+
+                }
+            })
+        }
     </script>
 @endsection

@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
 
@@ -60,5 +61,20 @@ class PartnerController extends Controller
         return view('admin.partner.index', [
            'partner' => User::find($uuid)
         ]);
+    }
+
+    public function deletePartner($uuid)
+    {
+        $partner = User::find($uuid);
+        if($partner->isPartner()){
+            $partner->delete();
+            return redirect(route('admin.partners'))->with([
+                'alert-success' => 'Partner successfully deleted.'
+            ]);
+        }else{
+            return redirect(route('admin.partners.index',$uuid))->withErrors([
+                'alert-danger' => 'That user is not a partner'
+            ]);
+        }
     }
 }
