@@ -20,6 +20,9 @@
 
 
         @yield('content')
+
+        @section('footer')
+        @show
     </div>
 </div>
 </body>
