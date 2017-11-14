@@ -22,6 +22,11 @@
         </div>
         <div class="container">
             <div class="row">
+                <div class="col-xs-12">
+                    @include('_partials.flash_message')
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <h1>Lets get you set up.</h1>
                     {!! Form::open(['url' => '/register']) !!}
@@ -44,6 +49,9 @@
                     <div class="form-group">
                         {{ Form::label('password_confirmation', null, ['class' => 'control-label']) }}
                         {{ Form::password('password_confirmation', array_merge(['class' => 'form-control'])) }}
+                    </div>
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF"></div>
                     </div>
                     <div class="form-group">
                         {{ Form::submit('Register', array_merge(['class' => 'form-control button action'])) }}

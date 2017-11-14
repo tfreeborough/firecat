@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use GuzzleHttp\Client;
 
 class RegisterController extends Controller
 {
@@ -59,6 +60,7 @@ class RegisterController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'g-recaptcha-response' => 'required'
         ]);
     }
 
@@ -95,10 +97,25 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        event(new Registered($user = $this->create($request->all())));
+        $client = new Client();
+        $res = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
+            'form_params' => [
+                'secret' => env('RECAPTCHA_SECRET'),
+                'response' => $request->get('g-recaptcha-response')
+            ]
+        ]);
+        $json = json_decode($res->getBody()->getContents());
+        if($json->success){
+            event(new Registered($user = $this->create($request->all())));
 
-        return $this->registered($request, $user)
-            ?: redirect($this->redirectPath());
+            return $this->registered($request, $user)
+                ?: redirect($this->redirectPath());
+        }else{
+            return redirect(route('register'))->withErrors([
+                'alert-error' => 'We could not verify that you aren\'t a robot, you haven\'t augmented yourself recently have you?'
+            ]);
+        }
+
     }
 
     /**
