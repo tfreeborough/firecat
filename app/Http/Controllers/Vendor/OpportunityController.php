@@ -15,6 +15,8 @@ use App\Models\Assignee;
 use App\Models\Deal;
 use App\Models\Opportunity;
 use App\Models\OpportunityMessage;
+use App\Models\OpportunityThread;
+use App\Models\OpportunityThreadMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -38,6 +40,63 @@ class OpportunityController extends Controller
         }
         return abort(404);
 
+    }
+
+    /**
+     * @param $uuid
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     */
+    public function showThreads($uuid)
+    {
+        if(Auth::user()->organisation->hasOpportunity($uuid)){
+            return view('vendor.opportunities.threads', [
+                'opportunity' => Opportunity::find($uuid),
+                'user' => Auth::user()
+            ]);
+        }
+        return abort(404);
+
+    }
+    
+    public function postCreateThread($uuid, Request $request)
+    {
+        if(Auth::user()->organisation->hasOpportunity($uuid)){
+            if(Auth::user()->isAssigned($uuid)){
+                Validator::make($request->all(), [
+                    'subject' => 'required|string',
+                ])->validate();
+
+                $thread = new OpportunityThread();
+                $thread->subject = $request->get('subject');
+                $thread->opportunity_id = $uuid;
+                $thread->user_id = Auth::user()->id;
+                $thread->save();
+
+                return response(200);
+            }
+        }
+        return abort(404);
+    }
+
+    public function postNewThreadMessage($uuid, Request $request)
+    {
+        if(Auth::user()->organisation->hasOpportunity($uuid)){
+            if(Auth::user()->isAssigned($uuid)){
+                Validator::make($request->all(), [
+                    'message' => 'required|string',
+                    'thread' => 'required|string'
+                ])->validate();
+
+                $message = new OpportunityThreadMessage();
+                $message->message = $request->get('message');
+                $message->opportunity_thread_id = $request->get('thread');
+                $message->user_id = Auth::user()->id;
+                $message->save();
+
+                return response(200);
+            }
+        }
+        return abort(404);
     }
 
 

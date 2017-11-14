@@ -19,8 +19,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('vendor.opportunities')}}">
-                            Opportunities
+                        <a href="{{route('vendor.deals')}}">
+                            Deals
                         </a>
                     </li>
                     <li>

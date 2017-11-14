@@ -132,6 +132,9 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::get('opportunities/{uuid}/messages', 'Vendor\OpportunityController@showMessages')->name('vendor.opportunity.messages');
     Route::post('opportunities/{uuid}/messages', 'Vendor\OpportunityController@postMessage')->name('vendor.opportunity.postMessage');
     Route::post('opportunities/{uuid}/convert', 'Vendor\OpportunityController@postConvert')->name('vendor.opportunity.postConvert');
+    Route::get('opportunities/{uuid}/threads', 'Vendor\OpportunityController@showThreads')->name('vendor.opportunity.threads');
+    Route::post('opportunities/{uuid}/threads/create', 'Vendor\OpportunityController@postCreateThread')->name('vendor.opportunity.threads.create');
+    Route::post('opportunities/{uuid}/threads/message', 'Vendor\OpportunityController@postNewThreadMessage')->name('vendor.opportunity.threads.message');
     
     Route::get('deals/{uuid}', 'Vendor\DealController@showDeal')->name('vendor.deal');
     Route::get('deals/{uuid}/tag', 'Vendor\DealController@showDealTag')->name('vendor.deal.tag');

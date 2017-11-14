@@ -38,6 +38,11 @@ class OpportunityThread extends Model
 
     public function messages()
     {
-        return $this->hasMany('App\Models\OpportunityThreadMessage');
+        return $this->hasMany('App\Models\OpportunityThreadMessage')->orderBy('created_at','DESC');
+    }
+
+    public function mostRecentMessage()
+    {
+        return $this->hasMany('App\Models\OpportunityThreadMessage')->orderBy('created_at','DESC')->limit(1);
     }
 }

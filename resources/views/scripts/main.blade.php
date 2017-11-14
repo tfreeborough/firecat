@@ -26,6 +26,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css" />
 
+<!-- Autolinker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autolinker/1.4.4/Autolinker.min.js"></script>
+
 <!-- Cloudinary jQuery -->
 <script src="https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.min.js"></script>
 <script>
