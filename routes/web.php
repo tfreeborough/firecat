@@ -136,5 +136,7 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::get('deals/{uuid}', 'Vendor\DealController@showDeal')->name('vendor.deal');
     Route::get('deals/{uuid}/tag', 'Vendor\DealController@showDealTag')->name('vendor.deal.tag');
     Route::post('deals/{uuid}/tag', 'Vendor\DealController@postDealTag')->name('vendor.deal.tag.post');
+    Route::post('deals/{uuid}/tag/link', 'Vendor\DealController@linkDealTag')->name('vendor.deal.tag.link');
+    Route::post('deals/{uuid}/tag/unlink', 'Vendor\DealController@unlinkDealTag')->name('vendor.deal.tag.unlink');
 });
 

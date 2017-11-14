@@ -30,7 +30,7 @@ class DealTag extends Model
         'updated_at'
     ];
 
-    public function base_tag()
+    public function organisation_tag()
     {
         return $this->belongsTo('App\Models\OrganisationTag');
     }

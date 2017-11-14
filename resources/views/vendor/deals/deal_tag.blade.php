@@ -40,8 +40,8 @@
                 <h3>Existing Tags</h3>
                 <div id="deal_tag_display">
                     @foreach($deal->tags as $tag)
-                        <div class="deal_tag" style="color: {{$tag->text_color}}; background: {{$tag->color}}">
-                            {{ $tag->name }}
+                        <div class="deal_tag" style="color: {{$tag->organisation_tag->text_color}}; background: {{$tag->organisation_tag->color}}">
+                            {{ $tag->organisation_tag->name }} <i class="fa fa-chain-broken" aria-hidden="true" onclick="unlinkTag('{{ $tag->id }}')"></i>
                         </div>
                     @endforeach
                     @if(count($deal->tags) === 0)
@@ -52,9 +52,9 @@
             <div id="new_deal_tag">
                 <h3>Add a new tag</h3>
                 <div id="existing_deal_tag">
-                    {!! Form::open(['url' => route('vendor.deal.tag.post',$deal->id)]) !!}
+                    {!! Form::open(['url' => route('vendor.deal.tag.link',$deal->id)]) !!}
                     <div id="existing_deal_tag_wrapper">
-                        <input id="existing_tag" type="text" name="tag" class="hidden" />
+                        <input id="existing_tag" type="hidden" name="tag" value="" />
                         <ul>
                             @foreach($user->organisation->tags as $tag)
                                 <li data-tag_id="{{ $tag->id }}" onclick="selectExistingTag(event, '{{$tag->id}}')" value="{{$tag->id}}" style="color: {{$tag->text_color}}; background: {{$tag->color}}">
@@ -111,12 +111,41 @@
 @endsection
 @section('scripts')
     <script>
+        function unlinkTag(id)
+        {
+            vex.dialog.confirm({
+                message: 'Are you sure you want to unlink this tag?',
+                callback: function (value) {
+                    console.log(value)
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: '{{route('vendor.deal.tag.unlink', $deal->id)}}',
+                        type: 'POST',
+                        data: {
+                            tag: id
+                        },
+                        success: function(result) {
+                            window.location.reload();
+                        }
+                    });
+                }
+            })
+        }
+
         function selectExistingTag(event, id)
         {
             var tag_id = event.target.dataset.tag_id;
-            $('#existing_deal_tag_wrapper ul li').each()
             console.log(tag_id);
             $('#existing_tag').val(id);
+            $('#existing_deal_tag_wrapper li').each(function(i, e){
+                if($(e).attr('value') === tag_id){
+                    console.log('id match');
+                    $('#existing_deal_tag_wrapper li').removeClass('active');
+                    $(e).addClass('active');
+                }
+            });
         }
 
         function toggleCreate()

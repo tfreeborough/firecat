@@ -60,11 +60,11 @@
                                 <td>{{ $deal->opportunity->endUser->organisation_type }}</td>
                                 <td>
                                     @foreach($deal->tags as $tag)
-                                        <div class="tag">{{ $tag->name }}</div>
+                                        <div class="tag">{{ $tag->organisation_tag->name }}</div>
+
                                     @endforeach
-                                    @if(count($deal->tags) === 0)
-                                        <span><a href="/vendor/deals/{{$deal->id}}/tag">Add a tag</a></span>
-                                    @endif
+                                    <br />
+                                    <small><span><a href="/vendor/deals/{{$deal->id}}/tag">Edit tags</a></span></small>
                                 </td>
                                 <td>
                                     <ul>

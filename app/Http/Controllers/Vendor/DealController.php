@@ -74,7 +74,7 @@ class DealController extends Controller
                 $deal_tag->deal_id = $uuid;
                 $deal_tag->save();
                 
-                return redirect(route('vendor.deal.tag', $uuid))->withErrors([
+                return redirect(route('vendor.deal.tag', $uuid))->with([
                     'alert-success' => 'The tag '.$request->get('tag_name').' has been successfully created.'
                 ]);
             }else{
@@ -95,13 +95,37 @@ class DealController extends Controller
 
         $deal = Deal::find($uuid);
         if(Auth::user()->isAssigned($deal->opportunity_id)){
-            $deal_tag = new DealTag();
-            $deal_tag->organisation_tag_id = $request->get('tag');
-            $deal_tag->deal_id = $uuid;
-            $deal_tag->save();
+            if(!OrganisationTag::find($request->get('tag'))){
+                $deal_tag = new DealTag();
+                $deal_tag->organisation_tag_id = $request->get('tag');
+                $deal_tag->deal_id = $uuid;
+                $deal_tag->save();
+
+                return redirect(route('vendor.deal.tag', $uuid))->with([
+                    'alert-success' => 'The tag '.$request->get('tag_name').' has been successfully link to this deal.'
+                ]); 
+            }
 
             return redirect(route('vendor.deal.tag', $uuid))->withErrors([
-                'alert-success' => 'The tag '.$request->get('tag_name').' has been successfully link to this deal.'
+                'alert-error' => 'The tag '.$request->get('tag_name').' is already associated with this deal.'
+            ]);
+        }else{
+            return abort(404);
+        }
+    }
+
+    public function unlinkDealTag($uuid, Request $request)
+    {
+        Validator::make($request->all(), [
+            'tag' => 'required|string',
+        ])->validate();
+
+        $deal = Deal::find($uuid);
+        if(Auth::user()->isAssigned($deal->opportunity_id)){
+            $deal_tag = DealTag::find($request->get('tag'));
+            $deal_tag->delete();
+            return redirect(route('vendor.deal.tag', $uuid))->with([
+                'alert-success' => 'You have successfully unlinked this tag from the deal.'
             ]);
         }else{
             return abort(404);
