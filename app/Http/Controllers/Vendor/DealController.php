@@ -33,7 +33,9 @@ class DealController extends Controller
                 'user' => Auth::user()
             ]);   
         }else{
-            return abort(404);
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot access it.'
+            ]);
         }
     }
 
@@ -46,7 +48,9 @@ class DealController extends Controller
                 'user' => Auth::user()
             ]);
         }else{
-            return abort(404);
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot access it.'
+            ]);
         }
     }
 
@@ -83,7 +87,9 @@ class DealController extends Controller
                 ]);
             }
         }else{
-            return abort(404);
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot access it.'
+            ]);
         }
     }
 
@@ -95,7 +101,10 @@ class DealController extends Controller
 
         $deal = Deal::find($uuid);
         if(Auth::user()->isAssigned($deal->opportunity_id)){
-            if(!OrganisationTag::find($request->get('tag'))){
+            if(!DealTag::where([
+                ['deal_id','=',$uuid],
+                ['organisation_tag_id','=',$request->get('tag')]
+            ])->first()){
                 $deal_tag = new DealTag();
                 $deal_tag->organisation_tag_id = $request->get('tag');
                 $deal_tag->deal_id = $uuid;
@@ -110,7 +119,9 @@ class DealController extends Controller
                 'alert-error' => 'The tag '.$request->get('tag_name').' is already associated with this deal.'
             ]);
         }else{
-            return abort(404);
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot access it.'
+            ]);
         }
     }
 
@@ -128,7 +139,9 @@ class DealController extends Controller
                 'alert-success' => 'You have successfully unlinked this tag from the deal.'
             ]);
         }else{
-            return abort(404);
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot access it.'
+            ]);
         }
     }
 

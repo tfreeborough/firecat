@@ -22,6 +22,13 @@
                     <i class="fa fa-briefcase" aria-hidden="true"></i> Deals
                 </li>
             </a>
+            <a href="{{route('vendor.tags')}}"
+               class="{{ Helper::areActiveRoutes(['vendor.tags','vendor.tags.tag']) }}"
+            >
+                <li>
+                    <i class="fa fa-tags" aria-hidden="true"></i> Tags
+                </li>
+            </a>
             <a href="{{route('vendor.activity')}}"
                class="{{ Helper::isActiveRoute('vendor.activity') }}"
             >

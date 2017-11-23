@@ -29,6 +29,7 @@
                 </ul>
             </div>
         </div>
+        @include('_partials.flash_message')
         <div id="vendor-opportunity">
             @include('_partials.errors')
             @if($deal->opportunity->status->in_review)

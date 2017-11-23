@@ -37,7 +37,7 @@ class DealTag extends Model
 
     public function deal()
     {
-        return $this->hasOne('App\Models\Deal');
+        return $this->belongsTo('App\Models\Deal');
     }
 
 

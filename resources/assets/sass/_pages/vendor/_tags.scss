@@ -1,0 +1,29 @@
+
+
+#vendor-tags,#vendor-tag{
+
+  #vendor-tag-wrapper{
+    #vendor-tag-table {
+      ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+          display: inline-block;
+
+          img {
+            width: 32px;
+            height: 32px;
+          }
+        }
+      }
+    }
+  }
+
+  .tag{
+    padding:2px 5px;
+    background:$firecat-light-grey;
+    border-radius:4px;
+    display:inline-block;
+  }
+}

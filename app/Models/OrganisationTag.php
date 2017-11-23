@@ -41,4 +41,9 @@ class OrganisationTag extends Model
         return $this->belongsTo('App\Models\Organisation');
     }
 
+    public function deal_tags()
+    {
+        return $this->hasMany('App\Models\DealTag');
+    }
+
 }

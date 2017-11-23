@@ -24,6 +24,7 @@
                 </ul>
             </div>
         </div>
+        @include('_partials.flash_message')
         <div id="vendor-deals">
             <div class="row">
                 <div class="col-xs-12">
@@ -50,9 +51,14 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="/vendor/deals/{{$deal->id}}">
+                                    @if(Auth::user()->isAssigned($deal->opportunity_id))
+                                        <a href="/vendor/deals/{{$deal->id}}">
+                                            {{ $deal->opportunity->name }}
+                                        </a>
+                                    @else
                                         {{ $deal->opportunity->name }}
-                                    </a>
+                                    @endif
+
                                     @if($deal->reference)
                                         <small>({{$deal->reference}})</small>
                                     @endif
@@ -60,8 +66,9 @@
                                 <td>{{ $deal->opportunity->endUser->organisation_type }}</td>
                                 <td>
                                     @foreach($deal->tags as $tag)
-                                        <div class="tag">{{ $tag->organisation_tag->name }}</div>
-
+                                        <a href="{{ route('vendor.tags.tag',$tag->organisation_tag->id)}}">
+                                            <div class="tag" style="color: {{$tag->organisation_tag->text_color}}; background: {{$tag->organisation_tag->color}}">{{ $tag->organisation_tag->name }}</div>
+                                        </a>
                                     @endforeach
                                     <br />
                                     <small><span><a href="/vendor/deals/{{$deal->id}}/tag">Edit tags</a></span></small>

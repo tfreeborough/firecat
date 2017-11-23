@@ -122,6 +122,8 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::post('account/avatar', 'Account\AccountController@postAvatar');
     Route::post('account/additional', 'Account\AccountController@postAdditional');
 
+    Route::get('tags', 'Vendor\TagController@index')->name('vendor.tags');
+    Route::get('tags/{tag_id}', 'Vendor\TagController@show')->name('vendor.tags.tag');
 
     Route::get('activity', 'Vendor\VendorController@showActivity')->name('vendor.activity');
     Route::get('deals', 'Vendor\VendorController@showDeals')->name('vendor.deals');
