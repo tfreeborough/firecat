@@ -31,7 +31,7 @@
                 </div>
             </div>
             <a href="{{route('admin.partners.create')}}">
-                <button class="btn btn-primary">Create New Partner <i class="fa fa-users" aria-hidden="true"></i></button>
+                <button class="button action">Create New Partner <i class="fa fa-users" aria-hidden="true"></i></button>
             </a>
             <table id="partners-table" class="table">
                 <thead>

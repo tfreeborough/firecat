@@ -30,46 +30,53 @@
             </div>
         </div>
         <div id="create_partner">
-            @if (count($errors) > 0)
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div id="login-errors" class="text-left">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{!! $error !!}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
+            @include('_partials.flash_message')
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    {!! Form::open(['url' => '/admin/partners/create']) !!}
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <h3 class="title">Invite a new user</h3>
+                    {!! Form::open(['url' => route('admin.partners.invite')]) !!}
                     <div class="form-group">
                         {{ Form::label('first_name', null, ['class' => 'control-label']) }}
-                        {{ Form::text('first_name', null, array_merge(['class' => 'form-control'])) }}
+                        {{ Form::text('first_name', null, array_merge(['class' => 'form-control','autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('last_name', null, ['class' => 'control-label']) }}
-                        {{ Form::text('last_name', null, array_merge(['class' => 'form-control'])) }}
+                        {{ Form::text('last_name', null, array_merge(['class' => 'form-control','autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('email', null, ['class' => 'control-label']) }}
-                        {{ Form::text('email', null, array_merge(['class' => 'form-control'])) }}
+                        {{ Form::text('email', null, array_merge(['class' => 'form-control','autocomplete' => 'off'])) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::submit('Invite User', array_merge(['class' => 'button action'])) }}
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <h3 class="title">Create a new user</h3>
+                    {!! Form::open(['url' => route('admin.partners.create')]) !!}
+                    <div class="form-group">
+                        {{ Form::label('first_name', null, ['class' => 'control-label']) }}
+                        {{ Form::text('first_name', null, array_merge(['class' => 'form-control','autocomplete' => 'off'])) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('last_name', null, ['class' => 'control-label']) }}
+                        {{ Form::text('last_name', null, array_merge(['class' => 'form-control','autocomplete' => 'off'])) }}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::label('email', null, ['class' => 'control-label']) }}
+                        {{ Form::text('email', null, array_merge(['class' => 'form-control', 'autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('password', null, ['class' => 'control-label']) }}
-                        {{ Form::password('password', array_merge(['class' => 'form-control'])) }}
+                        {{ Form::password('password', array_merge(['class' => 'form-control', 'autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('password_confirmation', null, ['class' => 'control-label']) }}
-                        {{ Form::password('password_confirmation', array_merge(['class' => 'form-control'])) }}
+                        {{ Form::password('password_confirmation', array_merge(['class' => 'form-control', 'autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::submit('Create User and Link', array_merge(['class' => 'form-control button action'])) }}
+                        {{ Form::submit('Create User', array_merge(['class' => 'button action'])) }}
                     </div>
                     {!! Form::close() !!}
                 </div>

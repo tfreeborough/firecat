@@ -9,7 +9,7 @@
     <div id="docs">
         <div id="page-topper">
             <div id="page-topper-bg"></div>
-            <h1 id="page-title"><i class="fa fa-book" aria-hidden="true"></i> Documentation</h1>
+            <h1 id="page-title">Documentation</h1>
             <h5 id="page-subtitle">Learn more about how to use Firecat</h5>
             <div id="page-topper-breadcrumbs">
                 <ul>

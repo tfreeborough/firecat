@@ -15,12 +15,26 @@ Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
 
+Route::get('/email/invite', function () {
+    return view('email.InviteUser')->with([
+        'invite' => \App\Models\Invite::all()->first(),
+    ]);
+})->name('email.invite');
+
+Route::get('/email/verify', function () {
+    return view('email.verify')->with([
+        'user' => \App\Models\User::all()->first(),
+    ]);
+})->name('email.verify');
+
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 Route::get('verify', 'Auth\VerifyController@showVerify')->name('verify');
 Route::get('verify/resend', 'Auth\VerifyController@showResend')->name('resend-verification');
 Route::post('verify/resend', 'Auth\VerifyController@resend');
 Route::get('verify/{token}', 'Auth\VerifyController@verify');
+Route::get('invite/{token}', 'Auth\InviteController@showInvite')->name('invite');
+Route::post('invite/{token}', 'Auth\InviteController@verifyInvite');
 
 // Password Reset Routes...
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
@@ -75,6 +89,7 @@ Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' =>
     Route::group(['prefix' => 'partners'], function () {
         Route::get('/', 'Admin\PartnerController@showPartners')->name('admin.partners');
         Route::get('create', 'Admin\PartnerController@showPartnerCreation')->name('admin.partners.create');
+        Route::post('invite', 'Admin\PartnerController@postPartnerInvite')->name('admin.partners.invite');
         Route::post('create', 'Admin\PartnerController@postPartnerCreation');
         Route::get('{uuid}', 'Admin\PartnerController@showPartner')->name('admin.partners.index');
         Route::get('{uuid}/delete', 'Admin\PartnerController@deletePartner')->name('admin.partners.index.delete');
@@ -144,5 +159,7 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::post('deals/{uuid}/tag', 'Vendor\DealController@postDealTag')->name('vendor.deal.tag.post');
     Route::post('deals/{uuid}/tag/link', 'Vendor\DealController@linkDealTag')->name('vendor.deal.tag.link');
     Route::post('deals/{uuid}/tag/unlink', 'Vendor\DealController@unlinkDealTag')->name('vendor.deal.tag.unlink');
+
+    Route::get('administration', 'Vendor\AdminController@showAdmin')->name('vendor.admin');
 });
 

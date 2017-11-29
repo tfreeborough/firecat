@@ -12,14 +12,14 @@
             class="{{ Helper::areActiveRoutes(['admin.onboarding','admin.onboarding.index','admin.onboarding.create','admin.onboarding.add-user']) }}"
             >
                 <li>
-                    <i class="fa fa-sitemap" aria-hidden="true"></i> Onboarding
+                    <i class="fa fa-sitemap" aria-hidden="true"></i> Vendors
                 </li>
             </a>
             <a href="{{route('admin.partners')}}"
                class="{{ Helper::areActiveRoutes(['admin.partners','admin.partners.index','admin.partners.create']) }}"
             >
                 <li>
-                    <i class="fa fa-users" aria-hidden="true"></i> Partner Management
+                    <i class="fa fa-users" aria-hidden="true"></i> Partners
                 </li>
             </a>
         </ul>

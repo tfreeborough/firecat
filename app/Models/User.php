@@ -132,6 +132,17 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isVendorAdministrator($id)
+    {
+        $vendor = Organisation::find($id);
+        foreach($vendor->administrators as $admin){
+            if($admin->user->id === Auth::user()->id){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function getAvatar()
     {
         return ($this->extra->avatar_id ? Cloudder::show($this->extra->avatar_id) : '/images/avatar.png');

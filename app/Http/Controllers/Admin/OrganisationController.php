@@ -9,9 +9,14 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Mail\InviteUser;
+use App\Models\Invite;
 use App\Models\Organisation;
 use App\Models\User;
+use App\Traits\Uuids;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
 
@@ -94,23 +99,27 @@ class OrganisationController
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
         ])->validate();
 
-        User::create([
+        $invite = Invite::create([
             'id' => Uuid::generate(),
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
-            'password' => bcrypt($request['password']),
             'admin' => false,
             'vendor' => true,
             'partner' => false,
-            'email_verified' => true,
-            'organisation_id' => $uuid
+            'organisation_id' => $uuid,
+            'organisation_admin' => !is_null($request['admin']),
+            'token' => Uuid::generate(),
+            'expiry' => Carbon::now()->addDays(7)
         ]);
 
-        return redirect('/admin/onboarding/' . $uuid);
+        Mail::to($request['email'])->send(new InviteUser($invite));
+
+        return redirect('/admin/onboarding/' . $uuid)->with([
+            'alert-success' => 'That user has been successfully invited to the system.'
+        ]);
     }
 
     /**
@@ -143,7 +152,13 @@ class OrganisationController
      */
     public function unlinkUser($uuid, $user)
     {
-        User::find($user)->organisation()->dissociate()->save();
+        $user = User::find($user);
+        $user->organisation()->dissociate()->save();
+        $user->vendor = false;
+        $user->partner = false;
+        $user->admin = false;
+        $user->save();
+        $user->delete();
         return redirect('/admin/onboarding/' . $uuid);
     }
 }

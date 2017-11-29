@@ -43,6 +43,15 @@
                     <i class="fa fa-book" aria-hidden="true"></i> Documentation
                 </li>
             </a>
+            @if(Auth::user()->isVendorAdministrator(Auth::user()->organisation->id))
+                <a href="{{route('vendor.admin')}}"
+                   class="{{ Helper::isActiveRoute('vendor.admin') }}"
+                >
+                    <li>
+                        <i class="fa fa-sitemap" aria-hidden="true"></i> Administration
+                    </li>
+                </a>
+            @endif
         </ul>
     </div>
 </div>

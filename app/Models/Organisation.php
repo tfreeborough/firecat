@@ -38,6 +38,11 @@ class Organisation extends Model
         return $this->hasMany('App\Models\User');
     }
 
+    public function administrators()
+    {
+        return $this->hasMany('App\Models\OrganisationAdministrator');
+    }
+
     public function opportunities()
     {
         return $this->hasMany('App\Models\Opportunity');

@@ -33,47 +33,29 @@
             </div>
         </div>
         <div id="organisation-add-user">
-            @if (count($errors) > 0)
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div id="login-errors" class="text-left">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{!! $error !!}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
+            @include('_partials.flash_message')
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <h3>Create a new User</h3>
+                    <h3>Invite a new user</h3>
                     {!! Form::open(['url' => '/admin/onboarding/'.$organisation->id.'/add/new']) !!}
                     <div class="form-group">
                         {{ Form::label('first_name', null, ['class' => 'control-label']) }}
-                        {{ Form::text('first_name', null, array_merge(['class' => 'form-control'])) }}
+                        {{ Form::text('first_name', null, array_merge(['class' => 'form-control','autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('last_name', null, ['class' => 'control-label']) }}
-                        {{ Form::text('last_name', null, array_merge(['class' => 'form-control'])) }}
+                        {{ Form::text('last_name', null, array_merge(['class' => 'form-control','autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('email', null, ['class' => 'control-label']) }}
-                        {{ Form::text('email', null, array_merge(['class' => 'form-control'])) }}
+                        {{ Form::text('email', null, array_merge(['class' => 'form-control','autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('password', null, ['class' => 'control-label']) }}
-                        {{ Form::password('password', array_merge(['class' => 'form-control'])) }}
+                        {{ Form::label('admin', null, ['class' => 'control-label']) }}
+                        {{ Form::checkbox('admin', null, false, null) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('password_confirmation', null, ['class' => 'control-label']) }}
-                        {{ Form::password('password_confirmation', array_merge(['class' => 'form-control'])) }}
-                    </div>
-                    <div class="form-group">
-                        {{ Form::submit('Create User and Link', array_merge(['class' => 'form-control button action'])) }}
+                        {{ Form::submit('Invite user to organisation', array_merge(['class' => 'button action'])) }}
                     </div>
                     {!! Form::close() !!}
                 </div>
@@ -91,10 +73,10 @@
                         {!! Form::open(['url' => '/admin/onboarding/'.$organisation->id.'/add/link']) !!}
                         <div class="form-group">
                             {{ Form::label('email', null, ['class' => 'control-label']) }}
-                            {{ Form::select('email', [], null, ['class' => 'form-control', 'id' => 'user-search']) }}
+                            {{ Form::select('email', [], null, ['class' => 'form-control', 'id' => 'user-search','autocomplete' => 'off']) }}
                         </div>
                         <div class="form-group">
-                            {{ Form::submit('Link user', array_merge(['class' => 'form-control button action'])) }}
+                            {{ Form::submit('Link user', array_merge(['class' => 'button'])) }}
                         </div>
                         {!! Form::close() !!}
                     </div>
@@ -115,7 +97,9 @@
             maxPatternLength: 32,
             minMatchCharLength: 1,
             keys: [
-                "email"
+                "email",
+                "first_name",
+                "last_name"
             ]
         };
 
@@ -130,7 +114,6 @@
                 console.log(options);
                 $.each(result, function( index, value){
                     options.append($("<option />").val(value.email).text(value.first_name+' '+value.last_name+' ('+value.email+')'));
-                    options.append('WORKING');
                 });
             });
         });
