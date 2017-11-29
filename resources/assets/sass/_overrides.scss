@@ -11,3 +11,8 @@ a{
     text-decoration: none;
   }
 }
+
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus{
+  background-color: $firecat-primary-dark;
+  border-color: $firecat-primary-dark;
+}

@@ -42,15 +42,15 @@
                     {!! Form::open(['url' => '/admin/account/additional']) !!}
                     <div class="form-group">
                         {{ Form::label('secondary_email', null, ['class' => 'control-label']) }}
-                        {{ Form::text('secondary_email', $user->extra->second_email, array_merge(['class' => 'form-control', 'placeholder' => 'This can be a personal email if you wish'])) }}
+                        {{ Form::text('secondary_email', $user->extra->second_email, array_merge(['class' => 'form-control', 'placeholder' => 'This can be a personal email if you wish','autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('work_phone', null, ['class' => 'control-label']) }}
-                        {{ Form::text('work_phone', $user->extra->work_number, array_merge(['class' => 'form-control', 'placeholder' => 'Enter your most used work telephone number'])) }}
+                        {{ Form::text('work_phone', $user->extra->work_number, array_merge(['class' => 'form-control', 'placeholder' => 'Enter your most used work telephone number','autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::label('mobile_phone', null, ['class' => 'control-label']) }}
-                        {{ Form::text('mobile_phone', $user->extra->mobile_number, array_merge(['class' => 'form-control', 'placeholder' => 'This can be a personal mobile if you wish'])) }}
+                        {{ Form::text('mobile_phone', $user->extra->mobile_number, array_merge(['class' => 'form-control', 'placeholder' => 'This can be a personal mobile if you wish','autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::submit('Update account', array_merge(['class' => 'button action'])) }}

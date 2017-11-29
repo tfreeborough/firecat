@@ -1,6 +1,5 @@
 
 #welcome{
-  background:$firecat-primary;
   height:calc(100% - #{$menu-height});
   display:table;
   width:100%;
@@ -9,6 +8,8 @@
     display:table-cell;
     vertical-align: middle;
     text-align: center;
+    position: relative;
+    z-index: 1;
 
     #logo-wrapper{
       #menu-logo{

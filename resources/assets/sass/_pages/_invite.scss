@@ -1,0 +1,58 @@
+#invite{
+
+  #vendor-box{
+    border:1px solid rgba(55,55,55,0.1);
+    padding:1rem;
+
+    #vendor-box-top{
+      p{
+        margin:0;
+      }
+    }
+
+    #vendor-box-information{
+      h4{
+        color:rgba($firecat-dark-grey, 0.3);
+      }
+    }
+  }
+
+  #invite-wrapper{
+    padding:1rem;
+    background:none;
+    width:600px;
+    margin:auto;
+
+
+    #logo-banner{
+      background:$firecat-primary;
+      border-radius:4px;
+      padding:1rem;
+
+      h5{
+        color:$firecat-white;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 3px;
+      }
+
+      #menu-logo{
+        font-size:6rem;
+        line-height: 6rem;
+        padding-left:1rem;
+        text-align: center;
+
+        .fire{
+          color:$firecat-secondary;
+          font-weight:200;
+        }
+
+        .cat{
+          color:$firecat-white;
+          font-weight:bold;
+        }
+      }
+
+    }
+  }
+}

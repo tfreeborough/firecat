@@ -25,6 +25,7 @@
 @import "_pages/register";
 @import "_pages/welcome";
 @import "_pages/verify";
+@import "_pages/invite";
 @import '_pages/login';
 
 @import "_pages/docs/docs";
@@ -47,6 +48,50 @@
 
 @import "_pages/dashboard";
 @import "_pages/account/account";
+
+body{
+
+  &.guest{
+    > .full-height{
+      z-index: 1;
+      position: relative;
+    }
+
+    color:$firecat-light-grey;
+
+    .button{
+
+      &.action{
+        background:$firecat-primary-dark;
+        color:$firecat-white!important;
+      }
+    }
+
+    .title{
+      color:rgba($firecat-light-grey,1);
+      border-bottom:1px solid rgba($firecat-light-grey,0.4);
+    }
+
+    .subtitle{
+      color:rgba($firecat-light-grey,1);
+    }
+
+    a{
+      color:$firecat-primary-light;
+      font-weight: bold;
+    }
+  }
+
+}
+
+#particles-js{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
 
 #app{
   padding-top:$menu-height;
@@ -118,4 +163,13 @@
 
 .table tbody tr td{
   border:none;
+}
+
+.highlight{
+  color:$firecat-primary;
+}
+
+p.small{
+  font-size:1.4rem;
+  color:rgba(55,55,55,0.3);
 }

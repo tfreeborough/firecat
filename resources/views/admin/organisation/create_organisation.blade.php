@@ -50,7 +50,7 @@
                     {!! Form::open(['url' => '/admin/onboarding/create']) !!}
                     <div class="form-group">
                         {{ Form::label('name', null, ['class' => 'control-label']) }}
-                        {{ Form::text('name', null, array_merge(['class' => 'form-control', 'autofocus' => true])) }}
+                        {{ Form::text('name', null, array_merge(['class' => 'form-control', 'autofocus' => true,'autocomplete' => 'off'])) }}
                     </div>
                     <div class="form-group">
                         {{ Form::submit('Create', array_merge(['class' => 'form-control button action'])) }}

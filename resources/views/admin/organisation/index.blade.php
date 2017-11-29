@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <a href="/admin/onboarding/{{ $organisation->id }}/add">
-                        <button class="btn btn-primary">Add user to {{ $organisation->name }}</button>
+                        <button class="button action">Add user to {{ $organisation->name }}</button>
                     </a>
                 </div>
             </div>

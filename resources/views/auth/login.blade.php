@@ -14,18 +14,8 @@
                 <h5 class="text-center">Deal Registration Portal</h5>
             </div>
             <div class="row">
-                @if (count($errors) > 0)
-                    <div id="login-errors" class="text-left">
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{!! $error !!}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                @endif
-                <h1>Log in</h1>
+                <h2 class="title">Log in</h2>
+                @include('_partials.flash_message')
                 {!! Form::open(['url' => '/login']) !!}
                 <div class="form-group">
                     {{ Form::label('email', null, ['class' => 'control-label']) }}
@@ -36,12 +26,12 @@
                     {{ Form::password('password', array_merge(['class' => 'form-control'])) }}
                 </div>
                 <div class="form-group">
-                    {{ Form::submit('Login', array_merge(['class' => 'form-control button action'])) }}
+                    {{ Form::submit('Login', array_merge(['class' => 'button action'])) }}
                 </div>
                 {!! Form::close() !!}
             </div>
             <div class="row">
-                <a href="{{ route('password.reset.view') }}">Forgotten your password?</a>
+                <a href="{{ route('password.reset.view') }}">Forgotten your password?</a> | <a href="{{ route('register') }}">Register</a>
             </div>
         </div>
     </div>

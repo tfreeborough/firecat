@@ -26,7 +26,7 @@
         </div>
         <div id="onboarding">
             <a href="{{route('admin.onboarding.create')}}">
-                <button class="btn btn-primary">Create New Organisation <i class="fa fa-sitemap" aria-hidden="true"></i></button>
+                <button class="button action">Create New Organisation <i class="fa fa-sitemap" aria-hidden="true"></i></button>
             </a>
             <table class="table">
                 <thead>
