@@ -38,7 +38,7 @@
             @endif
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
-                    <h3>Additional Information</h3>
+                    <h3 class="title">Additional Information</h3>
                     {!! Form::open(['url' => '/partner/account/additional']) !!}
                     <div class="form-group">
                         {{ Form::label('secondary_email', null, ['class' => 'control-label']) }}
@@ -53,12 +53,12 @@
                         {{ Form::text('mobile_phone', $user->extra->mobile_number, array_merge(['class' => 'form-control', 'placeholder' => 'This can be a personal mobile if you wish'])) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::submit('Update account', array_merge(['class' => 'form-control button action'])) }}
+                        {{ Form::submit('Update account', array_merge(['class' => 'button action'])) }}
                     </div>
                     {!! Form::close() !!}
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                    <h3>Update my avatar</h3>
+                    <h3 class="title">Update my avatar</h3>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             {!! Form::open(['url' => '/partner/account/avatar', 'files' => true]) !!}
@@ -67,7 +67,7 @@
                                 {{ Form::file('avatar', null, array_merge(['class' => 'form-control'])) }}
                             </div>
                             <div class="form-group">
-                                {{ Form::submit('Upload Avatar', array_merge(['class' => 'form-control button action'])) }}
+                                {{ Form::submit('Upload Avatar', array_merge(['class' => 'button action'])) }}
                             </div>
                             {!! Form::close() !!}
                         </div>

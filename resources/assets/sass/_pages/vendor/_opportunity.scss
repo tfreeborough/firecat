@@ -3,7 +3,7 @@
 
   .assignment-block{
     img{
-      width:100%;
+      width:50px;
       border-radius:50%;
     }
 
@@ -53,34 +53,47 @@
 
   #partner-information{
 
+    .avatar{
+      display: inline-block;
+
+      img{
+        width:50px;
+        height:50px;
+      }
+    }
+
+    .partner-name{
+      display: inline-block;
+      vertical-align: top;
+      margin-top: 14px;
+      margin-left: 1rem;
+    }
+
     #partner-contact-information{
       tr{
         td:first-child{
-          text-align: right;
-          font-weight:500;
-          color:$firecat-secondary;
+          text-align: left;
+          font-weight:800;
         }
       }
     }
   }
 
   #opportunity-created-bar{
-    background:$firecat-secondary;
-    color:$firecat-white;
-    text-align: center;
-    padding:1rem;
-
-    h5{
-      font-size:2rem!important;
-    }
+    color: rgba(30, 30, 30, 0.3);
+    text-align: left;
+    font-style: italic;
   }
 
   #opportunity-information{
 
+    blockquote{
+      margin-bottom:0;
+    }
+
     tr{
       td:first-child{
-        width:40%;
-        min-width:200px;
+        min-width: 275px;
       }
     }
 
@@ -131,8 +144,6 @@
 
       li{
         padding:0.5rem 1rem;
-        background:$firecat-white;
-        border:1px solid $centerpiece;
         margin-bottom:5px;
 
         p{
@@ -164,9 +175,6 @@
   }
 
   #opportunity-review-panel{
-    background:$firecat-light-grey;
-    padding:2rem;
-    margin-bottom:2rem;
 
     .row{
       margin-bottom:0;

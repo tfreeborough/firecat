@@ -1,13 +1,14 @@
 <h3 class="title">Partner Information</h3>
 <div class="row">
-    <div class="col-xs-12 col-lg-12 text-center">
+    <div class="col-xs-12 col-lg-12">
         @if(!$opportunity->partner->extra->avatar_url)
             <div class="avatar">
                 <img src="/images/avatar.png" />
             </div>
         @endif
         <div class="avatar"></div>
-        <h3>{{ $opportunity->partner->first_name }} {{ $opportunity->partner->last_name }}</h3>
+        <h3 class="partner-name">{{ $opportunity->partner->first_name }} {{ $opportunity->partner->last_name }}
+        </h3>
     </div>
     <div class="col-xs-12 col-lg-12">
         @if(!$user->isAssigned($opportunity->id))
@@ -19,7 +20,7 @@
                 </div>
             </div>
         @else
-            <table id="partner-contact-information" class="table">
+            <table id="partner-contact-information" class="table table-striped">
                 <tbody>
                 <tr>
                     <td>Primary Email:</td>

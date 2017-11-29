@@ -41,7 +41,7 @@
                 <div id="deal_tag_display">
                     @foreach($deal->tags as $tag)
                         <div class="deal_tag" style="color: {{$tag->organisation_tag->text_color}}; background: {{$tag->organisation_tag->color}}">
-                            {{ $tag->organisation_tag->name }} <i class="fa fa-chain-broken" aria-hidden="true" onclick="unlinkTag('{{ $tag->id }}')"></i>
+                            {{ $tag->organisation_tag->name }} <i class="fa fa-chain-broken" aria-hidden="true" title="Unlink this tag" onclick="unlinkTag('{{ $tag->id }}')"></i>
                         </div>
                     @endforeach
                     @if(count($deal->tags) === 0)
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
-                    <p class="link" onclick="toggleCreate()">Create a brand new tag</p>
+                    <p class="link" onclick="toggleCreate()">Create a new vendor tag</p>
                 </div>
                 <div id="create_deal_tag">
                     <div id="sample_tag">

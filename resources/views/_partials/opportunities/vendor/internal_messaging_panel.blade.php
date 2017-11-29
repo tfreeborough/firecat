@@ -2,7 +2,7 @@
 @if(Auth::user()->isAssigned($opportunity->id))
     <div id="opportunity-messages">
         <p>Click on each link to highlight the selected message.</p>
-        <ul>
+        <ul class="striped">
             @foreach($opportunity->getRecentMessages() as $message)
                 @if($message->isUser(Auth::user()->id))
                     <li class="me">

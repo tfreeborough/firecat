@@ -13,7 +13,7 @@
                 </div>
             </div>
         @else
-            <table id="product-table" class="table">
+            <table id="product-table" class="table table-striped">
                 <thead>
                 <tr>
                     <th>

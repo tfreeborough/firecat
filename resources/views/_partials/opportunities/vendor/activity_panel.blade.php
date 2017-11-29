@@ -1,7 +1,7 @@
 <h3 class="title">Activity</h3>
 <div id="opportunity-activity">
     <p>Hi {{ Auth::user()->first_name }}, here is the latest activity for this opportunity.</p>
-    <ul>
+    <ul class="striped">
         @foreach($opportunity->getRecentActivity() as $activity)
             <li>
                 <p>

@@ -37,12 +37,11 @@
                         <div class="text-left">
                             <div class="alert alert-success">
                                 <p>
-                                    This opportunity has been converted to a deal registration, you can view that by clicking on the button below
+                                    This opportunity has been converted to a deal registration, you can view that by clicking on the button below |
+                                    <a href="/vendor/deals/{{$opportunity->deal->id}}">
+                                        View Deal Registration
+                                    </a>
                                 </p>
-                                <br/>
-                                <a href="/vendor/deals/{{$opportunity->deal->id}}">
-                                    <button class="button">View Deal Registration</button>
-                                </a>
                             </div>
                         </div>
                     </div>

@@ -4,10 +4,12 @@
   top:$menu-height;
   bottom:0;
   width:$authenticated-menu-width;
-  background:$firecat-white;
+  background:$firecat-dark-grey;
   padding:1rem;
+  z-index: 2;
 
   #menu-links{
+
     ul{
       list-style-type:none;
       padding:0;
@@ -31,8 +33,9 @@
 
       a{
         margin-bottom:1rem;
-        color:$firecat-dark-grey;
+        color:$firecat-white;
         font-size:2rem;
+        transition: all 0.3s;
 
         &.active{
           color:$firecat-primary;
@@ -40,9 +43,10 @@
 
         &:hover{
           color:$firecat-primary-dark;
+          transition: all 0.3s;
 
           li{
-            background:$firecat-light-grey;
+            background:rgba($firecat-light-grey,0.1);
           }
 
           &.active{

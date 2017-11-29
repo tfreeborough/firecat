@@ -1,4 +1,5 @@
 <div class="status-code-display">
+    <h3 class="title">Status</h3>
     <table>
         <thead>
             <tr>

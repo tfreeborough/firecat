@@ -1,8 +1,8 @@
 <h3 class="title">Opportunity Information</h3>
 <div id="opportunity-created-bar">
-    <h5>This opportunity was created <strong>{{ \Carbon\Carbon::parse($opportunity->created_at)->diffForHumans() }}</strong></h5>
+    <h4>This opportunity was created <strong>{{ \Carbon\Carbon::parse($opportunity->created_at)->diffForHumans() }}</strong></h4>
 </div>
-<table id="opportunity-information" class="table">
+<table id="opportunity-information" class="table table-striped">
     <thead>
     <tr>
         <th>Section</th>

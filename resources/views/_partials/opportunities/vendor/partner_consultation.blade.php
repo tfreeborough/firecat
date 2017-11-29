@@ -20,7 +20,7 @@
                 @endforeach
             </div>
             <a href="{{ route('vendor.opportunity.threads',$opportunity->id) }}">
-                <button class="button action"><i class="fa fa-comments-o" aria-hidden="true"></i> View all threads</button>
+                <button class="button"><i class="fa fa-comments-o" aria-hidden="true"></i> View all threads</button>
             </a>
         </div>
     </div>

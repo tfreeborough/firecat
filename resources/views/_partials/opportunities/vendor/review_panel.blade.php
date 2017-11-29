@@ -38,7 +38,7 @@
 
     <div class="row">
         <div class="col-xs-12 col-lg-6">
-            <table id="consideration-complete-table" class="table alert alert-info">
+            <table id="consideration-complete-table" class="table">
                 <tbody>
                 <tr>
                     <td>

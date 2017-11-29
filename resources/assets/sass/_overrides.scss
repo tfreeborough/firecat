@@ -5,6 +5,8 @@ body{
 }
 
 a{
+  color:$firecat-link;
+
   &:hover{
     text-decoration: none;
   }

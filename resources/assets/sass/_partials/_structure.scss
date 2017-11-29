@@ -2,13 +2,15 @@
 
 .title{
   margin-top:0;
-  color:$firecat-primary;
-  border-bottom:2px solid rgba($firecat-dark-grey,0.3);
+  color:rgba($firecat-dark-grey,0.3);
+  border-bottom:1px solid rgba($firecat-dark-grey,0.1);
   padding-bottom:3px;
+  font-weight: 300;
 }
 
 .subtitle{
   margin-top:1rem;
-  color:$firecat-secondary;
+  color:rgba($firecat-dark-grey,0.3);
   font-size:2rem;
+  font-weight:600;
 }
