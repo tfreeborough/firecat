@@ -46,6 +46,8 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+Route::post('beta/interest', 'Marketing\BetaController@postInterestSubmission')->name('beta.interest');
+
 Route::get('dashboard', 'Account\AccountController@directToDashboard')->name('dashboard');
 
 Route::group(['middleware' => ['auth','auth.verified'], 'prefix' => 'docs'], function () {

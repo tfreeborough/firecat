@@ -63,10 +63,14 @@
             color:rgba(55,55,55,0.3);
         }
 
-        p{
+        p,li{
             color:rgba(55,55,55,0.7);
             font-size:1.4rem;
             text-align: justify;
+        }
+
+        ul{
+            text-align: left;
         }
 
         p.small{
