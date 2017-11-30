@@ -134,7 +134,7 @@
                                         <div id="g-recaptcha2" data-sitekey="6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF"></div>
                                     </div>
                                     <div class="form-group">
-                                        {{ Form::submit('Register my Interest', array_merge(['class' => 'button action'])) }}
+                                        {{ Form::submit('Register your interest', array_merge(['class' => 'button action'])) }}
                                     </div>
                                     {!! Form::close() !!}
                                 </div>
