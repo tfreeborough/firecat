@@ -5,45 +5,156 @@
   width:100%;
 
   #welcome-wrapper{
-    display:table-cell;
-    vertical-align: middle;
+    display: table-cell;
+    vertical-align: top;
     text-align: center;
     position: relative;
     z-index: 1;
+    padding-top: 9rem;
 
-    #logo-wrapper{
-      #menu-logo{
-        font-size:12rem;
+    #welcome-wrapper-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
+      grid-template-areas: "brand signup";
+
+      #welcome-wrapper-introduction{
+        grid-area:brand;
+        display:grid;
+        align-items: center;
+
+        #logo-wrapper{
+          #menu-logo{
+            font-size:12rem;
+            line-height: 9rem;
+
+            h5{
+              color: $firecat-white;
+              text-transform: uppercase;
+              font-weight: 700;
+              letter-spacing: 3px;
+              font-size: 2.3rem;
+              margin-bottom: 5rem;
+            }
+          }
+        }
+
+        #menu-links{
+          height: $menu-height;
+          text-align: center;
+
+          ul{
+            height:100%;
+            margin:auto;
+            padding:0;
+            display:table;
+
+            a{
+              display:table-cell;
+              vertical-align: middle;
+              padding:0 2rem;
+              color:$firecat-white;
+              font-size:1.7rem;
+
+              &:hover{
+                color:$firecat-secondary;
+              }
+
+              li{
+                list-style-type: none;
+              }
+            }
+          }
+        }
       }
-    }
 
-    #menu-links{
-      height: $menu-height;
-      text-align: center;
+      #welcome-wrapper-sign-up{
+        grid-area:signup;
+        text-align: center;
 
-      ul{
-        height:100%;
-        margin:auto;
-        padding:0;
-        display:table;
+        #welcome-wrapper-sign-up-form-wrapper{
+          display:inline-block;
+          max-width:700px;
+          width:100%;
+          padding:1rem;
+          background:rgba($firecat-light-grey,0.3);
+          border-radius:8px;
 
-        a{
-          display:table-cell;
-          vertical-align: middle;
-          padding:0 2rem;
-          color:$firecat-white;
-          font-size:1.7rem;
-
-          &:hover{
-            color:$firecat-secondary;
+          #extra-links{
+            margin-top:2rem;
+            margin-bottom:2rem;
           }
 
-          li{
-            list-style-type: none;
+          #welcome-wrapper-tabulator{
+            ul{
+              text-align: left;
+              list-style-type: none;
+              padding:0;
+              margin:0;
+
+              li{
+                font-size:1.9rem;
+                display:inline-block;
+                margin:0;
+                background:rgba($firecat-light-grey,0.3);
+                padding:3px 1rem;
+                border-radius:8px 8px 0 0;
+                color:rgba($firecat-dark-grey,0.5);
+                cursor:pointer;
+
+                &:hover{
+                  text-decoration:underline;
+                }
+
+                &.active{
+                  background:rgba($firecat-light-grey,0.7);
+                }
+              }
+            }
+          }
+
+          #welcome-wrapper-tabbed-content{
+            padding:1rem;
+            background:rgba($firecat-light-grey,0.7);
+            border-radius:0 8px 8px 8px;
+            color:rgba($firecat-dark-grey,0.5);
+
+            #partner,#vendor{
+              display:none;
+              font-size:1.5rem;
+
+              &.active{
+                display:block;
+              }
+
+              .form-group{
+                margin:0;
+
+                .g-recaptcha{
+                  width:100%;
+
+                  > div{
+                    margin:0;
+                    width:100%;
+                  }
+                }
+              }
+
+              form{
+                margin:0;
+              }
+
+              .button{
+                margin-top:1rem;
+              }
+            }
+
           }
         }
       }
     }
+
+
   }
 }
 
