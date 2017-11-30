@@ -9,13 +9,14 @@
 namespace App\Models;
 
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OpportunityThread extends Model
 {
     use SoftDeletes;
-    use \App\Traits\Uuids;
+    use Uuids;
 
     public $incrementing = false;
 

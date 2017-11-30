@@ -3,12 +3,13 @@
 namespace App\Models;
 
 
+use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Invite extends Model
 {
-    use \App\Traits\Uuids;
+    use Uuids;
 
     public $incrementing = false;
 

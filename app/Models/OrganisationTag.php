@@ -9,11 +9,12 @@
 namespace App\Models;
 
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 class OrganisationTag extends Model
 {
-    use \App\Traits\Uuids;
+    use Uuids;
     
     public $incrementing = false;
     
