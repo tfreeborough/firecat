@@ -1,5 +1,13 @@
 #invite{
 
+  p{
+    color:$firecat-white;
+  }
+
+  .highlight{
+    color:$firecat-dark-grey;
+  }
+
   #vendor-box{
     border:1px solid rgba(55,55,55,0.1);
     padding:1rem;
@@ -7,12 +15,6 @@
     #vendor-box-top{
       p{
         margin:0;
-      }
-    }
-
-    #vendor-box-information{
-      h4{
-        color:rgba($firecat-dark-grey, 0.3);
       }
     }
   }
