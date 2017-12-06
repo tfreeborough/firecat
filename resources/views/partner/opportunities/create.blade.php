@@ -212,10 +212,9 @@
                                     If you are unsure what to write in the justification, here are some things that might help.
                                 </p>
                                 <ul>
-                                    <li>If this is an opportunity to replace stock, please explain why a competetive bid process cannot be used.</li>
-                                    <li>Can only this vendor meet the technical specifications of the project?</li>
-                                    <li>Due to market conditions, is this vendor the only one that can deliver the products on time?</li>
-                                    <li>Explain with valid and succinct reasons why you feel this vendor can fulfill the needs of the end user.</li>
+                                    <li>Why do you need special pricing on this opportunity? Does the end user require pricing per item below a specific amount?</li>
+                                    <li>Are there any external factors that require a specific product to be chosen for the end user.</li>
+                                    <li>Are there any logistical factors that affect why you have chosen this vendor.</li>
                                 </ul>
                             </div>
                         </div>
