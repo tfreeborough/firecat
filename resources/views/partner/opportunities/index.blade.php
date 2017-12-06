@@ -46,7 +46,11 @@
                         <tbody>
                         @foreach($opportunities as $opportunity)
                             <tr>
-                                <td>{{ $opportunity->name }}</td>
+                                <td>
+                                    <a href={{ route('partner.opportunity',$opportunity->id) }}>
+                                        {{ $opportunity->name }}
+                                    </a>
+                                </td>
                                 <td>{{ $opportunity->organisation->name }}</td>
                                 <td>{{ $opportunity->endUser->name }}</td>
                                 <td>{{ number_format($opportunity->estimated_value/100,2) }}</td>
@@ -54,7 +58,7 @@
                                 <td>
                                     <ul>
                                         <a href="/partner/opportunities/{{$opportunity->id}}">
-                                            <li><i class="fa fa-link" aria-hidden="true"></i></li>
+                                            <li><i class="fa fa-eye" aria-hidden="true"></i></li>
                                         </a>
                                     </ul>
                                 </td>
