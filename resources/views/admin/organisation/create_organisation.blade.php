@@ -30,21 +30,7 @@
             </div>
         </div>
         <div id="create_organisation">
-            @if (count($errors) > 0)
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div id="login-errors" class="text-left">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{!! $error !!}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
+            @include('_partials.flash_message')
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     {!! Form::open(['url' => '/admin/onboarding/create']) !!}
