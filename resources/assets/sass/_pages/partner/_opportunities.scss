@@ -76,7 +76,6 @@
         padding:0;
 
         a{
-          color:$firecat-dark-grey;
 
           li{
             display:inline-block;
@@ -121,4 +120,30 @@
       }
     }
   }
+}
+
+#vendor_consultation{
+  #thread_wrapper{
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+
+    .thread{
+      border:1px solid $firecat-light-grey;
+      padding:1rem;
+      margin-bottom:1rem;
+
+      .thread_title{
+        p{
+          margin:0;
+        }
+      }
+
+      .thread_latest{
+        background:$firecat-light-grey;
+        padding:1rem;
+      }
+    }
+  }
+
 }
