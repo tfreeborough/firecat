@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Admin;
 use App\Mail\InviteUser;
 use App\Models\Invite;
 use App\Models\Organisation;
+use App\Models\OrganisationAdministrator;
 use App\Models\User;
 use App\Traits\Uuids;
 use Carbon\Carbon;
@@ -141,7 +142,9 @@ class OrganisationController
         }
 
         Organisation::find($uuid)->members()->save($user);
-        return redirect('/admin/onboarding/' . $uuid);
+        return redirect('/admin/onboarding/' . $uuid)->with([
+            'alert-success' => 'That user has been successfully linked.'
+        ]);;
     }
 
 
@@ -153,12 +156,15 @@ class OrganisationController
     public function unlinkUser($uuid, $user)
     {
         $user = User::find($user);
+        OrganisationAdministrator::where('organisation_id',$user->organisation->id)->where('user_id',$user->id)->delete();
         $user->organisation()->dissociate()->save();
         $user->vendor = false;
         $user->partner = false;
         $user->admin = false;
         $user->save();
         $user->delete();
-        return redirect('/admin/onboarding/' . $uuid);
+        return redirect('/admin/onboarding/' . $uuid)->with([
+            'alert-success' => 'That user has been successfully unlinked.'
+        ]);
     }
 }

@@ -138,7 +138,7 @@ class User extends Authenticatable
     {
         $vendor = Organisation::find($id);
         foreach($vendor->administrators as $admin){
-            if($admin->user->id === Auth::user()->id){
+            if($admin->user !== null && $admin->user->id === Auth::user()->id){
                 return true;
             }
         }
