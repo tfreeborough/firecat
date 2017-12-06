@@ -44,6 +44,60 @@ class OpportunityController extends Controller
 
     }
 
+    /**
+     * @param $uuid
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|void
+     */
+    public function showThreads($uuid)
+    {
+        if(Auth::user()->hasOpportunity($uuid)){
+            return view('partner.opportunities.threads', [
+                'opportunity' => Opportunity::find($uuid),
+                'user' => Auth::user()
+            ]);
+        }
+        return abort(404);
+
+    }
+
+    public function postCreateThread($uuid, Request $request)
+    {
+        if(Auth::user()->hasOpportunity($uuid)){
+            Validator::make($request->all(), [
+                'subject' => 'required|string',
+            ])->validate();
+
+            $thread = new OpportunityThread();
+            $thread->subject = $request->get('subject');
+            $thread->opportunity_id = $uuid;
+            $thread->user_id = Auth::user()->id;
+            $thread->save();
+
+            return response(200);
+        }
+        return abort(404);
+    }
+
+    public function postNewThreadMessage($uuid, Request $request)
+    {
+        if(Auth::user()->hasOpportunity($uuid)){
+            Validator::make($request->all(), [
+                'message' => 'required|string',
+                'thread' => 'required|string'
+            ])->validate();
+
+            $message = new OpportunityThreadMessage();
+            $message->message = $request->get('message');
+            $message->opportunity_thread_id = $request->get('thread');
+            $message->user_id = Auth::user()->id;
+            $message->save();
+
+            return response(200);
+        }
+        return abort(404);
+    }
+    
+
     public function showCreateOpportunity()
     {
         $endUsers = Auth::user()->endUsers;
