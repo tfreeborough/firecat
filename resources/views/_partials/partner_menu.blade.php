@@ -25,7 +25,7 @@
                 </ul>
             </a>
             <a href="{{route('partner.deals')}}"
-               class="{{ Helper::isActiveRoute('partner.deals') }}"
+               class="{{ Helper::areActiveRoutes(['partner.deals','partner.deal']) }}"
             >
                 <li>
                     <i class="fa fa-briefcase" aria-hidden="true"></i> Deals
