@@ -14,7 +14,7 @@
 </script>
 
 <!-- reCAPTCHA -->
-<script src='https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit'></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
