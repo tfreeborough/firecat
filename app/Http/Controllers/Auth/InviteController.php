@@ -8,6 +8,7 @@ use App\Models\Invite;
 use App\Models\OrganisationAdministrator;
 use App\Models\User;
 use App\Models\UserExtra;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -65,39 +66,45 @@ class InviteController extends Controller
     {
         $invite = Invite::where('token','=',$uuid)->first();
         if($invite){
-            $user = new User();
-            $user->id = Uuid::generate();
-            $user->first_name = $invite->first_name;
-            $user->last_name = $invite->last_name;
-            $user->email = $invite->email;
-            $user->password = bcrypt($request->get('password'));
-            $user->admin = false;
-            $user->vendor = !is_null($invite->organisation);
-            $user->partner = !$user->vendor;
-            $user->email_verified = true;
-            $user->email_verification_code = null;
-            $user->email_verification_sent = $invite->created_at;
-            $user->organisation_id = $invite->organisation_id;
-            $user->save();
+            if(Carbon::parse($invite->created_at)->diffInDays(Carbon::now()) <= 7){
+                $user = new User();
+                $user->id = Uuid::generate();
+                $user->first_name = $invite->first_name;
+                $user->last_name = $invite->last_name;
+                $user->email = $invite->email;
+                $user->password = bcrypt($request->get('password'));
+                $user->admin = false;
+                $user->vendor = !is_null($invite->organisation);
+                $user->partner = !$user->vendor;
+                $user->email_verified = true;
+                $user->email_verification_code = null;
+                $user->email_verification_sent = $invite->created_at;
+                $user->organisation_id = $invite->organisation_id;
+                $user->save();
 
 
-            UserExtra::create([
-                'id' => Uuid::generate(),
-                'user_id' => $user->id,
-            ]);
-
-            if($invite->organisation_admin){
-                OrganisationAdministrator::create([
+                UserExtra::create([
                     'id' => Uuid::generate(),
-                    'organisation_id' => $invite->organisation_id,
-                    'user_id' => $user->id
+                    'user_id' => $user->id,
+                ]);
+
+                if($invite->organisation_admin){
+                    OrganisationAdministrator::create([
+                        'id' => Uuid::generate(),
+                        'organisation_id' => $invite->organisation_id,
+                        'user_id' => $user->id
+                    ]);
+                }
+
+                $invite->delete();
+
+                return $user;
+            }else{
+                $invite->delete();
+                return view('auth.invite_error')->withErrors([
+                    'alert-danger' => 'Your invite has expired, please contact whoever invited you to request another invite to the system.'
                 ]);
             }
-
-            $invite->delete();
-
-            return $user;
-
         }else{
             return view('auth.invite_error')->withErrors([
                 'alert-danger' => 'Your invite has expired, please contact whoever invited you to request another invite to the system.'
