@@ -112,8 +112,8 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     Route::post('account/avatar', 'Account\AccountController@postAvatar');
     Route::post('account/additional', 'Account\AccountController@postAdditional');
     
-    Route::get('deals', 'Partner\PartnerController@showDeals')->name('partner.deals');
-    Route::get('deals/{uuid}', 'Partner\PartnerController@showDeal')->name('partner.deal');
+    Route::get('deals', 'Partner\DealController@showDeals')->name('partner.deals');
+    Route::get('deals/{uuid}', 'Partner\DealController@showDeal')->name('partner.deal');
 
     Route::get('end-users', 'Partner\EndUserController@showEndUsers')->name('partner.endUsers');
     Route::get('end-users/create', 'Partner\EndUserController@showCreateEndUser')->name('partner.endUsers.create');
@@ -124,6 +124,9 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     Route::post('opportunities/create', 'Partner\OpportunityController@postCreateOpportunity');
 
     Route::get('opportunities/{uuid}', 'Partner\OpportunityController@showOpportunity')->name('partner.opportunity');
+    Route::get('opportunities/{uuid}/threads', 'Partner\OpportunityController@showThreads')->name('partner.opportunity.threads');
+    Route::post('opportunities/{uuid}/threads/create', 'Partner\OpportunityController@postCreateThread')->name('partner.opportunity.threads.create');
+    Route::post('opportunities/{uuid}/threads/message', 'Partner\OpportunityController@postNewThreadMessage')->name('partner.opportunity.threads.message');
 });
 
 Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' => 'vendor'], function () {
