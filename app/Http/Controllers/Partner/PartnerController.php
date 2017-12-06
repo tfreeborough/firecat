@@ -22,18 +22,4 @@ class PartnerController extends Controller
     {
         return view('partner.dashboard');
     }
-
-    public function showDeals()
-    {
-        return view('partner.deals.index', [
-            'deals' => Auth::user()->deals
-        ]);
-    }
-
-    public function showDeal($uuid)
-    {
-        return view('partner.deals.deal', [
-           'deal' => Deal::find($uuid)
-        ]);
-    }
 }
