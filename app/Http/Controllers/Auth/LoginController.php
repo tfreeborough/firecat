@@ -51,7 +51,7 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
-        $user = User::where('email', $request['email'])->firstOrFail();
+        $user = User::where('email', $request['email'])->first();
         if($user && $user->trashed()){
             return $this->sendFailedLoginResponse($request);
         }
