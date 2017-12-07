@@ -80,6 +80,8 @@ Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' =>
         Route::get('{uuid}', 'Admin\OrganisationController@showOrganisation')->name('admin.onboarding.index');
         Route::get('{uuid}/add', 'Admin\OrganisationController@showUserAdd')->name('admin.onboarding.add-user');
         Route::get('{uuid}/unlink/{user}', 'Admin\OrganisationController@unlinkUser');
+        Route::get('{uuid}/adminify/{user}', 'Admin\OrganisationController@adminifyUser');
+        Route::get('{uuid}/deadminify/{user}', 'Admin\OrganisationController@deadminifyUser');
 
         Route::post('create', 'Admin\OrganisationController@postOrganisationCreation');
         Route::post('{uuid}/add/new', 'Admin\OrganisationController@postUserAddNew');

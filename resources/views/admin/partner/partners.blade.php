@@ -38,6 +38,8 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Opportunities</th>
+                    <th>Deals</th>
                     <th>Last Login</th>
                     <th>Actions</th>
                 </tr>
@@ -47,10 +49,12 @@
                     <tr>
                         <td>{{ $partner->first_name }} {{ $partner->last_name }}</td>
                         <td>{{ $partner->email }}</td>
+                        <td>{{ count($partner->opportunities) }}</td>
+                        <td>{{ count($partner->deals) }}</td>
                         <td>{{ ( is_null($partner->last_login) ? 'Never' : \Carbon\Carbon::parse($partner->last_login)->setTimezone('Europe/London')->diffForHumans()) }}</td>
                         <td>
                             <a href="/admin/partners/{{$partner->id}}">
-                                <button class="btn btn-info" title="View this Partner"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button class="button" title="View this Partner"><i class="fa fa-eye" aria-hidden="true"></i></button>
                             </a>
                         </td>
                     </tr>

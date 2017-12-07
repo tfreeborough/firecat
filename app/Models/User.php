@@ -91,6 +91,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\OpportunityActivity');
     }
     
+    public function administration_roles()
+    {
+        return $this->hasMany('App\Models\OrganisationAdministrator');
+    }
+    
     public function isPartner()
     {
         return $this->partner;
@@ -127,7 +132,7 @@ class User extends Authenticatable
         $opportunity = Opportunity::find($id);
         
         foreach($opportunity->assignees as $assignee){
-            if($assignee->user->id === Auth::user()->id){
+            if($assignee->user->id === $this->id){
                 return true;
             }
         }
@@ -138,7 +143,7 @@ class User extends Authenticatable
     {
         $vendor = Organisation::find($id);
         foreach($vendor->administrators as $admin){
-            if($admin->user !== null && $admin->user->id === Auth::user()->id){
+            if($admin->user !== null && $admin->user->id === $this->id){
                 return true;
             }
         }

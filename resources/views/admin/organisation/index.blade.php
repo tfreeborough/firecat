@@ -39,25 +39,55 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table">
+                    <table id="organisation_user_table" class="table">
                         <thead>
                         <tr>
                             <th>Member Name</th>
                             <th>Email</th>
+                            <th>Account Type</th>
+                            <th>Assignments</th>
+                            <th>Last Login</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($organisation->members as $member)
+
                             <tr>
                                 <td>{{ $member->first_name }} {{ $member->last_name }}</td>
                                 <td>{{ $member->email }}</td>
                                 <td>
+                                    @if($member->isVendorAdministrator($organisation->id))
+                                        Administrator
+                                    @else
+                                        User
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ count($member->assignments) }}
+                                </td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($member->last_login)->diffForHumans() }}
+                                </td>
+                                <td>
                                     <button
-                                            class="btn btn-danger"
+                                            class="button"
                                             title="Remove this user from {{ $organisation->name }}"
                                             onClick="confirmUnlink('{{ $member->first_name.' '.$member->last_name }}', '{{ $member->id }}')"
                                     ><i class="fa fa-chain-broken" aria-hidden="true"></i></button>
+                                    @if(!$member->isVendorAdministrator($organisation->id))
+                                        <button
+                                                class="button"
+                                                title="Make this user an admin of {{ $organisation->name }}"
+                                                onClick="confirmAdmin('{{ $member->first_name.' '.$member->last_name }}', '{{ $member->id }}')"
+                                        ><i class="fa fa-superpowers" aria-hidden="true"></i></button>
+                                    @else
+                                        <button
+                                                class="button"
+                                                title="Demote {{ $member->name() }} to a regular user."
+                                                onClick="confirmDeAdmin('{{ $member->first_name.' '.$member->last_name }}', '{{ $member->id }}')"
+                                        ><i class="fa fa-user-times" aria-hidden="true"></i></button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -71,6 +101,9 @@
 @endsection
 @section('scripts')
     <script>
+        $('#organisation_user_table').DataTable();
+
+
         function confirmUnlink(member, member_id)
         {
             vex.dialog.confirm({
@@ -78,6 +111,30 @@
                 callback: function (value) {
                     if (value) {
                         window.location.href = '/admin/onboarding/{{ $organisation->id }}/unlink/'+member_id;
+                    }
+                }
+            })
+        }
+
+        function confirmAdmin(member, member_id)
+        {
+            vex.dialog.confirm({
+                message: 'Are you want to make '+member+' an admin of {{ $organisation->name }}?',
+                callback: function (value) {
+                    if (value) {
+                        window.location.href = '/admin/onboarding/{{ $organisation->id }}/adminify/'+member_id;
+                    }
+                }
+            })
+        }
+
+        function confirmDeAdmin(member, member_id)
+        {
+            vex.dialog.confirm({
+                message: 'Are you demote '+member+' to being a regular user of {{ $organisation->name }}?',
+                callback: function (value) {
+                    if (value) {
+                        window.location.href = '/admin/onboarding/{{ $organisation->id }}/deadminify/'+member_id;
                     }
                 }
             })

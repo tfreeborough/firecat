@@ -167,4 +167,36 @@ class OrganisationController
             'alert-success' => 'That user has been successfully unlinked.'
         ]);
     }
+    
+    public function adminifyUser($uuid, $user_id)
+    {
+        $user = User::find($user_id);
+        if(!$user->isVendorAdministrator($uuid)){
+            $admin = new OrganisationAdministrator();
+            $admin->organisation_id = $uuid;
+            $admin->user_id = $user->id;
+            $admin->save();
+            return redirect('/admin/onboarding/' . $uuid)->with([
+                'alert-success' => 'That user has been successfully made an admin'
+            ]);
+        }
+        return redirect('/admin/onboarding/' . $uuid)->withErrors([
+            'alert-danger' => 'That user is already an admin of this organisation.'
+        ]);
+    }
+
+    public function deadminifyUser($uuid, $user_id)
+    {
+        $user = User::find($user_id);
+        if($user->isVendorAdministrator($uuid)){
+            $admin = OrganisationAdministrator::find($user->administration_roles()->where('organisation_id',$uuid)->first());
+            $admin->delete();
+            return redirect('/admin/onboarding/' . $uuid)->with([
+                'alert-success' => 'That user has been successfully made a regular user'
+            ]);
+        }
+        return redirect('/admin/onboarding/' . $uuid)->withErrors([
+            'alert-danger' => 'That user is already a regular user'
+        ]);
+    }
 }
