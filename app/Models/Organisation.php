@@ -50,6 +50,16 @@ class Organisation extends Model
         return $this->hasMany('App\Models\Opportunity');
     }
 
+    public function statistics()
+    {
+        return $this->hasMany('App\Models\OrganisationStatistic');
+    }
+
+    public function mostRecentStatistics()
+    {
+        return $this->statistics()->orderBy('created_at','DESC')->first();
+    }
+
     public function hasOpportunity($id)
     {
         $opportunity = Opportunity::find($id);
