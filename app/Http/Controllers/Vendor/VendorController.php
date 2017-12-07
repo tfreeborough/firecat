@@ -22,10 +22,7 @@ class VendorController extends Controller
     {
         $organisation = Auth::user()->organisation;
         return view('vendor.dashboard', [
-            'acceptanceRate' => $organisation->getAcceptanceRate,
-            'opportunitiesCreated' => $organisation->getOpportunitiesCreated,
-            'averageDealValue' => $organisation->getAverageDealValue,
-            'averageResponseTime' => $organisation->getResponseTime,
+            'organisation' => $organisation,
             'assignments' => Auth::user()->assignments
         ]);
     }

@@ -27,21 +27,26 @@
             </div>
             <div class="row">
                 <div id="vendor-overview" class="col-xs-12">
-                    <h3 class="title">Organisation statistics (last 30 days)</h3>
+                    <div class="top-wrap">
+                        <h3 class="title">Organisation statistics (last 30 days)</h3>
+                        <p>
+                            Last generated: {{ \Carbon\Carbon::parse($organisation->mostRecentStatistics()->calculated_at)->toDayDateTimeString() }}
+                        </p>
+                    </div>
                     <div id="acceptance" class="dashboard-panel">
                         <div class="dashboard-panel-wrapper">
                             <div class="dashboard-panel-big">
-                                {{ $acceptanceRate }}
+                                {{ $organisation->mostRecentStatistics()->deal_conversion_rate }}%
                             </div>
                             <div class="dashboard-panel-small">
-                                Deal Acceptance rate
+                                Deal Conversion Rate
                             </div>
                         </div>
                     </div>
                     <div id="opportunities_created" class="dashboard-panel">
                         <div class="dashboard-panel-wrapper">
                             <div class="dashboard-panel-big">
-                                {{ $opportunitiesCreated }}
+                                {{ $organisation->mostRecentStatistics()->opportunities_received }}
                             </div>
                             <div class="dashboard-panel-small">
                                 Opportunities created
@@ -51,20 +56,20 @@
                     <div id="deal_value" class="dashboard-panel">
                         <div class="dashboard-panel-wrapper">
                             <div class="dashboard-panel-big">
-                                &pound;{{ number_format($averageDealValue/100 , 2) }}
+                                &pound;{{ number_format($organisation->mostRecentStatistics()->average_deal_value/100 , 0) }}
                             </div>
                             <div class="dashboard-panel-small">
-                                Average deal value
+                                Average Deal Value
                             </div>
                         </div>
                     </div>
                     <div id="response_time" class="dashboard-panel">
                         <div class="dashboard-panel-wrapper">
                             <div class="dashboard-panel-big">
-                                {{ \Carbon\Carbon::create($averageResponseTime)->hour }} hours
+                                {{ number_format($organisation->mostRecentStatistics()->average_assignment_wait/60/60/24, 2) }} hours
                             </div>
                             <div class="dashboard-panel-small">
-                                Average response time
+                                Average assignment time
                             </div>
                         </div>
                     </div>
