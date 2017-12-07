@@ -12,6 +12,10 @@
 
   .top-wrap{
     grid-area: title;
+
+    p{
+      margin:0;
+    }
   }
 
   #acceptance{

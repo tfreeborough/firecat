@@ -23,6 +23,7 @@ class VendorController extends Controller
         $organisation = Auth::user()->organisation;
         return view('vendor.dashboard', [
             'organisation' => $organisation,
+            'statistics' => $organisation->mostRecentStatistics(),
             'assignments' => Auth::user()->assignments
         ]);
     }

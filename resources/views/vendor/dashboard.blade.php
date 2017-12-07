@@ -30,13 +30,21 @@
                     <div class="top-wrap">
                         <h3 class="title">Organisation statistics (last 30 days)</h3>
                         <p>
-                            Last generated: {{ \Carbon\Carbon::parse($organisation->mostRecentStatistics()->calculated_at)->toDayDateTimeString() }}
+                            @if($statistics !== null)
+                                <strong>Last Updated:</strong> {{ \Carbon\Carbon::parse($statistics->calculated_at)->toDayDateTimeString() }}
+                            @else
+                                <strong>Last Updated:</strong> Not yet run
+                            @endif
                         </p>
                     </div>
                     <div id="acceptance" class="dashboard-panel">
                         <div class="dashboard-panel-wrapper">
                             <div class="dashboard-panel-big">
-                                {{ $organisation->mostRecentStatistics()->deal_conversion_rate }}%
+                                @if($statistics !== null)
+                                    {{ $statistics->deal_conversion_rate }}%
+                                @else
+                                    N/A
+                                @endif
                             </div>
                             <div class="dashboard-panel-small">
                                 Deal Conversion Rate
@@ -46,7 +54,11 @@
                     <div id="opportunities_created" class="dashboard-panel">
                         <div class="dashboard-panel-wrapper">
                             <div class="dashboard-panel-big">
-                                {{ $organisation->mostRecentStatistics()->opportunities_received }}
+                                @if($statistics !== null)
+                                    {{ $statistics->opportunities_received }}
+                                @else
+                                    N/A
+                                @endif
                             </div>
                             <div class="dashboard-panel-small">
                                 Opportunities created
@@ -56,7 +68,11 @@
                     <div id="deal_value" class="dashboard-panel">
                         <div class="dashboard-panel-wrapper">
                             <div class="dashboard-panel-big">
-                                &pound;{{ number_format($organisation->mostRecentStatistics()->average_deal_value/100 , 0) }}
+                                @if($statistics !== null)
+                                    {{ number_format($statistics->average_deal_value/100 , 0) }}
+                                @else
+                                    N/A
+                                @endif
                             </div>
                             <div class="dashboard-panel-small">
                                 Average Deal Value
@@ -66,7 +82,11 @@
                     <div id="response_time" class="dashboard-panel">
                         <div class="dashboard-panel-wrapper">
                             <div class="dashboard-panel-big">
-                                {{ number_format($organisation->mostRecentStatistics()->average_assignment_wait/60/60/24, 2) }} hours
+                                @if($statistics !== null)
+                                    {{ number_format($statistics->average_assignment_wait/60/60/24, 2) }}
+                                @else
+                                    N/A
+                                @endif
                             </div>
                             <div class="dashboard-panel-small">
                                 Average assignment time
