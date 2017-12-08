@@ -1,6 +1,6 @@
 @extends('app_frontend')
 
-@section('title', 'Create an Account')
+@section('title', 'Create a Partner Account')
 
 @extends('_partials.menu')
 
@@ -16,7 +16,7 @@
                 <h5 class="text-center">Deal Registration Portal</h5>
             </div>
             <div class="row">
-                <h2 class="title">Create an account</h2>
+                <h2 class="title">Create a partner account</h2>
                 @include('_partials.flash_message')
                 {!! Form::open(['url' => '/register']) !!}
                 <div class="row">
