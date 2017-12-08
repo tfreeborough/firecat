@@ -2,6 +2,8 @@
 
 @section('title', 'Finish Creating your account')
 
+@extends('_partials.menu')
+
 @section('content')
     <div id="invite">
         <div id="invite-wrapper">

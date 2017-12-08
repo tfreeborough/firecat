@@ -2,18 +2,8 @@
 
 #verify{
   #verify-wrapper{
-    padding-top:50px;
-    padding-bottom:50px;
-
-
-    > div{
-      display:table;
-
-      .content{
-        display:table-cell;
-        width:100%;
-        vertical-align: middle;
-      }
-    }
+    width: 600px;
+    margin: auto;
+    padding-top: 10rem;
   }
 }

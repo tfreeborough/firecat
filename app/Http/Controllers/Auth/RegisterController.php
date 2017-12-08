@@ -35,7 +35,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/verify';
+    protected $redirectTo = '/register';
 
     /**
      * Create a new controller instance.
@@ -109,7 +109,9 @@ class RegisterController extends Controller
             event(new Registered($user = $this->create($request->all())));
 
             return $this->registered($request, $user)
-                ?: redirect($this->redirectPath());
+                ?: redirect($this->redirectPath())->with([
+                    'alert-success' => 'Thanks for registering, please check your email for a verification link.'
+                ]);
         }else{
             return redirect(route('register'))->withErrors([
                 'alert-error' => 'We could not verify that you aren\'t a robot, you haven\'t augmented yourself recently have you?'

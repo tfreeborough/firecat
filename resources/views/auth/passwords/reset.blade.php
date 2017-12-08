@@ -2,6 +2,8 @@
 
 @section('title', 'Reset your password')
 
+@extends('_partials.menu')
+
 @section('content')
     <div id="reset-password">
         <div id="reset-password-wrapper">
@@ -15,6 +17,10 @@
             </div>
             <div class="row">
                 <h2 class="title">Password Reset</h2>
+                <p>
+                    Please make sure you enter the email entered is the same as the one you used to send your password
+                    reset link to. Passwords must be at least 8 characters long.
+                </p>
                 @include('_partials.flash_message')
                 <form method="POST" action="{{ route('password.request') }}">
                     {{ csrf_field() }}

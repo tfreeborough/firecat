@@ -2,6 +2,8 @@
 
 @section('title', 'Create an Account')
 
+@extends('_partials.menu')
+
 @section('content')
     <div id="login">
         <div id="login-wrapper">
@@ -43,7 +45,7 @@
                     <div class="col-xs-12 col-md-6">
                         <div class="form-group">
                             {{ Form::label('password', null, ['class' => 'control-label']) }}
-                            {{ Form::password('password', array_merge(['class' => 'form-control', 'placeholder' => 'Last Name'])) }}
+                            {{ Form::password('password', array_merge(['class' => 'form-control', 'placeholder' => 'Password'])) }}
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-6">

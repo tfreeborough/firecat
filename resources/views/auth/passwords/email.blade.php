@@ -2,6 +2,8 @@
 
 @section('title', 'Forgotten password')
 
+@extends('_partials.menu')
+
 @section('content')
     <div id="login">
         <div id="login-wrapper">
@@ -15,6 +17,10 @@
             </div>
             <div class="row">
                 <h2 class="title">Password Reset</h2>
+                <p>
+                    If you require a password reset, please enter your email address below and we'll send out a password
+                    reset link right away.
+                </p>
                 @include('_partials.flash_message')
                 <form method="POST" action="{{ route('password.email') }}">
                     {{ csrf_field() }}

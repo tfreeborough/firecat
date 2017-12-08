@@ -89,9 +89,9 @@ class VerifyController extends Controller
                 Mail::to($user->email)->send(new Verify($user));
             }
         }
-
-        $request->session()->flash('status', 'Another code was sent to your email, please complete your account verification.');
-        return redirect('verify');
+        return redirect('verify')->with([
+            'alert-success' => 'Another code has been sent to your email.'
+        ]);
     }
 
 }
