@@ -14,7 +14,6 @@ use App\Models\Invite;
 use App\Models\Organisation;
 use App\Models\OrganisationAdministrator;
 use App\Models\User;
-use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
