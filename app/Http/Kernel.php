@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         'auth.partner' => \App\Http\Middleware\PartnerAuth::class,
         'auth.verified' => \App\Http\Middleware\EmailVerified::class,
         'auth.admin' => \App\Http\Middleware\AdminAuth::class,
+        'auth.vendor_admin' => \App\Http\Middleware\VendorAdmin::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

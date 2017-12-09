@@ -167,6 +167,14 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::post('deals/{uuid}/tag/link', 'Vendor\DealController@linkDealTag')->name('vendor.deal.tag.link');
     Route::post('deals/{uuid}/tag/unlink', 'Vendor\DealController@unlinkDealTag')->name('vendor.deal.tag.unlink');
 
-    Route::get('administration', 'Vendor\AdminController@showAdmin')->name('vendor.admin');
+    
+    Route::group(['middleware' => ['auth','auth.vendor','auth.verified', 'auth.vendor_admin']], function () {
+        Route::get('administration', 'Vendor\Admin\AdminController@showAdmin')->name('vendor.admin');
+        Route::get('administration/onboarding', 'Vendor\Admin\OnboardingController@showOnboarding')->name('vendor.admin.onboarding');
+        Route::post('administration/onboarding/{uuid}', 'Vendor\Admin\OnboardingController@postInvite')->name('vendor.admin.onboarding.invite');
+        Route::get('administration/onboarding/{uuid}/delete_invite/{invite_id}', 'Vendor\Admin\OnboardingController@deleteInvite')->name('vendor.admin.onboarding.delete_invite');
+        Route::get('administration/onboarding/{uuid}/renew_invite/{invite_id}', 'Vendor\Admin\OnboardingController@renewInvite')->name('vendor.admin.onboarding.renew_invite');
+    });
+    
 });
 
