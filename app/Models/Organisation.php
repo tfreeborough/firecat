@@ -39,6 +39,11 @@ class Organisation extends Model
     {
         return $this->hasMany('App\Models\User');
     }
+    
+    public function invites()
+    {
+        return $this->hasMany('App\Models\Invite');
+    }
 
     public function administrators()
     {
@@ -73,7 +78,11 @@ class Organisation extends Model
 
     public function defaultConsiderations()
     {
-        return [];
+        return [
+            'Has the partner been contacted to acknowledge this opportunity?',
+            'Has a final price been agreed with the partner?',
+            'Are all specifications of this opportunity able to be fulfilled?'
+        ];
     }
 
     public function deals()
