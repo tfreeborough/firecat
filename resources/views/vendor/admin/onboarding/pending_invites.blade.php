@@ -19,9 +19,10 @@
             @else
                 <td><i class="fa fa-times red" aria-hidden="true"></i></td>
             @endif
-            @if(!$invite->withinExpiry())
+            @if($invite->withinExpiry())
                 <td><i onClick="confirmDeleteInvite('{{$invite->id}}')" title="Remove Invite" class="fa fa-user-times" aria-hidden="true"></i></td>
             @else
+                <td><i onClick="confirmDeleteInvite('{{$invite->id}}')" title="Remove Invite" class="fa fa-user-times" aria-hidden="true"></i></td>
                 <td><i onClick="confirmRenewInvite('{{$invite->id}}')" title="Resend Invite" class="fa fa-refresh" aria-hidden="true"></i></td>
             @endif
         </tr>
