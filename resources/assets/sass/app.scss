@@ -38,6 +38,7 @@
   @import "_pages/vendor/deal_tag";
   @import "_pages/vendor/tags";
     @import "_pages/vendor/admin/index";
+    @import "_pages/vendor/admin/onboarding";
 
 @import "_pages/partner/dashboard";
   @import "_pages/partner/opportunities";
@@ -174,4 +175,12 @@ body{
 p.small{
   font-size:1.4rem;
   color:rgba(55,55,55,0.3);
+}
+
+.green{
+  color:green;
+}
+
+.red{
+  color:red;
 }

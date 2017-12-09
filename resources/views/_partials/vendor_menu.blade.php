@@ -45,7 +45,10 @@
             </a>
             @if(Auth::user()->isVendorAdministrator(Auth::user()->organisation->id))
                 <a href="{{route('vendor.admin')}}"
-                   class="{{ Helper::isActiveRoute('vendor.admin') }}"
+                   class="{{ Helper::areActiveRoutes([
+                    'vendor.admin',
+                    'vendor.admin.onboarding'
+                   ]) }}"
                 >
                     <li>
                         <i class="fa fa-sitemap" aria-hidden="true"></i> Administration

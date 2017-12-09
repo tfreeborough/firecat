@@ -1,16 +1,14 @@
 #invite{
 
-  p{
-    color:$firecat-white;
-  }
-
   .highlight{
-    color:$firecat-dark-grey;
+    color:$firecat-secondary;
   }
 
   #vendor-box{
     border:1px solid rgba(55,55,55,0.1);
+    background:rgba(55, 55, 55, 0.3);
     padding:1rem;
+    border-radius:4px;
 
     #vendor-box-top{
       p{
@@ -24,6 +22,15 @@
     background:none;
     width:600px;
     margin:auto;
+    color:$firecat-white;
+
+    p.small{
+      color:$firecat-white;
+
+      .highlight{
+        color:$firecat-dark-grey;
+      }
+    }
 
 
     #logo-banner{
