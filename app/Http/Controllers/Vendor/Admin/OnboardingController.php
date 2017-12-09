@@ -23,6 +23,10 @@ class OnboardingController extends Controller
 {
 
 
+
+    /**
+     * @return $this
+     */
     public function showOnboarding()
     {
         return view('vendor.admin.onboarding.onboarding')->with([
@@ -30,7 +34,15 @@ class OnboardingController extends Controller
             'invites' => Auth::user()->organisation->invites
         ]);
     }
-    
+
+
+
+    /**
+     * @param Request $request
+     * @param $uuid
+     * @return $this|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function postInvite(Request $request, $uuid)
     {
         Validator::make($request->all(), [
@@ -66,6 +78,13 @@ class OnboardingController extends Controller
 
     }
 
+
+
+    /**
+     * @param $uuid
+     * @param $invite_id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function deleteInvite($uuid, $invite_id)
     {
         if(Auth::user()->isVendorAdministrator($uuid)){
@@ -82,6 +101,14 @@ class OnboardingController extends Controller
         ]);
     }
 
+
+
+    /**
+     * @param $uuid
+     * @param $invite_id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
     public function renewInvite($uuid, $invite_id)
     {
         if(Auth::user()->isVendorAdministrator($uuid)){

@@ -79,13 +79,17 @@ Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' =>
         Route::get('create', 'Admin\OrganisationController@showOrganisationCreation')->name('admin.onboarding.create');
         Route::get('{uuid}', 'Admin\OrganisationController@showOrganisation')->name('admin.onboarding.index');
         Route::get('{uuid}/add', 'Admin\OrganisationController@showUserAdd')->name('admin.onboarding.add-user');
+        Route::get('{uuid}/invites', 'Admin\OrganisationController@showInvites')->name('admin.onboarding.invites');
         Route::get('{uuid}/unlink/{user}', 'Admin\OrganisationController@unlinkUser');
         Route::get('{uuid}/adminify/{user}', 'Admin\OrganisationController@adminifyUser');
         Route::get('{uuid}/deadminify/{user}', 'Admin\OrganisationController@deadminifyUser');
 
         Route::post('create', 'Admin\OrganisationController@postOrganisationCreation');
-        Route::post('{uuid}/add/new', 'Admin\OrganisationController@postUserAddNew');
+        Route::post('{uuid}/add/new', 'Admin\OrganisationController@postUserAddNew')->name('admin.onboarding.invite_new');
         Route::post('{uuid}/add/link', 'Admin\OrganisationController@postUserAddLink');
+
+        Route::get('{uuid}/delete_invite/{invite_id}', 'Admin\OrganisationController@deleteInvite')->name('admin.onboarding.delete_invite');
+        Route::get('{uuid}/renew_invite/{invite_id}', 'Admin\OrganisationController@renewInvite')->name('admin.onboarding.renew_invite');
 
 
     });

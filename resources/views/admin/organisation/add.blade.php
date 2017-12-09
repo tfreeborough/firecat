@@ -36,7 +36,7 @@
             @include('_partials.flash_message')
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <h3>Invite a new user</h3>
+                    <h3 class="title">Invite a new user</h3>
                     {!! Form::open(['url' => '/admin/onboarding/'.$organisation->id.'/add/new']) !!}
                     <div class="form-group">
                         {{ Form::label('first_name', null, ['class' => 'control-label']) }}
@@ -60,7 +60,7 @@
                     {!! Form::close() !!}
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <h3>...Or search for a user below.</h3>
+                    <h3 class="title">...Or search for a user below.</h3>
                     {{ Form::label('email', null, ['class' => 'control-label']) }}
                     {{ Form::text('email', null, array_merge([
                     'class' => 'form-control',

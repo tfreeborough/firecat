@@ -32,13 +32,15 @@
             @include('_partials.flash_message')
             <div class="row">
                 <div class="col-xs-12">
-                    <a href="/admin/onboarding/{{ $organisation->id }}/add">
-                        <button class="button action">Add user to {{ $organisation->name }}</button>
+                    <a href="/admin/onboarding/{{ $organisation->id }}/invites">
+                        <button class="button">View Invites ({{ count($organisation->invites) }})</button>
                     </a>
                 </div>
             </div>
+            <br/>
             <div class="row">
                 <div class="col-xs-12">
+                    <h3 class="title">{{ $organisation->name }} users</h3>
                     <table id="organisation_user_table" class="table">
                         <thead>
                         <tr>
@@ -93,6 +95,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    <a href="/admin/onboarding/{{ $organisation->id }}/add">
+                        <button class="button action">Add user to {{ $organisation->name }}</button>
+                    </a>
                 </div>
             </div>
 

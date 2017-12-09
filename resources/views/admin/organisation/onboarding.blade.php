@@ -39,11 +39,11 @@
                 <tbody>
                     @foreach($organisations as $organisation)
                         <tr>
-                            <td>{{ $organisation->name }}</td>
+                            <td><a href="{{ route('admin.onboarding.index',$organisation->id) }}">{{ $organisation->name }}</a></td>
                             <td>{{ $organisation->memberCount() }}</td>
                             <td>
                                 <a href="/admin/onboarding/{{$organisation->id}}">
-                                    <button class="btn btn-info" title="Edit this organisation"><i class="fa fa-pencil-square" aria-hidden="true"></i></button>
+                                    <button class="button" title="View this organisation"><i class="fa fa-eye" aria-hidden="true"></i></button>
                                 </a>
                             </td>
                         </tr>

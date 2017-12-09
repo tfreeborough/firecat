@@ -28,6 +28,7 @@ class OrganisationController
 {
 
 
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -38,6 +39,8 @@ class OrganisationController
         ]);
     }
 
+
+    
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -45,6 +48,8 @@ class OrganisationController
     {
         return view('admin.organisation.create_organisation');
     }
+
+
 
     /**
      * @param Request $request
@@ -65,6 +70,8 @@ class OrganisationController
         return redirect('/admin/onboarding');
     }
 
+
+
     /**
      * @param $uuid
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -75,6 +82,8 @@ class OrganisationController
             'organisation' => Organisation::find($uuid)
         ]);
     }
+
+
 
     /**
      * @param $uuid
@@ -87,6 +96,8 @@ class OrganisationController
             'json_users' => json_encode(User::all())
         ]);
     }
+
+
 
     /**
      * @param Request $request
@@ -122,6 +133,8 @@ class OrganisationController
         ]);
     }
 
+
+
     /**
      * @param Request $request
      * @param $uuid
@@ -141,10 +154,16 @@ class OrganisationController
         }
 
         Organisation::find($uuid)->members()->save($user);
+
+        $user->vendor = true;
+        $user->partner = false;
+        $user->save();
+
         return redirect('/admin/onboarding/' . $uuid)->with([
             'alert-success' => 'That user has been successfully linked.'
         ]);;
     }
+
 
 
     /**
@@ -166,7 +185,14 @@ class OrganisationController
             'alert-success' => 'That user has been successfully unlinked.'
         ]);
     }
-    
+
+
+
+    /**
+     * @param $uuid
+     * @param $user_id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function adminifyUser($uuid, $user_id)
     {
         $user = User::find($user_id);
@@ -184,6 +210,13 @@ class OrganisationController
         ]);
     }
 
+
+
+    /**
+     * @param $uuid
+     * @param $user_id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function deadminifyUser($uuid, $user_id)
     {
         $user = User::find($user_id);
@@ -196,6 +229,67 @@ class OrganisationController
         }
         return redirect('/admin/onboarding/' . $uuid)->withErrors([
             'alert-danger' => 'That user is already a regular user'
+        ]);
+    }
+
+
+
+    /**
+     * @param $uuid
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showInvites($uuid)
+    {
+        return view('admin.organisation.onboarding.invites', [
+            'organisation' => Organisation::find($uuid)
+        ]);
+    }
+
+
+
+    /**
+     * @param $uuid
+     * @param $invite_id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function deleteInvite($uuid, $invite_id)
+    {
+        $invite = Invite::find($invite_id);
+        if($invite && $invite->organisation->id === $uuid){
+            $invite->delete();
+            return redirect(route('admin.onboarding.index', $uuid))->with([
+                'alert-success' => 'That invite has been successfully deleted.'
+            ]);
+        }
+        return redirect(route('admin.onboarding.index', $uuid))->withErrors([
+            'alert-danger' => 'This invite does not exist.'
+        ]);
+    }
+
+
+
+    /**
+     * @param $uuid
+     * @param $invite_id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function renewInvite($uuid, $invite_id)
+    {
+        $invite = Invite::find($invite_id);
+        if($invite && $invite->organisation->id === $uuid){
+            $invite->token = Uuid::generate();
+            $invite->expiry = Carbon::now()->addDays(7);
+            $invite->save();
+
+            Mail::to($invite->email)->send(new InviteUser($invite));
+
+            return redirect(route('admin.onboarding.index', $uuid))->with([
+                'alert-success' => 'That invite has been successfully renewed and a new email sent to '.$invite->email.'.'
+            ]);
+        }
+        return redirect(route('admin.onboarding.index', $uuid))->withErrors([
+            'alert-danger' => 'This invite does not exist.'
         ]);
     }
 }
