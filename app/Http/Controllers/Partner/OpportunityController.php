@@ -97,7 +97,22 @@ class OpportunityController extends Controller
         return abort(404);
     }
     
+    public function showMagicLink($uuid)
+    {
+        $endUsers = Auth::user()->endUsers;
+        $endUsersSelect = [];
+        foreach($endUsers as $endUser){
+            $endUsersSelect[$endUser->id] = "$endUser->name ($endUser->contact_name)";
+        }
 
+        return view('partner.opportunities.create', [
+            'endUsers' => $endUsersSelect,
+            'magic_link' =>  true,
+            'vendor' => Organisation::find($uuid),
+            'vendors' => []
+        ]);
+    }
+    
     public function showCreateOpportunity()
     {
         $endUsers = Auth::user()->endUsers;
@@ -107,16 +122,18 @@ class OpportunityController extends Controller
         }
 
         $vendors = Organisation::orderBy('name','ASC')->get();
-        $vendorsSelect = [
-            '' => '-- Select a Vendor --'
-        ];
+        $vendorsSelect = [];
         foreach($vendors as $vendor){
-            $vendorsSelect[$vendor->id] = $vendor->name;
+            $vendorsSelect[] = [
+                'name' => $vendor->name,
+                'id' => $vendor->id
+            ];
         }
 
         return view('partner.opportunities.create', [
             'endUsers' => $endUsersSelect,
-            'vendors' =>  $vendorsSelect
+            'vendors' =>  $vendorsSelect,
+            'magic_link' =>  false,
         ]);
     }
     

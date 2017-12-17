@@ -91,7 +91,6 @@ Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' =>
         Route::get('{uuid}/delete_invite/{invite_id}', 'Admin\OrganisationController@deleteInvite')->name('admin.onboarding.delete_invite');
         Route::get('{uuid}/renew_invite/{invite_id}', 'Admin\OrganisationController@renewInvite')->name('admin.onboarding.renew_invite');
 
-
     });
 
     Route::group(['prefix' => 'partners'], function () {
@@ -109,7 +108,12 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     /*
      * PARTNER ROUTES
      */
-    Route::get('/', 'Partner\PartnerController@showDashboard')->Name('partner.dashboard');
+    Route::get('/', 'Partner\PartnerController@showDashboard')->name('partner.dashboard');
+
+    /*
+     * Magic Link
+     */
+    Route::get('/magic-link/{uuid}', 'Partner\OpportunityController@showMagicLink')->name('magic-link');
 
     /*
      * Account Routes
@@ -117,18 +121,26 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     Route::get('account', 'Account\AccountController@showAccount')->name('partner.account');
     Route::post('account/avatar', 'Account\AccountController@postAvatar');
     Route::post('account/additional', 'Account\AccountController@postAdditional');
-    
+
+    /*
+     * Deal Routes
+     */
     Route::get('deals', 'Partner\DealController@showDeals')->name('partner.deals');
     Route::get('deals/{uuid}', 'Partner\DealController@showDeal')->name('partner.deal');
 
+    /*
+     * End User Routes
+     */
     Route::get('end-users', 'Partner\EndUserController@showEndUsers')->name('partner.endUsers');
     Route::get('end-users/create', 'Partner\EndUserController@showCreateEndUser')->name('partner.endUsers.create');
     Route::post('end-users/create', 'Partner\EndUserController@postCreateEndUser');
 
+    /*
+     * Opportunity Routes
+     */
     Route::get('opportunities', 'Partner\OpportunityController@showOpportunities')->name('partner.opportunities');
     Route::get('opportunities/create', 'Partner\OpportunityController@showCreateOpportunity')->name('partner.opportunities.create');
     Route::post('opportunities/create', 'Partner\OpportunityController@postCreateOpportunity');
-
     Route::get('opportunities/{uuid}', 'Partner\OpportunityController@showOpportunity')->name('partner.opportunity');
     Route::get('opportunities/{uuid}/threads', 'Partner\OpportunityController@showThreads')->name('partner.opportunity.threads');
     Route::post('opportunities/{uuid}/threads/create', 'Partner\OpportunityController@postCreateThread')->name('partner.opportunity.threads.create');

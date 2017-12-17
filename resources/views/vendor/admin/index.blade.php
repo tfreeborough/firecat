@@ -24,6 +24,11 @@
         </div>
     </div>
     <div id="vendor-admin">
+        <div class="row">
+            <div class="col-xs-12">
+                Magic Link: <input type="text" value="{{ route('magic-link',$vendor->id) }}" size="80" />
+            </div>
+        </div>
         <div id="vendor-admin-stats-wrapper">
             <div id="vendor-admin-stats">
                 <div id="square1" class="statistic box">

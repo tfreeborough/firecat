@@ -2,6 +2,7 @@
 
 @section('title', 'Create an opportunity')
 
+
 @extends('_partials.authenticated.account_bar')
 @extends('_partials.partner_menu')
 
@@ -52,23 +53,35 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                    {{ Form::label('vendor_search', 'Vendor Search', ['class' => 'control-label']) }}
-                    {{ Form::text('vendor_search', null, array_merge(['class' => 'form-control', 'placeholder' => 'Search for a vendor here'])) }}
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="form-group">
-                        {{ Form::label('vendor', 'Vendor', ['class' => 'control-label required']) }}
-                        {{ Form::select('vendor', $vendors, 0, array_merge(['class' => 'form-control'])) }}
+                @if($magic_link)
+                    {{ Form::hidden('vendor', $vendor->id, null) }}
+                    <div class="col-xs-12">
+                        <div class="alert alert-info">
+                            <p>
+                                You are creating this opportunity with <strong>{{ $vendor->name  }}</strong> using a magic link,
+                                if you want to use a different vendor, please <a href="{{ route('partner.opportunities.create') }}"><strong>click here.</strong></a>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="alert alert-info">
-                        <p>
-                            Please take care when selecting a vendor as this cannot be modified once the opportunity has been created.
-                        </p>
+                @else
+                    <div class="col-xs-12 col-sm-4">
+                        {{ Form::label('vendor_search', 'Vendor Search', ['class' => 'control-label']) }}
+                        <input type="text" class="form-control" placeholder="Search for a vendor..." onkeyup="vendorSearch(event)" />
                     </div>
-                </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="form-group">
+                            {{ Form::label('vendor', 'Vendor', ['class' => 'control-label required']) }}
+                            {{ Form::select('vendor', $vendors, 0, array_merge(['class' => 'form-control', 'id' => 'vendor-select'])) }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="alert alert-info">
+                            <p>
+                                Please take care when selecting a vendor as this cannot be modified once the opportunity has been created.
+                            </p>
+                        </div>
+                    </div>
+                @endif
             </div>
             <div id="end-user" class="row">
                 <div class="col-xs-12">
@@ -263,6 +276,48 @@
 @endsection
 @section('scripts')
     <script>
+        function vendorSearch(e)
+        {
+            var options = {
+                shouldSort: true,
+                threshold: 0.6,
+                location: 0,
+                distance: 100,
+                maxPatternLength: 32,
+                minMatchCharLength: 1,
+                keys: [
+                    "name",
+                ]
+            };
+            let vendors = '{!! json_encode($vendors) !!}';
+            vendors = JSON.parse(vendors);
+            var fuse = new Fuse(vendors, options); // "list" is the item array
+            var results = fuse.search(e.target.value);
+
+            $('#vendor-select').html('');
+
+            results.forEach(function(e,i){
+                $('#vendor-select').append($('<option>', {
+                    value: e.id,
+                    text: e.name
+                }));
+            });
+
+            if(results.length === 0){
+                $('#vendor-select').append($('<option>', {
+                    value: '',
+                    text: '-- PLEASE SELECT A VENDOR --'
+                }));
+
+                vendors.forEach(function(e, i){
+                    $('#vendor-select').append($('<option>', {
+                        value: e.id,
+                        text: e.name
+                    }));
+                });
+            }
+        }
+
         function addOpportunityProduct(){
             var count = 1;
             var lastRow = $('.product:first-child');
