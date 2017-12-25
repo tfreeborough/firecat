@@ -9,12 +9,15 @@
 namespace App\Http\Controllers\Vendor;
 
 
+use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
+use App\Mail\RequestDealUpdate;
 use App\Models\Deal;
 use App\Models\DealTag;
 use App\Models\OrganisationTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class DealController extends Controller
@@ -54,6 +57,66 @@ class DealController extends Controller
         }
     }
 
+    public function postDealWon($uuid)
+    {
+        $deal = Deal::find($uuid);
+        if(Auth::user()->isAssigned($deal->opportunity_id)){
+            $deal->status->pending = false;
+            $deal->status->won = true;
+            $deal->status->save();
+            event(new CreateOpportunityActivity(
+                $deal->opportunity,
+                Auth::user(),
+                Auth::user()->name().' marked this deal as Won.',
+                null
+            ));
+
+            return redirect(route('vendor.deal',$uuid));
+        }else{
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot change its properties.'
+            ]);
+        }
+    }
+
+    public function postDealLost($uuid)
+    {
+        $deal = Deal::find($uuid);
+        if(Auth::user()->isAssigned($deal->opportunity_id)){
+            $deal->status->pending = false;
+            $deal->status->won = false;
+            $deal->status->save();
+            event(new CreateOpportunityActivity(
+                $deal->opportunity,
+                Auth::user(),
+                Auth::user()->name().' marked this deal as Lost.',
+                null
+            ));
+
+            return redirect(route('vendor.deal',$uuid));
+        }else{
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot change its properties.'
+            ]);
+        }
+    }
+
+    public function postDealRequestUpdate($uuid)
+    {
+        $deal = Deal::find($uuid);
+        if(Auth::user()->isAssigned($deal->opportunity_id)){
+            Mail::to($deal->opportunity->partner->email)
+                ->queue(new RequestDealUpdate($deal->opportunity->partner, $deal, Auth::user()));
+            return redirect(route('vendor.deal',$deal->id))->with([
+                'alert-info' => 'A request for information has been successfully sent to the partner of this deal ('.$deal->opportunity->partner->email.').'
+            ]);
+        }else{
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot perform that action.'
+            ]);
+        }
+    }
+    
     public function postDealTag($uuid, Request $request)
     {
         Validator::make($request->all(), [
