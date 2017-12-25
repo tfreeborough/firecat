@@ -15,6 +15,7 @@ use App\Models\Opportunity;
 use App\Models\OpportunityConsideration;
 use App\Models\OpportunityProduct;
 use App\Models\OpportunityStatus;
+use App\Models\OpportunityThreadMessage;
 use App\Models\Organisation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -85,7 +86,7 @@ class OpportunityController extends Controller
                 'message' => 'required|string',
                 'thread' => 'required|string'
             ])->validate();
-
+            
             $message = new OpportunityThreadMessage();
             $message->message = $request->get('message');
             $message->opportunity_thread_id = $request->get('thread');
