@@ -46,5 +46,10 @@ class Deal extends Model
         return $this->hasOne('App\Models\DealStatus');
     }
 
+    public function updates()
+    {
+        return $this->hasMany('App\Models\DealUpdate');
+    }
+
 
 }
