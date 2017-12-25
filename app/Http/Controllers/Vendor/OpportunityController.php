@@ -13,6 +13,7 @@ use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
 use App\Models\Assignee;
 use App\Models\Deal;
+use App\Models\DealStatus;
 use App\Models\Opportunity;
 use App\Models\OpportunityMessage;
 use App\Models\OpportunityThread;
@@ -251,6 +252,12 @@ class OpportunityController extends Controller
                         
                         $opportunity->status->accepted = true;
                         $opportunity->status->save();
+                        
+                        $deal_status = new DealStatus();
+                        $deal_status->pending = true;
+                        $deal_status->won = false;
+                        $deal_status->deal_id = $deal->id;
+                        $deal_status->save();
 
                         event(new CreateOpportunityActivity(
                             $opportunity,
