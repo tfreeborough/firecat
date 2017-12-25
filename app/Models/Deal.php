@@ -41,5 +41,10 @@ class Deal extends Model
         return $this->hasMany('App\Models\DealTag');
     }
 
+    public function status()
+    {
+        return $this->hasOne('App\Models\DealStatus');
+    }
+
 
 }

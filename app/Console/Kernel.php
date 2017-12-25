@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\CalculateVendorStatistics::class
+        Commands\CalculateVendorStatistics::class,
+        Commands\BackdateDealStatuses::class
     ];
 
     /**
@@ -27,6 +28,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('calculate:vendor_statistics');
+        $schedule->command('backdate:deal_statuses');
     }
 
     /**
