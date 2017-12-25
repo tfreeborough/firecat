@@ -1,4 +1,4 @@
-<div class="status-code-display">
+<div class="status-code-display block">
     <h3 class="title">Status</h3>
     <table>
         <thead>

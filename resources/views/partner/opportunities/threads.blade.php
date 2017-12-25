@@ -109,7 +109,7 @@
                                 $('#threads_viewer .thread_viewer_item').each(function(index, element){
                                     if($(element).data('thread_id') === id){
                                         $(element).children('i').remove();
-                                        $(element).append('' +
+                                        $(element).prepend('' +
                                                 '<div class="thread_viewer_item_message animated fadeIn">' +
                                                 '<p>'+Autolinker.link(data.message)+'</p>' +
                                                 '<p>' +

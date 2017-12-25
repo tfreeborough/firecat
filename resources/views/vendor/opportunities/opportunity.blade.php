@@ -29,71 +29,34 @@
                 </ul>
             </div>
         </div>
+        @include('_partials.errors')
         <div id="vendor-opportunity">
-            @include('_partials.errors')
-            @if($opportunity->deal !== null)
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="text-left">
-                            <div class="alert alert-success">
-                                <p>
-                                    This opportunity has been converted to a deal registration, you can view that by clicking on the button below |
-                                    <a href="/vendor/deals/{{$opportunity->deal->id}}">
-                                        View Deal Registration
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
+            <div id="opportunity_converted">
+                @if($opportunity->deal !== null)
+                    <div class="alert alert-success">
+                        <p>
+                            This opportunity has been converted to a deal registration, you can view that by clicking the following link. |
+                            <a href="/vendor/deals/{{$opportunity->deal->id}}">
+                                View Deal Registration
+                            </a>
+                        </p>
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
             @if($opportunity->status->in_review)
-                <div class="row">
-                    <div class="col-xs-12 col-md-6 col-lg-4">
-                        @if(!$opportunity->status->accepted)
-                            <div class="alert alert-danger">
-                                <p>
-                                    This opportunity is currently in review, please ensure all considerations have been achieved
-                                    then you will be able to convert this opportunity into a deal registration.
-                                </p>
-                            </div>
-                        @endif
-                        @include('_partials.opportunities.status_code_display')
-                    </div>
-                    <div class="col-xs-12 col-md-6 col-lg-4">
-                        @include('_partials.opportunities.vendor.review_panel')
-                    </div>
-                    <div class="col-xs-12 col-md-6 col-lg-4">
-                        @include('_partials.opportunities.vendor.partner_consultation')
-                    </div>
-                </div>
+                @include('_partials.opportunities.status_code_display')
+                @include('_partials.opportunities.vendor.review_panel')
+                @include('_partials.opportunities.vendor.partner_consultation')
             @else
-                <div class="row">
-                    <div class="col-xs-12">
-                        @include('_partials.opportunities.status_code_display')
-                    </div>
-                </div>
+                @include('_partials.opportunities.status_code_display')
             @endif
-            <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-4">
-                    @include('_partials.opportunities.vendor.internal_messaging_panel')
-                </div>
-                <div class="col-xs-12 col-md-12 col-lg-4">
-                    @include('_partials.opportunities.vendor.activity_panel');
-                </div>
-                <div class="col-xs-12 col-md-6 col-lg-4">
-                    @include('_partials.opportunities.vendor.assignments_panel')
-                </div>
-            </div>
-            <div class="row">
-                <div id="partner-information" class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
-                    @include('_partials.opportunities.vendor.opportunity_products');
-                    @include('_partials.opportunities.vendor.partner_information');
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-                    @include('_partials.opportunities.vendor.opportunity_information');
-                </div>
-            </div>
+
+            @include('_partials.opportunities.vendor.partner_information')
+            @include('_partials.opportunities.vendor.opportunity_information')
+            @include('_partials.opportunities.vendor.internal_messaging_panel')
+            @include('_partials.opportunities.vendor.activity_panel')
+            @include('_partials.opportunities.vendor.assignments_panel')
+            @include('_partials.opportunities.vendor.opportunity_products')
         </div>
     </div>
 @endsection

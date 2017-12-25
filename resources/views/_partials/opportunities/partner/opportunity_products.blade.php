@@ -1,13 +1,15 @@
-<div id="opportunity_products">
-    <div class="row">
-        <h3 class="title">Products</h3>
-    </div>
-    <div class="row">
-        <table id="opportunity-product-table" class="table">
+<div id="opportunity_products" class="block">
+    <h3 class="title">Products</h3>
+    <div id="opportunity_products_wrapper">
+        <table id="product-table" class="table table-striped">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Details</th>
+                <th>
+                    Product
+                </th>
+                <th>
+                    Quantity/Size/Model
+                </th>
             </tr>
             </thead>
             <tbody>
@@ -17,7 +19,6 @@
                     <td>{{ $product->description }}</td>
                 </tr>
             @endforeach
-
             </tbody>
         </table>
     </div>

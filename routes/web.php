@@ -127,6 +127,9 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
      */
     Route::get('deals', 'Partner\DealController@showDeals')->name('partner.deals');
     Route::get('deals/{uuid}', 'Partner\DealController@showDeal')->name('partner.deal');
+    Route::get('deals/{uuid}/won', 'Partner\DealController@postDealWon')->name('partner.deal.won');
+    Route::get('deals/{uuid}/lost', 'Partner\DealController@postDealLost')->name('partner.deal.lost');
+    Route::post('deals/{uuid}/implementation_date_change_request', 'Partner\DealController@postRequestImplementationDateChange')->name('partner.deal.implementation_change_request');
 
     /*
      * End User Routes
@@ -178,10 +181,15 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::post('opportunities/{uuid}/threads/message', 'Vendor\OpportunityController@postNewThreadMessage')->name('vendor.opportunity.threads.message');
     
     Route::get('deals/{uuid}', 'Vendor\DealController@showDeal')->name('vendor.deal');
+    Route::get('deals/{uuid}/won', 'Vendor\DealController@postDealWon')->name('vendor.deal.won');
+    Route::get('deals/{uuid}/lost', 'Vendor\DealController@postDealLost')->name('vendor.deal.lost');
+    Route::get('deals/{uuid}/request_update', 'Vendor\DealController@postDealRequestUpdate')->name('vendor.deal.request_update');
     Route::get('deals/{uuid}/tag', 'Vendor\DealController@showDealTag')->name('vendor.deal.tag');
     Route::post('deals/{uuid}/tag', 'Vendor\DealController@postDealTag')->name('vendor.deal.tag.post');
     Route::post('deals/{uuid}/tag/link', 'Vendor\DealController@linkDealTag')->name('vendor.deal.tag.link');
     Route::post('deals/{uuid}/tag/unlink', 'Vendor\DealController@unlinkDealTag')->name('vendor.deal.tag.unlink');
+    Route::get('deals/{uuid}/update/{update_id}/accept', 'Vendor\DealController@acceptDealUpdate')->name('vendor.deal.update.accept');
+    Route::get('deals/{uuid}/update/{update_id}/reject', 'Vendor\DealController@rejectDealUpdate')->name('vendor.deal.update.reject');
 
     
     Route::group(['middleware' => ['auth','auth.vendor','auth.verified', 'auth.vendor_admin']], function () {

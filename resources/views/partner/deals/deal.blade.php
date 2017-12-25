@@ -31,32 +31,22 @@
             </div>
         </div>
         <div id="partner_deal">
-            <div class="row">
-                <div id="deal_actions" class="col-xs-12">
-                    <a class="pull-right" href="{{route('partner.opportunity',$deal->opportunity->id)}}">
-                        <button class="button">View Opportunity</button>
-                    </a>
-                    <div class="pull-right">
-                        <button class="button">Email to me</button>
-                    </div>
-                </div>
+            <div id="deal_actions" class="block">
+                <a href="{{route('partner.opportunity',$deal->opportunity->id)}}">
+                    <i class="fa fa-file-text" aria-hidden="true" title="View Opportunity"></i>
+                </a>
+                <a href="{{route('partner.opportunity',$deal->opportunity->id)}}">
+                    <i class="fa fa-envelope-o" aria-hidden="true" title="Email to me"></i>
+                </a>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.my_information')
-                </div>
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.end_user')
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.opportunity_information')
-                </div>
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.opportunity_products')
-                </div>
-            </div>
+            @include('_partials.deals.partner.deal_status')
+            @include('_partials.deals.partner.deal_implementation')
+            @include('_partials.deals.partner.deal_updates')
+            @include('_partials.opportunities.partner.my_information')
+            @include('_partials.opportunities.partner.end_user')
+            @include('_partials.opportunities.partner.opportunity_information')
+            @include('_partials.opportunities.partner.opportunity_products')
         </div>
     </div>
 @endsection
+

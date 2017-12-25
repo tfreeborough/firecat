@@ -1,0 +1,511 @@
+#deal_actions{
+  grid-area: deal_actions;
+  padding:0;
+  display:grid;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fill, 5.5rem);
+
+  a{
+    text-align: center;
+    color:$firecat-dark-grey;
+    font-size:2.5rem;
+    padding:1rem;
+    border-right:1px solid $firecat-light-grey;
+
+    &:hover{
+      cursor:pointer;
+      opacity:0.7;
+    }
+  }
+
+  a:last-child{
+    border-right:none;
+  }
+}
+
+#deal_status{
+  grid-area: status;
+  border: 1px solid $firecat-light-grey;
+  display:grid;
+  align-items: center;
+
+  > div{
+    display:grid;
+    padding: 2rem 10rem;
+    border-radius: 4px;
+    font-size: 2.5rem;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  &.pending{
+    background:rgba(yellow,0.1);
+  }
+
+  &.won{
+    background:rgba(green, 0.1);
+  }
+
+  &.lost{
+    background: rgba(red, 0.1);
+  }
+}
+
+#deal_implementation{
+  grid-area: implementation;
+  display:grid;
+  grid-gap:2px;
+  grid-template-columns: 1fr auto;
+
+  #deal_implementation_wrapper{
+    border: 1px solid $firecat-light-grey;
+    display:grid;
+    align-items: center;
+    border-radius: 4px;
+
+    font-size: 2.5rem;
+    font-weight: 300;
+
+    p{
+      margin:0;
+    }
+
+    .implementation_date{
+      line-height: 3rem;
+      text-align: center;
+      margin-bottom:5px;
+    }
+
+    .implementation_diff{
+      font-size:1.2rem;
+      line-height: 1.5rem;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .implementation_title{
+      font-size:1.2rem;
+      line-height: 1.5rem;
+      color:$firecat-primary;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+
+  #deal_status_actions{
+    display:grid;
+    border: 1px solid $firecat-light-grey;
+    padding:0;
+
+    > div{
+      display:grid;
+      align-items: center;
+      padding: 0;
+      border-radius: 4px;
+
+      font-size: 2.5rem;
+      font-weight: 300;
+
+      ul{
+        display:grid;
+        list-style-type: none;
+        padding:0;
+        margin:0;
+        height:100%;
+
+        li{
+          height:100%;
+          margin:0;
+          padding:0 1rem;
+          text-align: center;
+          display:grid;
+          align-items: center;
+
+          &:hover{
+            opacity:0.7;
+            cursor:pointer;
+          }
+        }
+
+        li:not(:last-child){
+          border-bottom:1px solid $firecat-light-grey;
+        }
+      }
+    }
+  }
+}
+
+#deal_updates{
+  grid-area: updates;
+  display:grid;
+  border: 1px solid $firecat-light-grey;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+  padding:1rem;
+
+  #deal_updates_wrapper{
+    display:grid;
+    align-items: center;
+    padding: 0;
+    border-radius: 4px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap:1rem;
+    font-weight: 300;
+    align-items: start;
+
+    .deal_update{
+      display:grid;
+      position: relative;
+      align-items: center;
+      padding:1rem;
+      background:rgba($firecat-light-grey,0.5);
+      border:1px solid $firecat-light-grey;
+      padding-bottom:2rem;
+
+      p{
+        margin:0;
+      }
+
+      &:hover{
+        .deal_update_actions{
+          display:grid;
+        }
+      }
+
+      .deal_update_actions{
+        position: absolute;
+        right:0;
+        bottom:0;
+        font-size:2rem;
+        display:none;
+        grid-template-columns: 32px 32px;
+        border:1px solid $firecat-light-grey;
+        background:$firecat-white;
+        border-right:none;
+        border-bottom:none;
+        border-radius:4px;
+        justify-items: center;
+        height: 32px;
+        align-items: center;
+        box-shadow:-2px -2px 4px $firecat-light-grey;
+
+        i{
+          &:hover{
+            opacity:0.7;
+            cursor:pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+#my_information,#partner_information{
+  grid-area: my_information;
+
+  .avatar{
+    display: inline-block;
+
+    img{
+      width:50px;
+      height:50px;
+    }
+  }
+
+  .partner-name{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 14px;
+    margin-left: 1rem;
+  }
+
+  #partner-contact-information{
+    tr{
+      td:first-child{
+        text-align: left;
+        font-weight:800;
+      }
+    }
+  }
+}
+
+#end_user{
+  grid-area: end_user;
+}
+
+#opportunity_information{
+  grid-area: opportunity_information;
+
+  blockquote{
+    margin-bottom:0;
+  }
+
+  tr{
+    td:first-child{
+      min-width: 160px;
+    }
+  }
+
+  ul{
+    list-style-type: none;
+    padding:0;
+    margin:0;
+
+    li:not(:first-child){
+      &.more-info{
+        margin-top:1rem;
+      }
+    }
+
+    li{
+      &.more-info{
+        color:$brand-primary;
+        font-weight:500;
+      }
+    }
+  }
+
+  #justification{
+    font-size:1.6rem;
+  }
+}
+
+#opportunity_products{
+  grid-area: opportunity_products;
+}
+
+#assignments_panel{
+  grid-area: assignments_panel;
+}
+
+#activity_panel{
+  grid-area: activity_panel;
+  position: relative;
+  padding-bottom:5rem;
+
+  #button-wrapper{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align: right;
+
+    button{
+      display:inline-block;
+      border-radius:4px 0 0 0;
+    }
+  }
+
+  ul{
+    padding:0;
+    list-style-type: none;
+
+    li{
+      padding:0.5rem 1rem;
+      margin-bottom:5px;
+      padding-bottom:1.5rem;
+
+      p{
+        margin:0;
+
+        a{
+          color:$firecat-black;
+
+          &:hover{
+            opacity:0.7;
+          }
+        }
+
+        .button{
+          padding: 0.5rem 0.5rem;
+          font-size: 1.3rem;
+        }
+
+        &:last-child{
+          small{
+            color:$firecat-dark-grey;
+            font-weight:bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+#internal_messaging_panel{
+  grid-area: internal_messaging_panel;
+  position: relative;
+  padding-bottom:5rem;
+
+  #internal_messaging_panel_wrapper{
+    max-height: 400px;
+  }
+
+  #button-wrapper{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align: right;
+
+    button{
+      display:inline-block;
+      border-radius:4px 0 0 0;
+    }
+  }
+
+  ul{
+    padding:0;
+    list-style-type: none;
+
+    li{
+      padding:0.5rem 1rem;
+      margin-bottom:5px;
+      padding-bottom:1.5rem;
+
+      p{
+        margin:0;
+
+        a{
+          color:$firecat-black;
+
+          &:hover{
+            opacity:0.7;
+          }
+        }
+
+        .button{
+          padding: 0.5rem 0.5rem;
+          font-size: 1.3rem;
+        }
+
+        &:last-child{
+          small{
+            color:$firecat-dark-grey;
+            font-weight:bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+#partner_consultation{
+  grid-area: partner_consultation;
+  position: relative;
+
+  #button-wrapper{
+    position: absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    text-align: right;
+
+    button{
+      display:inline-block;
+      border-radius:4px 0 0 0;
+    }
+  }
+
+}
+
+#vendor_consultation{
+  grid-area: vendor_consultation;
+}
+
+#opportunity_converted{
+  grid-area: converted;
+}
+
+#status-code-display{
+  grid-area: status;
+}
+
+#opportunity_delete{
+  grid-area: opportunity_delete;
+}
+
+#opportunity_review_panel{
+  grid-area: considerations;
+
+  #consideration-complete-table{
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom:0;
+
+    td{
+      vertical-align: middle;
+      border:none;
+      color:$firecat-dark-grey;
+      padding: 2rem;
+      width:50%;
+
+      &:last-child{
+        button{
+          font-size:1.2rem;
+        }
+      }
+
+      h3,p{
+        margin:0;
+      }
+    }
+  }
+}
+
+.assignment-block{
+  img{
+    width:50px;
+    border-radius:50%;
+  }
+
+  p{
+    font-weight:bold;
+    margin-top:1rem;
+    font-size:1.2rem;
+  }
+
+  text-align: center;
+}
+
+.disabled{
+  /* IE10+ */
+  background-image: -ms-linear-gradient(left, #FCFCFC 0%, $centerpiece 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(left, #FCFCFC 0%, $centerpiece 100%);
+
+  /* Opera */
+  background-image: -o-linear-gradient(left, #FCFCFC 0%, $centerpiece 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #FCFCFC), color-stop(100, $centerpiece));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(left, #FCFCFC 0%, $centerpiece 100%);
+
+  /* W3C Markup */
+  background-image: linear-gradient(to right, #FCFCFC 0%, $centerpiece 100%);
+  border:1px solid $centerpiece;
+  display:table;
+  width:100%;
+  border-radius:4px;
+
+  .disabled-block{
+    height:300px;
+    display:table-cell;
+    vertical-align: middle;
+    padding:2rem;
+  }
+}
+
+#opportunity-created-bar{
+  color: rgba(30, 30, 30, 0.3);
+  text-align: left;
+  font-style: italic;
+}
+
+.status-code-display{
+  grid-area: status;
+}

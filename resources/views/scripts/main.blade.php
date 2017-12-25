@@ -23,6 +23,10 @@
 <!-- Add Dropzone -->
 <script src="/js/dropzone.js"></script>
 
+<!-- Add jQuery Datepicker -->
+<script src="/js/datepicker.min.js"></script>
+<link rel="stylesheet" href="/css/datepicker.min.css" />
+
 <!-- Spectrum Colorpicker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css" />

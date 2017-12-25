@@ -31,60 +31,31 @@
             </div>
         </div>
         <div id="opportunity">
-            @if($opportunity->deal !== null)
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="text-left">
-                            <div class="alert alert-success">
-                                <p>
-                                    This opportunity has been converted to a deal registration, you can view that by clicking on the button below |
-                                    <a href="/partner/deals/{{$opportunity->deal->id}}">
-                                        View Deal Registration
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
+            <div id="opportunity_converted">
+                @if($opportunity->deal !== null)
+                    <div class="alert alert-success">
+                        <p>
+                            This opportunity has been converted to a deal registration, you can view that by clicking on the button below |
+                            <a href="/partner/deals/{{$opportunity->deal->id}}">
+                                View Deal Registration
+                            </a>
+                        </p>
                     </div>
-                </div>
-            @endif
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.status_code_display')
-                </div>
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.vendor_consultation')
-                </div>
-
+                @endif
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.my_information')
-                </div>
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.end_user')
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.opportunity_information')
-                </div>
-                <div class="col-xs-12 col-md-6">
-                    @include('_partials.opportunities.partner.opportunity_products')
-                </div>
-            </div>
-            @if($opportunity->deal === null)
-            <div class="row">
-                <div class="col-xs-12">
+            @include('_partials.opportunities.status_code_display')
+            @include('_partials.opportunities.partner.vendor_consultation')
+            @include('_partials.opportunities.partner.my_information')
+            @include('_partials.opportunities.partner.end_user')
+            @include('_partials.opportunities.partner.opportunity_information')
+            @include('_partials.opportunities.partner.opportunity_products')
+            <div id="opportunity_delete">
+                @if($opportunity->deal === null)
                     <button onClick="confirmDelete()" class="button pull-right">Delete this Opportunity</button>
-                </div>
+                @else
+                    <a href="{{ route('partner.deal',$opportunity->deal->id) }}"><button class="button pull-right">View Deal</button></a>
+                @endif
             </div>
-            @else
-                <div class="row">
-                    <div class="col-xs-12">
-                        <a href="{{ route('partner.deal',$opportunity->deal->id) }}"><button class="button pull-right">View Deal</button></a>
-                    </div>
-                </div>
-            @endif
         </div>
     </div>
 @endsection

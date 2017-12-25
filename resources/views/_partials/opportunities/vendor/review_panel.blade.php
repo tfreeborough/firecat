@@ -1,7 +1,7 @@
-<div id="opportunity-review-panel">
+<div id="opportunity_review_panel" class="block">
     <h3 class="title">Considerations</h3>
-    <div class="row">
-        <div class="col-xs-12">
+    <div id="opportunity_review_panel_wrapper">
+        <div id="opportunity_review_panel_first">
             <table class="table">
                 <thead>
                 <tr>
@@ -33,11 +33,7 @@
                 <small>Learn more about considerations</small>
             </a>
         </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-lg-6">
+        <div id="opportunity_review_panel_second">
             <table id="consideration-complete-table" class="table">
                 <tbody>
                 <tr>

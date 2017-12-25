@@ -1,6 +1,6 @@
-<h3 class="title">Products</h3>
-<div class="row">
-    <div class="col-xs-12">
+<div id="opportunity_products" class="block">
+    <h3 class="title">Products</h3>
+    <div id="opportunity_products_wrapper">
         @if(!$user->isAssigned($opportunity->id))
             <div class="disabled">
                 <div class="disabled-block text-center">
@@ -34,6 +34,5 @@
                 </tbody>
             </table>
         @endif
-
     </div>
 </div>

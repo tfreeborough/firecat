@@ -1,5 +1,14 @@
 
 #vendor-opportunity{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows:auto auto auto auto auto;
+  grid-gap:1rem;
+  grid-template-areas: "converted converted converted converted"
+  "opportunity_information opportunity_information status considerations"
+  "opportunity_information opportunity_information my_information my_information"
+  "opportunity_information opportunity_information opportunity_products opportunity_products"
+  "assignments_panel activity_panel internal_messaging_panel partner_consultation";
 
   .assignment-block{
     img{
@@ -16,9 +25,6 @@
     text-align: center;
   }
 
-  > .row{
-    margin-bottom:1rem;
-  }
 
   .disabled{
     /* IE10+ */

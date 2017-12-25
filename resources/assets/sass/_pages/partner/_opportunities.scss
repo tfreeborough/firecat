@@ -87,39 +87,16 @@
 }
 
 #opportunity{
-  #opportunity-value-table,#opportunity-product-table{
-    width:100%;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows:auto auto auto auto auto;
+  grid-gap:1rem;
+  grid-template-areas: "converted converted converted converted"
+  "status status vendor_consultation my_information"
+  "opportunity_information opportunity_information end_user my_information"
+  "opportunity_information opportunity_information opportunity_products opportunity_products"
+  "opportunity_delete opportunity_delete opportunity_delete opportunity_delete";
 
-    thead{
-      th{
-        padding:2rem;
-        border-right:1px solid rgba($firecat-dark-grey,0.1);
-        text-align: center;
-      }
-
-      th:last-child{
-        border-right:none;
-      }
-    }
-
-    tbody{
-      td{
-        text-align: center;
-        border-right:1px solid rgba($firecat-dark-grey,0.1);
-        padding:2rem;
-        color:$firecat-dark-grey;
-        background:$centerpiece;
-
-        i{
-          font-size:4rem;
-        }
-      }
-
-      td:last-child{
-        border-right:none;
-      }
-    }
-  }
 }
 
 #vendor_consultation{

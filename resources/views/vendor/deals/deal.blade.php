@@ -30,49 +30,17 @@
             </div>
         </div>
         @include('_partials.flash_message')
-        <div id="vendor-opportunity">
-            @include('_partials.errors')
-            @if($deal->opportunity->status->in_review)
-                <div class="row">
-                    <div class="col-xs-12 col-md-6 col-lg-4">
-                        @if(!$deal->opportunity->status->accepted)
-                            <div class="alert alert-danger">
-                                <p>
-                                    This opportunity is currently in review, please ensure all considerations have been achieved
-                                    then you will be able to convert this opportunity into a deal registration.
-                                </p>
-                            </div>
-                        @endif
-                        @include('_partials.opportunities.status_code_display')
-                    </div>
-                </div>
-            @else
-                <div class="row">
-                    <div class="col-xs-12">
-                        @include('_partials.opportunities.status_code_display')
-                    </div>
-                </div>
-            @endif
-            <div class="row">
-                <div class="col-xs-12 col-md-6 col-lg-4">
-                    @include('_partials.opportunities.vendor.assignments_panel')
-                </div>
-                <div class="col-xs-12 col-md-6 col-lg-4">
-                    @include('_partials.opportunities.vendor.internal_messaging_panel')
-                </div>
-                <div class="col-xs-12 col-md-12 col-lg-4">
-                    @include('_partials.opportunities.vendor.activity_panel');
-                </div>
-            </div>
-            <div class="row">
-                <div id="partner-information" class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
-                    @include('_partials.opportunities.vendor.opportunity_products');
-                    @include('_partials.opportunities.vendor.partner_information');
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-                    @include('_partials.opportunities.vendor.opportunity_information');
-                </div>
-            </div>
+        <div id="vendor-deal">
+            @include('_partials.deals.vendor.deal_status')
+            @include('_partials.deals.vendor.deal_implementation')
+            @include('_partials.deals.vendor.deal_updates')
+            @include('_partials.opportunities.vendor.opportunity_products')
+            @include('_partials.opportunities.vendor.partner_information')
+            @include('_partials.opportunities.vendor.opportunity_information')
+            @include('_partials.opportunities.vendor.assignments_panel')
+            @include('_partials.opportunities.vendor.internal_messaging_panel')
+            @include('_partials.opportunities.vendor.activity_panel')
+            @include('_partials.opportunities.vendor.partner_consultation')
         </div>
     </div>
 @endsection
@@ -84,7 +52,7 @@
         function assignmentConfirm()
         {
             vex.dialog.confirm({
-                message: 'Are you sure you want to assign youself to this opportunity, you will not be able to undo this action?',
+                message: 'Are you sure you want to assign yourself to this opportunity, you will not be able to undo this action?',
                 callback: function (value) {
                     if (value) {
                         window.location.href = '/vendor/opportunities/{{$deal->opportunity->id}}/assign';

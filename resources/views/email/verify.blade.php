@@ -13,7 +13,7 @@
         <h1 class="title">Hey <span class="highlight">{{ $user->first_name }},</span> <br /><small>thanks for joining Firecat!</small></h1>
         <div>
             <p>
-                Hi {{ $user->first_Name }}, Thanks for signing up to Firecat, we know you're going to love of the features that make managing deal registration a breeze.
+                Hi {{ $user->first_name }}, Thanks for signing up to Firecat, we know you're going to love of the features that make managing deal registration a breeze.
                 We're almost ready send you off exploring, but we just want to verify that this email address is owned by you.
             </p>
             <p>

@@ -1,7 +1,11 @@
 #partner_deal{
-  #deal_actions{
-    button{
-      margin:0 1rem;
-    }
-  }
+
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows:auto auto auto auto;
+  grid-gap:1rem;
+  grid-template-areas: "deal_actions deal_actions deal_actions deal_actions"
+    "opportunity_information status implementation updates"
+    "opportunity_information end_user end_user my_information"
+    "opportunity_information opportunity_products opportunity_products opportunity_products";
 }

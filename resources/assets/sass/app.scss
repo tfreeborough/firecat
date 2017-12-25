@@ -30,6 +30,8 @@
 
 @import "_pages/docs/docs";
 
+@import "_pages/shared/deal";
+
 @import "_pages/vendor/dashboard";
   @import "_pages/vendor/opportunities";
   @import "_pages/vendor/opportunity";
@@ -183,4 +185,18 @@ p.small{
 
 .red{
   color:red;
+}
+
+
+.block{
+  border-radius:4px;
+  padding:1rem;
+  border:1px solid $firecat-light-grey;
+
+  .title{
+    border-bottom:1px solid $firecat-light-grey;
+    padding:1rem;
+    margin:-1rem;
+    margin-bottom:1rem;
+  }
 }

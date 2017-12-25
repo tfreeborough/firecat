@@ -16,3 +16,7 @@ a{
   background-color: $firecat-primary-dark;
   border-color: $firecat-primary-dark;
 }
+
+.datepicker-container{
+  z-index: 999999!important;
+}

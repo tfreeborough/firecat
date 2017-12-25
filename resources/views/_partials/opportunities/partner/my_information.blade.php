@@ -1,30 +1,49 @@
-<div id="my_information">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3 class="title">My Information</h3>
+<div id="my_information" class="block">
+    <h3 class="title">My Information</h3>
+    <div id="my_information_wrapper">
+        <div id="my_information_first">
+            <table id="partner-contact-information" class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td>{{ $opportunity->partner->name() }}</td>
+                </tr>
+                <tr>
+                    <td>Primary Email:</td>
+                    <td>{{ $opportunity->partner->email }}</td>
+                </tr>
+                <tr>
+                    <td>Secondary Email:</td>
+                    @if($opportunity->partner->extra->second_email !== null)
+                        <td>{{ $opportunity->partner->extra->second_email }}</td>
+                    @else
+                        <td><a href="{{ route('partner.account') }}">Add here</a></td>
+                    @endif
+                </tr>
+                <tr>
+                    <td>Work Phone:</td>
+                    @if($opportunity->partner->extra->work_number !== null)
+                        <td>{{ $opportunity->partner->extra->work_number }}</td>
+                    @else
+                        <td><a href="{{ route('partner.account') }}">Add here</a></td>
+                    @endif
+                </tr>
+                <tr>
+                    <td>Mobile Phone:</td>
+                    @if($opportunity->partner->extra->mobile_number !== null)
+                        <td>{{ $opportunity->partner->extra->mobile_number }}</td>
+                    @else
+                        <td><a href="{{ route('partner.account') }}">Add here</a></td>
+                    @endif
+                </tr>
+                <tr>
+                    <td>Last Login:</td>
+                    <td>{{ \Carbon\Carbon::parse($opportunity->partner->last_login)->toDayDateTimeString() }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <p><strong>Name:</strong> {{ $opportunity->partner->first_name }} {{ $opportunity->partner->last_name }}</p>
-            <p><strong>Email:</strong> {{ $opportunity->partner->email }}</p>
-            @if($opportunity->partner->extra->second_email !== null)
-                <p><strong>Secondary Email:</strong> {{ $opportunity->partner->extra->second_email }}</p>
-            @else
-                <p><strong>Secondary Email:</strong> <a href="{{ route('partner.account') }}">Add here</a></p>
-            @endif
-            @if($opportunity->partner->extra->work_number !== null)
-                <p><strong>Work Phone:</strong> {{ $opportunity->partner->extra->work_number }}</p>
-            @else
-                <p><strong>Work Phone:</strong> <a href="{{ route('partner.account') }}">Add here</a></p>
-            @endif
-            @if($opportunity->partner->extra->mobile_number !== null)
-                <p><strong>Mobile Phone:</strong> {{ $opportunity->partner->extra->mobile_number }}</p>
-            @else
-                <p><strong>Mobile Phone:</strong> <a href="{{ route('partner.account') }}">Add here</a></p>
-            @endif
-        </div>
-        <div class="col-xs-12 col-sm-8">
+        <div id="my_information_second">
             <div class="alert alert-info">
                 <p>
                     Firecat lets you add additional information such a phone numbers for vendors to contact you on, you can make these changes

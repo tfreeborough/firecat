@@ -1,21 +1,40 @@
-<div id="end_user">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3 class="title">End User</h3>
+<div id="end_user" class="block">
+    <h3 class="title">End User</h3>
+    <div id="end_user_wrapper">
+        <div id="end_user_wrapper_first">
+            <table id="end-user-information" class="table table-striped">
+                <tbody>
+                <tr>
+                    <td>Organisation:</td>
+                    <td>{{ $opportunity->endUser->name }}</td>
+                </tr>
+                <tr>
+                    <td>Sector:</td>
+                    <td>{{ $opportunity->endUser->organisation_type }}</td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td>{{ $opportunity->endUser->contact_name }}</td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td>{{ $opportunity->endUser->contact_number }}</td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{ $opportunity->endUser->contact_email }}</td>
+                </tr>
+                @if($opportunity->endUser->contact_job_title !== null)
+                    <tr>
+                        <td>Job Title:</td>
+                        <td>{{ $opportunity->endUser->contact_job_title }}</td>
+                    </tr>
+                @endif
+                </tbody>
+            </table>
+
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-6">
-            <p><strong>Name:</strong> {{ $opportunity->endUser->name }}</p>
-            <p><strong>Sector:</strong> {{ $opportunity->endUser->organisation_type }}</p>
-            <p><strong>Contact Name:</strong> {{ $opportunity->endUser->contact_name }}</p>
-            <p><strong>Contact Number:</strong> {{ $opportunity->endUser->contact_number }}</p>
-            <p><strong>Contact Email:</strong> {{ $opportunity->endUser->contact_email }}</p>
-            @if($opportunity->endUser->contact_job_title !== null)
-                <p><strong>Contact Job Title:</strong> {{ $opportunity->endUser->contact_job_title }}</p>
-            @endif
-        </div>
-        <div class="col-xs-12 col-md-6">
+        <div id="end_user_wrapper_second">
             <p>
                 <strong>Address:</strong><br/>
                 {{ $opportunity->endUser->address_line_1 }} <br/>

@@ -1,5 +1,11 @@
-
-
 #vendor-deal{
-
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows:auto auto auto;
+  grid-gap:1rem;
+  grid-template-areas: "deal_actions deal_actions deal_actions deal_actions"
+  "opportunity_information opportunity_information status implementation"
+  "opportunity_information opportunity_information updates my_information"
+  "opportunity_information opportunity_information opportunity_products opportunity_products"
+  "assignments_panel activity_panel internal_messaging_panel partner_consultation";
 }

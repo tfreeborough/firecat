@@ -32,23 +32,40 @@
                         <thead>
                         <tr>
                             <th>Status</th>
+                            <th>Implementation Date</th>
                             <th>Deal Name</th>
                             <th>End Users Sector</th>
                             <th>Tags</th>
                             <th>Assigned</th>
-                            <th>Converted On</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($deals as $deal)
-                            <tr>
-                                <td>
-                                    @if($deal->opportunity->status->getStatusCode() === 4)
-                                        Accepted
+                            <tr
+                                class="@if($deal->status->pending)
+                                        pending
                                     @else
-                                        Rejected
+                                @if($deal->status->won)
+                                        won
+                                    @else
+                                        lost
                                     @endif
+                                @endif"
+                            >
+                                <td>
+                                    @if($deal->status->pending)
+                                        Pending
+                                    @else
+                                        @if($deal->status->won)
+                                            Won
+                                        @else
+                                            Lost
+                                        @endif
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($deal->opportunity->implementation_date)->format('d M Y') }}
                                 </td>
                                 <td>
                                     @if(Auth::user()->isAssigned($deal->opportunity_id))
@@ -70,8 +87,7 @@
                                             <div class="tag" style="color: {{$tag->organisation_tag->text_color}}; background: {{$tag->organisation_tag->color}}">{{ $tag->organisation_tag->name }}</div>
                                         </a>
                                     @endforeach
-                                    <br />
-                                    <small><span><a href="/vendor/deals/{{$deal->id}}/tag">Edit tags</a></span></small>
+                                    <small><span><a href="/vendor/deals/{{$deal->id}}/tag"><i class="fa fa-pencil" aria-hidden="true"></i></a></span></small>
                                 </td>
                                 <td>
                                     <ul>
@@ -88,11 +104,8 @@
                                     </ul>
                                 </td>
                                 <td>
-                                    {{ \Carbon\Carbon::parse($deal->created_at)->format('d-m-y @ h:ma') }}
-                                </td>
-                                <td>
                                     <a href="/vendor/deals/{{$deal->id}}">
-                                        <i class="fa fa-chain-broken" aria-hidden="true"></i>
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
