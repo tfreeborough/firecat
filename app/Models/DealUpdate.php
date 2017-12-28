@@ -38,4 +38,20 @@ class DealUpdate extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+
+    public function isValid()
+    {
+        return in_array($this->type,[
+            'implementation_date',
+            'date_of_award'
+        ], true);
+    }
+
+    public function isTime()
+    {
+        return in_array($this->type,[
+            'implementation_date',
+            'date_of_award'
+        ], true);
+    }
 }

@@ -60,6 +60,9 @@ class DealController extends Controller
             $deal_update->proposal = $request->get('implementation_date');
             $deal_update->save();
 
+            Mail::to($deal->opportunity->partner->email)
+                ->queue(new PartnerProposedDealUpdate($deal, $deal->opportunity->partner, $deal_update));
+            
             event(new CreateOpportunityActivity(
                 $deal->opportunity,
                 Auth::user(),

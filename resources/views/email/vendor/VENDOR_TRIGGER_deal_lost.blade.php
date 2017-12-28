@@ -1,6 +1,6 @@
 @extends('email.base')
 
-@section('title', 'An updated has been requested from you.')
+@section('title', 'Your deal has been Lost')
 
 @section('content')
     <style>
@@ -10,19 +10,19 @@
         }
     </style>
     <div class="content">
-        <h1 class="title">Hey <span class="highlight">{{ $user->first_name }},</span> <br /><small>and update has been requested from you.</small></h1>
+        <h1 class="title"><span class="highlight">{{ $user->first_name }},</span> <br /><small> {{ $deal->opportunity->name }} has been marked as Lost.</small></h1>
         <div>
             <p>
-                Hi {{ $user->first_name }}, We have received a request on behalf of {{ $vendor_account->name() }} ({{ $vendor_account->organisation->name }}) for
-                an update on the status of a deal registration you have currently have with them ({{ $deal->opportunity->name }}). If you get a spare moment, click the
-                link below and let the vendor know if this Deal has been Won, Lost, is Still pending or requires an extension on the date of implementation.
+                Unfortunately, {{ $deal->opportunity->name }} has been marked as lost, this may have been done by an assigned member of the deal OR automatically by the system.
+                The system will automatically mark deals as lost if they exceed their implementation date. The current implementation date on this deal
+                is <strong>{{ \Carbon\Carbon::parse($deal->opportunity->implementation_date)->toFormattedDateString() }}.</strong>
             </p>
             <p>
                 Please click the link below to view the Deal registration
             </p>
             <div class="center">
                 <p id="update_deal">
-                    <a class="button" href="{{ route('partner.deal', $deal->id) }}">Update my deal</a>
+                    <a class="button" href="{{ route('vendor.deal', $deal->id) }}">View {{ $deal->opportunity->name }}</a>
                 </p>
             </div>
             <p class="small">

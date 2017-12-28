@@ -11,10 +11,18 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
+use App\Mail\partner\VendorAcceptedDealUpdate;
+use App\Mail\partner\VendorRejectedDealUpdate;
 use App\Mail\RequestDealUpdate;
+use App\Mail\partner\VendorTriggerDealLost_PARTNER;
+use App\Mail\vendor\VendorTriggerDealLost_VENDOR;
+use App\Mail\partner\VendorTriggerDealWon_PARTNER;
+use App\Mail\vendor\VendorTriggerDealWon_VENDOR;
 use App\Models\Deal;
 use App\Models\DealTag;
+use App\Models\DealUpdate;
 use App\Models\OrganisationTag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -35,6 +43,76 @@ class DealController extends Controller
                 'opportunity' => $deal->opportunity,
                 'user' => Auth::user()
             ]);   
+        }else{
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot access it.'
+            ]);
+        }
+    }
+
+    public function acceptDealUpdate($uuid, $update_id)
+    {
+        $deal = Deal::find($uuid);
+        if(Auth::user()->isAssigned($deal->opportunity_id)){
+            $deal_update = DealUpdate::find($update_id);
+            if($deal_update !== null && $deal_update->isValid()){
+                $opportunity = $deal->opportunity;
+                if($deal_update->isTime()){
+                    $opportunity[$deal_update->type] = Carbon::createFromFormat('d/m/Y',$deal_update->proposal);
+                }else{
+                    $opportunity[$deal_update->type] = $deal_update->proposal;
+                }
+                $opportunity->save();
+                event(new CreateOpportunityActivity(
+                    $deal->opportunity,
+                    Auth::user(),
+                    Auth::user()->name().' accepted a proposed update to change the '.$deal_update->type_formatted.' of this deal.',
+                    null
+                ));
+
+                Mail::to($deal->opportunity->partner->email)
+                    ->queue(new VendorAcceptedDealUpdate($deal, $deal->opportunity->partner, $deal_update));
+                
+                $deal_update->delete();
+                
+                return redirect(route('vendor.deal',$uuid))->with([
+                    'alert-success' => 'Deal update was successfully accepted.'
+                ]);
+            }
+            return redirect(route('vendor.deal',$uuid))->withErrors([
+                'alert-error' => 'This deal update has already been accepted or rejected'
+            ]);
+        }else{
+            return redirect(route('vendor.deals'))->withErrors([
+                'alert-error' => 'You are not assigned to this deal, so you cannot access it.'
+            ]);
+        }
+    }
+
+    public function rejectDealUpdate($uuid, $update_id)
+    {
+        $deal = Deal::find($uuid);
+        if(Auth::user()->isAssigned($deal->opportunity_id)){
+            $deal_update = DealUpdate::find($update_id);
+            if($deal_update !== null && $deal_update->isValid()){
+                event(new CreateOpportunityActivity(
+                    $deal->opportunity,
+                    Auth::user(),
+                    Auth::user()->name().' rejected a proposed update to change the '.$deal_update->type_formatted.' of this deal.',
+                    null
+                ));
+
+                Mail::to($deal->opportunity->partner->email)
+                    ->queue(new VendorRejectedDealUpdate($deal, $deal->opportunity->partner, $deal_update));
+
+                $deal_update->delete();
+                return redirect(route('vendor.deal',$uuid))->with([
+                    'alert-success' => 'Deal update was successfully rejected.'
+                ]);
+            }
+            return redirect(route('vendor.deal',$uuid))->withErrors([
+                'alert-error' => 'This deal update has already been accepted or rejected'
+            ]);
         }else{
             return redirect(route('vendor.deals'))->withErrors([
                 'alert-error' => 'You are not assigned to this deal, so you cannot access it.'
@@ -71,6 +149,14 @@ class DealController extends Controller
                 null
             ));
 
+            Mail::to($deal->opportunity->partner->email)
+                ->queue(new VendorTriggerDealWon_PARTNER($deal, $deal->opportunity->partner));
+            
+            foreach($deal->opportunity->assignees as $assignee){
+                Mail::to($assignee->user->email)
+                    ->queue(new VendorTriggerDealWon_VENDOR($deal, $assignee->user));
+            }
+            
             return redirect(route('vendor.deal',$uuid));
         }else{
             return redirect(route('vendor.deals'))->withErrors([
@@ -92,6 +178,14 @@ class DealController extends Controller
                 Auth::user()->name().' marked this deal as Lost.',
                 null
             ));
+
+            Mail::to($deal->opportunity->partner->email)
+                ->queue(new VendorTriggerDealLost_PARTNER($deal, $deal->opportunity->partner));
+
+            foreach($deal->opportunity->assignees as $assignee){
+                Mail::to($assignee->user->email)
+                    ->queue(new VendorTriggerDealLost_VENDOR($deal, $assignee->user));
+            }
 
             return redirect(route('vendor.deal',$uuid));
         }else{

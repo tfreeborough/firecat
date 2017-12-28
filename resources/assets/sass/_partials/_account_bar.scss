@@ -28,9 +28,12 @@
           vertical-align: top;
           margin-top: 8px;
           margin-right: 5px;
+          position: relative;
 
           img{
             width:100%;
+            position: absolute;
+            top:0;
           }
         }
       }

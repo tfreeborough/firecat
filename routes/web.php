@@ -15,18 +15,6 @@ Route::get('/', function () {
     return view('pages.welcome');
 })->name('home');
 
-Route::get('/email/invite', function () {
-    return view('email.InviteUser')->with([
-        'invite' => \App\Models\Invite::all()->first(),
-    ]);
-})->name('email.invite');
-
-Route::get('/email/verify', function () {
-    return view('email.verify')->with([
-        'user' => \App\Models\User::all()->first(),
-    ]);
-})->name('email.verify');
-
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 Route::get('verify', 'Auth\VerifyController@showVerify')->name('verify');
