@@ -11,7 +11,7 @@
                     <p>
                         <small>{{ \Carbon\Carbon::parse($activity->created_at)->toDayDateTimeString() }}</small>
                         @if($activity->link && Auth::user()->isAssigned($opportunity->id))
-                             | <a href="{{$activity->link}}"><i class="fa fa-link" aria-hidden="true"></i></a>
+                            | <a href="{{$activity->link}}"><i class="fa fa-link" aria-hidden="true"></i></a>
                         @endif
                     </p>
                 </li>
@@ -24,5 +24,6 @@
                 </a>
             </div>
         @endif
+
     </div>
 </div>

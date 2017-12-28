@@ -2,16 +2,9 @@
     <h3 class="title">Products</h3>
     <div id="opportunity_products_wrapper">
         @if(!$user->isAssigned($opportunity->id))
-            <div class="disabled">
-                <div class="disabled-block text-center">
-                    <p>
-                        You cannot view any products in this opportunity until you assign to this opportunity
-                    </p>
-                    <div>
-                        <button onClick="assignmentConfirm()" class="button">Assign me to this opportunity</button>
-                    </div>
-                </div>
-            </div>
+            <p>
+                Non assigned members cannot view partner information on this opportunity, assign yourself first.
+            </p>
         @else
             <table id="product-table" class="table table-striped">
                 <thead>

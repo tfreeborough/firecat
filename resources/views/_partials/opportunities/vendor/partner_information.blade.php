@@ -11,13 +11,9 @@
         </div>
         <div id="partner_information_wrapper_second">
             @if(!$user->isAssigned($opportunity->id))
-                <div class="disabled">
-                    <div class="disabled-block">
-                        <p>
-                            Non assigned members cannot view partner information on this opportunity, assign yourself first.
-                        </p>
-                    </div>
-                </div>
+                <p>
+                    Non assigned members cannot view partner information on this opportunity, assign yourself first.
+                </p>
             @else
                 <table id="partner-contact-information" class="table table-striped">
                     <tbody>

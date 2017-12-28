@@ -16,7 +16,22 @@
             </div>
         @endif
         @if(!$user->isAssigned($opportunity->id))
-            <button onClick="assignmentConfirm()" class="button action">Assign me to this opportunity</button>
+            <div id="assignments_panel_wrapper_assign">
+                <button onClick="assignmentConfirm()" class="button action">Assign me to this opportunity</button>
+            </div>
         @endif
     </div>
 </div>
+<script>
+    function assignmentConfirm()
+    {
+        vex.dialog.confirm({
+            message: 'Are you sure you want to assign youself to this opportunity, you will not be able to undo this action?',
+            callback: function (value) {
+                if (value) {
+                    window.location.href = '/vendor/opportunities/{{$opportunity->id}}/assign';
+                }
+            }
+        })
+    }
+</script>

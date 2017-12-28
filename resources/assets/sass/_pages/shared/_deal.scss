@@ -277,6 +277,16 @@
 
 #assignments_panel{
   grid-area: assignments_panel;
+
+  #assignments_panel_wrapper_assign{
+
+    button{
+      margin: auto;
+      display: block;
+      margin-top: 4rem;
+    }
+
+  }
 }
 
 #activity_panel{

@@ -29,6 +29,13 @@
         @include('_partials.errors')
         <div id="vendor-opportunity">
             <div id="opportunity_converted">
+                @if(!$user->isAssigned($opportunity->id))
+                    <div class="alert alert-info">
+                        <p>
+                            You are not assigned to this opportunity. if you wish to interact and view more information please assign yourself first
+                        </p>
+                    </div>
+                @endif
                 @if($opportunity->deal !== null)
                     <div class="alert alert-success">
                         <p>
@@ -61,18 +68,6 @@
     <script>
         var element = document.querySelector("#opportunity-messages ul");
         element.scrollTop = element.scrollHeight;
-
-        function assignmentConfirm()
-        {
-            vex.dialog.confirm({
-                message: 'Are you sure you want to assign youself to this opportunity, you will not be able to undo this action?',
-                callback: function (value) {
-                    if (value) {
-                        window.location.href = '/vendor/opportunities/{{$opportunity->id}}/assign';
-                    }
-                }
-            })
-        }
 
         $(document).ready(function(){
             @if($opportunity->partner->extra->avatar_id)
