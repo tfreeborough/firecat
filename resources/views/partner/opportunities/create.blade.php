@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            <div id="opportunity" class="row">
+            <div id="created_opportunity" class="row">
                 <div class="col-xs-12">
                     <h3 class="title">The Opportunity</h3>
                 </div>
