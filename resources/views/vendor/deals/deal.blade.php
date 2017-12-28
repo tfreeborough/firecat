@@ -2,9 +2,6 @@
 
 @section('title', $deal->opportunity->name)
 
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.vendor_menu')
-
 @section('content')
     <div id="dashboard">
         <div id="page-topper">

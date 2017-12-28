@@ -22,8 +22,16 @@
 </head>
 <body>
 <div class="flex-center position-ref full-height">
-    @section('menu')
-    @show
+
+    @include('_partials.authenticated.account_bar')
+
+    @if(Auth::user()->isPartner())
+        @include('_partials.partner_menu')
+    @elseif(Auth::user()->isVendor())
+        @include('_partials.vendor_menu')
+    @elseif(Auth::user()->isAdmin())
+        @include('_partials.admin_menu')
+    @endif
 
     @if(Auth::user())
         <div id="app" class="authenticated">

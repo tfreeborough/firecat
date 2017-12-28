@@ -1,9 +1,6 @@
 @extends('app')
 
-@section('title', 'Opportunities')
-
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.vendor_menu')
+@section('title', 'Opportunity Messages')
 
 @section('content')
     <div id="dashboard">

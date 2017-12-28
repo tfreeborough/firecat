@@ -2,9 +2,6 @@
 
 @section('title', 'Documentation - Opportunities')
 
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.docs_menu')
-
 @section('content')
     <div id="docs">
 

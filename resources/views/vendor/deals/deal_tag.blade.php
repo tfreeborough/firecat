@@ -2,9 +2,6 @@
 
 @section('title', 'Tags for '.$deal->opportunity->name)
 
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.vendor_menu')
-
 @section('content')
     <div id="deal_tag">
         <div id="page-topper">

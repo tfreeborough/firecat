@@ -2,8 +2,6 @@
 
 @section('title', 'Forgotten password')
 
-@extends('_partials.menu')
-
 @section('content')
     <div id="login">
         <div id="login-wrapper">

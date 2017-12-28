@@ -2,8 +2,6 @@
 
 @section('title', 'Thanks!')
 
-@extends('_partials.menu')
-
 @section('content')
     <div id="verify">
         <div id="verify-wrapper">

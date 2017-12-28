@@ -2,10 +2,6 @@
 
 @section('title', 'My Account')
 
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.admin_menu')
-
-
 @section('content')
     <div id="dashboard">
         <div id="page-topper">

@@ -2,8 +2,6 @@
 
 @section('title', 'Reset your password')
 
-@extends('_partials.menu')
-
 @section('content')
     <div id="reset-password">
         <div id="reset-password-wrapper">

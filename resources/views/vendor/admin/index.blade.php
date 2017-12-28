@@ -2,9 +2,6 @@
 
 @section('title', 'Organisation Administration')
 
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.vendor_menu')
-
 @section('content')
     <div id="page-topper">
         <div id="page-topper-bg"></div>

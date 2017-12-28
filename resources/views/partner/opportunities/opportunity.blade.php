@@ -2,9 +2,6 @@
 
 @section('title', "$opportunity->name")
 
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.partner_menu')
-
 @section('content')
     <div id="dashboard">
 

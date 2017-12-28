@@ -1,9 +1,6 @@
 @extends('app')
 
-@section('title', $opportunity->name)
-
-@extends('_partials.authenticated.account_bar')
-@extends('_partials.vendor_menu')
+@section('title', $opportunity->name.' threads')
 
 @section('content')
     <div id="opportunity_threads">

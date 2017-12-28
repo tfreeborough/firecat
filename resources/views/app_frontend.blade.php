@@ -18,18 +18,17 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
 </head>
-<body class="guest" style="background-color:#5DBBB7;">
-<div class="flex-center position-ref full-height">
-    @section('menu')
-    @show
+    <body class="guest" style="background-color:#5DBBB7;">
+        <div class="flex-center position-ref full-height">
+            @include('_partials.menu')
 
-    <div id="app">
-        @yield('content')
-    </div>
+            <div id="app">
+                @yield('content')
+            </div>
 
-    @include('scripts.frontend')
-    @include('scripts.main')
-</div>
-<div id="particles-js"></div>
-</body>
+            @include('scripts.frontend')
+            @include('scripts.main')
+        </div>
+        <div id="particles-js"></div>
+    </body>
 </html>

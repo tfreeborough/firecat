@@ -2,8 +2,6 @@
 
 @section('title', 'Welcome')
 
-@extends('_partials.menu')
-
 @section('content')
     <div id="welcome">
         <div id="welcome-wrapper">
