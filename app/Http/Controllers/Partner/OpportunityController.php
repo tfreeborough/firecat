@@ -125,10 +125,7 @@ class OpportunityController extends Controller
         $vendors = Organisation::orderBy('name','ASC')->get();
         $vendorsSelect = [];
         foreach($vendors as $vendor){
-            $vendorsSelect[] = [
-                'name' => $vendor->name,
-                'id' => $vendor->id
-            ];
+            $vendorsSelect[$vendor->id] = $vendor->name;
         }
 
         return view('partner.opportunities.create', [
