@@ -85,6 +85,10 @@
     }
   }
 
+  #welcome #welcome-wrapper #welcome-wrapper-grid #user_welcome{
+    padding-top:0;
+  }
+
   #vendor-deals-table{
     tr{
       th:nth-child(1), th:nth-child(4), th:nth-child(6){
