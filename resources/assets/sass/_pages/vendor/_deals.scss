@@ -1,5 +1,6 @@
 #vendor-deals{
   #vendor-deals-table{
+    width:100%!important;
 
     td{
       vertical-align: middle;
@@ -38,6 +39,8 @@
       background:$firecat-light-grey;
       border-radius:4px;
       display:inline-block;
+      margin-top:2px;
+      margin-bottom:2px;
     }
   }
 }

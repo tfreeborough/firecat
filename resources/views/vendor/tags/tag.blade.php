@@ -41,7 +41,15 @@
                 </thead>
                 <tbody>
                 @foreach($deal_tags as $deal_tag)
-                    <tr>
+                <tr class="@if($deal_tag->deal->status->pending)
+                            pending
+                        @else
+                    @if($deal_tag->deal->status->won)
+                            won
+                        @else
+                            lost
+                        @endif
+                    @endif">
                         <td>
                             @if($deal_tag->deal->opportunity->status->getStatusCode() === 4)
                                 Accepted

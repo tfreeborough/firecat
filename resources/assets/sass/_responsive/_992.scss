@@ -1,0 +1,120 @@
+@media screen and (max-width:992px){
+
+  #menu-toggle{
+    display:grid;
+    position: absolute;
+    top:0;
+    left:0;
+    width:50px;
+    height:50px;
+    background:$firecat-dark-grey;
+    color:$firecat-light-grey;
+    z-index: 1000;
+    align-items: center;
+    justify-items: center;
+    font-size:3rem;
+  }
+
+  #account-bar{
+    padding-left:50px;
+  }
+
+  #authenticated-menu{
+    width:250px;
+    background:rgba($firecat-dark-grey,0.9);
+    transform: translate3d(-250px, 0, 0);
+    transition: transform 0.2s;
+
+    &.showing{
+      transform: translate3d(0, 0, 0);
+    }
+
+    #menu-links ul a li i{
+      display:inline-block;
+    }
+  }
+
+  #app.authenticated{
+    left:0;
+  }
+
+
+
+
+  #welcome #welcome-wrapper{
+    padding-bottom:9rem;
+  }
+
+  #welcome #welcome-wrapper #welcome-wrapper-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "brand""signup";
+    padding:4rem;
+  }
+
+  #vendor-opportunity{
+    grid-template-rows: auto auto auto auto auto auto auto auto;
+    grid-template-areas: "converted converted converted converted"
+    "status status status status"
+    "considerations considerations considerations considerations"
+    "opportunity_information opportunity_information opportunity_information opportunity_information"
+    "opportunity_products opportunity_products opportunity_products opportunity_products"
+    "assignments_panel assignments_panel my_information my_information"
+    "activity_panel activity_panel internal_messaging_panel internal_messaging_panel"
+    "partner_consultation partner_consultation partner_consultation partner_consultation";
+  }
+
+  #vendor-overview{
+    grid-template-rows: auto 1fr 1fr;
+    grid-template-areas:
+            "title title title title"
+            "acceptance acceptance opportunities_created opportunities_created"
+            "deal_value deal_value response_time response_time";
+  }
+
+  #vendor-opportunities-table{
+
+    tr{
+      th:nth-child(2), th:nth-child(4), th:nth-child(5){
+        display:none;
+      }
+
+      td:nth-child(2), td:nth-child(4), td:nth-child(5){
+        display:none;
+      }
+    }
+  }
+
+  #vendor-deals-table{
+    tr{
+      th:nth-child(1), th:nth-child(4), th:nth-child(6){
+        display:none;
+      }
+
+      td:nth-child(1), td:nth-child(4), td:nth-child(6){
+        display:none;
+      }
+    }
+  }
+
+  #vendor-tag-table{
+    tr{
+      th:nth-child(1), th:nth-child(3), th:nth-child(5){
+        display:none;
+      }
+
+      td:nth-child(1), td:nth-child(3), td:nth-child(5){
+        display:none;
+      }
+    }
+  }
+
+
+
+  #deal_tag #deal_tag_wrapper{
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+}
+

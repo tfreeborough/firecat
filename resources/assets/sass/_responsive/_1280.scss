@@ -1,0 +1,47 @@
+@media screen and (max-width:1280px){
+
+  #welcome #welcome-wrapper #welcome-wrapper-grid{
+    grid-gap:4rem;
+  }
+
+  #welcome #welcome-wrapper #welcome-wrapper-grid #welcome-wrapper-introduction #logo-wrapper #menu-logo{
+    font-size: 7rem;
+    line-height: 4rem;
+  }
+
+  #authenticated-menu #menu-links ul a li i{
+    display:none;
+  }
+
+  #authenticated-menu{
+    width:185px;
+  }
+
+  #app.authenticated{
+    left:185px;
+  }
+
+  #vendor-deal{
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-template-areas:
+            "deal_actions deal_actions deal_actions deal_actions"
+            "status status implementation implementation"
+            "opportunity_information opportunity_information opportunity_information opportunity_information"
+            "opportunity_products opportunity_products opportunity_products opportunity_products"
+            "updates updates my_information my_information"
+            "internal_messaging_panel internal_messaging_panel activity_panel activity_panel"
+            "assignments_panel assignments_panel partner_consultation partner_consultation";
+  }
+
+  #vendor-admin #vendor-admin-stats-wrapper #vendor-admin-stats{
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+            "square1 square1 square2 square2"
+            "column1 column1 square3 square3"
+            "square4 square4 column2 column2";
+  }
+
+  #vendor-admin #vendor-admin-stats-wrapper #vendor-admin-stats .statistic.box{
+    min-height: 0;
+  }
+}

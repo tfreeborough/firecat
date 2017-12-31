@@ -13,7 +13,7 @@
                             <div class="avatar">
                                 <img src="{{Auth::user()->getAvatar()}}" />
                             </div>
-                            Account
+                            <span class="account">Account</span>
                         </li>
                     </a>
                 @elseif(Auth::user()->isVendor())
@@ -22,7 +22,7 @@
                             <div class="avatar">
                                 <img src="{{Auth::user()->getAvatar()}}" />
                             </div>
-                            Account
+                            <span class="account">Account</span>
                         </li>
                     </a>
                 @elseif(Auth::user()->isPartner())
@@ -31,7 +31,7 @@
                             <div class="avatar">
                                 <img src="{{Auth::user()->getAvatar()}}" />
                             </div>
-                            Account
+                            <span class="account">Account</span>
                         </li>
                     </a>
                 @endif

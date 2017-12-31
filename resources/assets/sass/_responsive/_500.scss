@@ -1,0 +1,41 @@
+@media screen and (max-width:500px){
+
+  #account-bar #menu-links ul li .account{
+    display:none;
+  }
+
+  #vendor-overview{
+    grid-template-rows:1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+            "acceptance"
+            "opportunities_created"
+            "deal_value"
+            "response_time";
+
+    .top-wrap{
+      display:none;
+    }
+  }
+
+  #welcome #welcome-wrapper #welcome-wrapper-grid #welcome-wrapper-introduction #menu-links{
+    height:auto;
+  }
+
+  #welcome #welcome-wrapper #welcome-wrapper-grid #welcome-wrapper-introduction #menu-links ul a{
+    display:block;
+  }
+
+  #menu{
+    display:none;
+  }
+
+  #app{
+    padding-top:0;
+  }
+
+  #welcome #welcome-wrapper{
+    padding-top:0;
+  }
+
+}

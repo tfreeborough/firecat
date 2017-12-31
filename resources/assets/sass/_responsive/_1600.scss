@@ -1,0 +1,13 @@
+@media screen and (max-width:1600px){
+
+  #vendor-opportunity{
+    grid-template-areas: "converted converted converted converted"
+    "status status status considerations"
+    "opportunity_information opportunity_information opportunity_information assignments_panel"
+    "opportunity_information opportunity_information opportunity_information partner_consultation"
+    "opportunity_products opportunity_products my_information my_information"
+    "activity_panel activity_panel internal_messaging_panel internal_messaging_panel";
+  }
+
+}
+

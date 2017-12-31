@@ -1,0 +1,70 @@
+@media screen and (max-width:768px){
+
+  #vendor-opportunity{
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+            "converted"
+            "status"
+            "considerations"
+            "opportunity_information"
+            "opportunity_products"
+            "assignments_panel"
+            "my_information"
+            "activity_panel"
+            "internal_messaging_panel"
+            "partner_consultation"
+  }
+
+  #vendor-deal{
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "deal_actions"
+      "status"
+      "implementation"
+      "opportunity_information"
+      "opportunity_products"
+      "updates"
+      "my_information"
+      "internal_messaging_panel"
+      "activity_panel"
+      "partner_consultation"
+      "assignments_panel";
+  }
+
+  #vendor-admin{
+    input[type="text"]{
+      width:100%;
+    }
+  }
+
+  #vendor-admin #vendor-admin-stats-wrapper #vendor-admin-stats{
+    grid-template-rows: auto auto auto auto auto auto;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "square4"
+      "square1"
+      "square2"
+      "square3"
+      "column1"
+      "column2";
+  }
+
+  #opportunity_information tr td:first-child{
+    min-width: 0;
+  }
+
+  #recent-deals{
+    display:none;
+  }
+
+  #login{
+    padding: 4rem;
+  }
+
+  #login #login-wrapper{
+    width:100%;
+  }
+
+}

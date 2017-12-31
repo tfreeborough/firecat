@@ -4,6 +4,20 @@
 
   #vendor-tag-wrapper{
     #vendor-tag-table {
+      width:100%!important;
+
+      .pending{
+        background:rgba(yellow,0.1);
+      }
+
+      .won{
+        background:rgba(green,0.1);
+      }
+
+      .lost{
+        background:rgba(red,0.1);
+      }
+
       ul {
         list-style-type: none;
         padding: 0;
