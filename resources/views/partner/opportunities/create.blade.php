@@ -146,13 +146,23 @@
                         <div class="col-xs-12 col-md-4">
                             <div class="form-group">
                                 {{ Form::label('date_of_award', 'Date of Award', ['class' => 'control-label']) }}
-                                {{ Form::text('date_of_award', null, array_merge(['class' => 'form-control', 'placeholder' => 'DD/MM/YYYY', 'data-toggle' => 'datepicker'])) }}
+                                {{ Form::text('date_of_award', null, array_merge([
+                                'class' => 'form-control',
+                                'placeholder' => 'DD/MM/YYYY',
+                                'data-toggle' => 'datepicker',
+                                'readonly' => 'true',
+                                ])) }}
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-4">
                             <div class="form-group">
                                 {{ Form::label('implementation_date', 'Implementation Date', ['class' => 'control-label required']) }}
-                                {{ Form::text('implementation_date', null, array_merge(['class' => 'form-control', 'placeholder' => 'DD/MM/YYYY', 'data-toggle' => 'datepicker'])) }}
+                                {{ Form::text('implementation_date', null, array_merge([
+                                'class' => 'form-control',
+                                'placeholder' => 'DD/MM/YYYY',
+                                'data-toggle' => 'datepicker',
+                                'readonly' => 'true',
+                                ])) }}
                             </div>
                         </div>
                     </div>
