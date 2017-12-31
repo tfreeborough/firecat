@@ -9,3 +9,17 @@
     "opportunity_information opportunity_information end_user my_information"
     "opportunity_information opportunity_information opportunity_products opportunity_products";
 }
+
+#deals{
+  .pending{
+    background:rgba(yellow,0.1);
+  }
+
+  .won{
+    background:rgba(green,0.1);
+  }
+
+  .lost{
+    background:rgba(red,0.1);
+  }
+}

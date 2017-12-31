@@ -51,6 +51,31 @@
       "column2";
   }
 
+  #opportunities-table{
+
+    tr{
+      th:nth-child(4), th:nth-child(5){
+        display:none;
+      }
+
+      td:nth-child(4), td:nth-child(5){
+        display:none;
+      }
+    }
+  }
+
+  #end-users-table{
+    tr{
+      th:nth-child(4){
+        display:none;
+      }
+
+      td:nth-child(4){
+        display:none;
+      }
+    }
+  }
+
   #welcome #welcome-wrapper #welcome-wrapper-grid #welcome-wrapper-introduction #logo-wrapper #menu-logo{
     padding-left:0;
   }

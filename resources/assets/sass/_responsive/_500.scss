@@ -38,4 +38,29 @@
     padding-top:0;
   }
 
+  #opportunities-table{
+
+    tr{
+      th:nth-child(6){
+        display:none;
+      }
+
+      td:nth-child(6){
+        display:none;
+      }
+    }
+  }
+
+  #end-users-table{
+    tr{
+      th:nth-child(2){
+        display:none;
+      }
+
+      td:nth-child(2){
+        display:none;
+      }
+    }
+  }
+
 }

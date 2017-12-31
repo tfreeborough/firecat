@@ -27,26 +27,52 @@
                     <table id="opportunities-table" class="table">
                         <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Implementation Date</th>
+                            <th>Deal Name</th>
                             <th>Vendor</th>
                             <th>End User</th>
-                            <th>Value</th>
-                            <th>Created</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($deals as $deal)
-                            <tr>
+                            <tr
+                                    class="@if($deal->status->pending)
+                                            pending
+                                        @else
+                                    @if($deal->status->won)
+                                            won
+                                        @else
+                                            lost
+                                        @endif
+                                    @endif"
+                            >
                                 <td>
-                                    <a href={{ route('partner.deal',$deal->id) }}>
+                                    @if($deal->status->pending)
+                                        Pending
+                                    @else
+                                        @if($deal->status->won)
+                                            Won
+                                        @else
+                                            Lost
+                                        @endif
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ \Carbon\Carbon::parse($deal->opportunity->implementation_date)->format('d M Y') }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('partner.deal',$deal->id) }}">
                                         {{ $deal->opportunity->name }}
                                     </a>
+
+                                    @if($deal->reference)
+                                        <small>({{$deal->reference}})</small>
+                                    @endif
                                 </td>
                                 <td>{{ $deal->opportunity->organisation->name }}</td>
                                 <td>{{ $deal->opportunity->endUser->name }}</td>
-                                <td>{{ number_format($deal->opportunity->estimated_value/100,2) }}</td>
-                                <td>{{ \Carbon\Carbon::parse($deal->opportunity->created_at)->toFormattedDateString() }}</td>
                                 <td>
                                     <ul>
                                         <a href="{{ route('partner.deal',$deal->id) }}">
