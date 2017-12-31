@@ -290,12 +290,15 @@
                     "name",
                 ]
             };
-            let vendors = '{!! json_encode($vendors) !!}';
+            let vendors = '{!! json_encode($vendors_json) !!}';
             vendors = JSON.parse(vendors);
+            console.log(vendors);
             var fuse = new Fuse(vendors, options); // "list" is the item array
             var results = fuse.search(e.target.value);
 
             $('#vendor-select').html('');
+
+            console.log(results);
 
             results.forEach(function(e,i){
                 $('#vendor-select').append($('<option>', {

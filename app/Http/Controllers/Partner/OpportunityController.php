@@ -124,13 +124,19 @@ class OpportunityController extends Controller
 
         $vendors = Organisation::orderBy('name','ASC')->get();
         $vendorsSelect = [];
+        $vendorsJson = [];
         foreach($vendors as $vendor){
             $vendorsSelect[$vendor->id] = $vendor->name;
+            $vendorsJson[] = [
+                'id' => $vendor->id,
+                'name' => $vendor->name
+            ];
         }
 
         return view('partner.opportunities.create', [
             'endUsers' => $endUsersSelect,
             'vendors' =>  $vendorsSelect,
+            'vendors_json' => $vendorsJson,
             'magic_link' =>  false,
         ]);
     }
