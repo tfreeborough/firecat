@@ -25,3 +25,29 @@
         </ul>
     </div>
 </div>
+<div id="menu-toggle">
+    <i class="fa fa-bars" aria-hidden="true"></i>
+</div>
+<script>
+    window.onload = function(){
+        $(window).click(function() {
+            $('#authenticated-menu').removeClass('showing');
+        });
+
+        $('#authenticated-menu').click(function(event){
+            event.stopPropagation();
+        });
+
+        $('#menu-toggle').click(function(event){
+            event.stopPropagation();
+        });
+
+        $('#menu-toggle').click(function(){
+            if($('#authenticated-menu').hasClass('showing')){
+                $('#authenticated-menu').removeClass('showing');
+            }else{
+                $('#authenticated-menu').addClass('showing');
+            }
+        });
+    };
+</script>
