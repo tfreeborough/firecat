@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="{{ url('images/favicon.png') }}">
     <meta name="theme-color" content="#218884" />
+    <meta name="google-site-verification" content="-E-jpLrJREqmmHGrduAgO7snsqyIaVzg9l9q4Ibf7bE" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
