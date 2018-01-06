@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Vendor;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\OpportunityActivity;
 use Illuminate\Support\Facades\Auth;
 
 class VendorController extends Controller
@@ -21,10 +22,19 @@ class VendorController extends Controller
     public function showDashboard()
     {
         $organisation = Auth::user()->organisation;
+        $assignments = Auth::user()->assignments;
+
+        $opportunity_array = [];
+        foreach($assignments as $assignment){
+            $opportunity_array[] = $assignment->opportunity_id;
+        }
+        $recent_activity = OpportunityActivity::whereIn('opportunity_id',$opportunity_array)->orderBy('created_at','DESC')->take(5)->get();
+
         return view('vendor.dashboard', [
             'organisation' => $organisation,
             'statistics' => $organisation->mostRecentStatistics(),
-            'assignments' => Auth::user()->assignments
+            'assignments' =>  $assignments,
+            'recent_activity' => $recent_activity
         ]);
     }
 
