@@ -14,21 +14,18 @@
                 <li>
                     <i class="fa fa-file-text" aria-hidden="true"></i> Opportunities
                 </li>
-                <ul>
-                    <a href="{{route('partner.endUsers')}}"
-                       class="{{ Helper::areActiveRoutes(['partner.endUsers','partner.endUsers.create']) }}">
-                        <li>
-                            <i class="fa fa-angle-right" aria-hidden="true"></i>
-                            <i class="fa fa-user-circle-o" aria-hidden="true"></i> End Users
-                        </li>
-                    </a>
-                </ul>
             </a>
             <a href="{{route('partner.deals')}}"
                class="{{ Helper::areActiveRoutes(['partner.deals','partner.deal']) }}"
             >
                 <li>
                     <i class="fa fa-briefcase" aria-hidden="true"></i> Deals
+                </li>
+            </a>
+            <a href="{{route('partner.endUsers')}}"
+               class="{{ Helper::areActiveRoutes(['partner.endUsers','partner.endUsers.create']) }}">
+                <li>
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i> End Users
                 </li>
             </a>
         </ul>
