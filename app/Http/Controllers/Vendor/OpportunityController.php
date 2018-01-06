@@ -121,7 +121,7 @@ class OpportunityController extends Controller
                 event(new CreateOpportunityActivity(
                     $opportunity,
                     Auth::user(),
-                    Auth::user()->first_name.' '.Auth::user()->last_name.' assigned themselves to this opportunity.'
+                    Auth::user()->first_name.' '.Auth::user()->last_name.' assigned themselves to '.$opportunity->name.'.'
                 ));
 
                 if(count($opportunity->assignees) === 0){
@@ -131,7 +131,7 @@ class OpportunityController extends Controller
                     event(new CreateOpportunityActivity(
                         $opportunity,
                         Auth::user(),
-                        Auth::user()->first_name.' '.Auth::user()->last_name.' set this opportunity to \'Associated\'.'
+                        Auth::user()->first_name.' '.Auth::user()->last_name.' set '.$opportunity->name.' to \'Associated\'.'
                     ));
                 }
 
@@ -163,7 +163,7 @@ class OpportunityController extends Controller
                     event(new CreateOpportunityActivity(
                         $opportunity,
                         Auth::user(),
-                        Auth::user()->first_name.' '.Auth::user()->last_name.' set this opportunity to \'In Review\'.'
+                        Auth::user()->first_name.' '.Auth::user()->last_name.' set '.$opportunity->name.' to \'In Review\'.'
                     ));
 
                     return redirect('/vendor/opportunities/'.$uuid);
@@ -221,7 +221,7 @@ class OpportunityController extends Controller
                 event(new CreateOpportunityActivity(
                     $opportunity,
                     Auth::user(),
-                    Auth::user()->first_name.' '.Auth::user()->last_name.' sent a message to the group.',
+                    Auth::user()->first_name.' '.Auth::user()->last_name.' sent a message to '.$opportunity->name.'.',
                     '/vendor/opportunities/'.$opportunity->id.'/messages#'.$newMessage->id
                 ));
 
@@ -262,7 +262,7 @@ class OpportunityController extends Controller
                         event(new CreateOpportunityActivity(
                             $opportunity,
                             Auth::user(),
-                            Auth::user()->first_name.' '.Auth::user()->last_name.' converted this opportunity into a deal.',
+                            Auth::user()->first_name.' '.Auth::user()->last_name.' converted '.$opportunity->name.' into a deal.',
                             '/vendor/deals/'.$deal_id
                         ));
                         return response(200);

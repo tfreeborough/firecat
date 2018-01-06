@@ -66,7 +66,7 @@ class DealController extends Controller
             event(new CreateOpportunityActivity(
                 $deal->opportunity,
                 Auth::user(),
-                Auth::user()->first_name.' '.Auth::user()->last_name.' requested to change the '.$request->get('formatted_type').' of this Deal.',
+                Auth::user()->first_name.' '.Auth::user()->last_name.' requested to change the '.$request->get('formatted_type').' of '.$deal->opportunity->name.'.',
                 null
             ));
 

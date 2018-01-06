@@ -194,7 +194,7 @@ class OpportunityController extends Controller
         event(new CreateOpportunityActivity(
             $opportunity,
             Auth::user(),
-            'Opportunity created by '.Auth::user()->first_name.' '.Auth::user()->last_name.'.',
+            $opportunity->name.' created by '.Auth::user()->first_name.' '.Auth::user()->last_name.'.',
             '/vendor/opportunities/'.$opportunity->id
         ));
 
@@ -219,7 +219,7 @@ class OpportunityController extends Controller
         event(new CreateOpportunityActivity(
             $opportunity,
             Auth::user(),
-            'Considerations were generated for this opportunity.'
+            'Considerations were generated for '.$opportunity->name.'.'
         ));
 
         foreach($request->get('products') as $key => $product)
@@ -234,7 +234,7 @@ class OpportunityController extends Controller
             event(new CreateOpportunityActivity(
                 $opportunity,
                 Auth::user(),
-                $product['name'].' was added to this opportunity.'
+                $product['name'].' was added to '.$opportunity->name.'.'
             ));
         }
 

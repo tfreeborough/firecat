@@ -66,7 +66,7 @@ class DealController extends Controller
                 event(new CreateOpportunityActivity(
                     $deal->opportunity,
                     Auth::user(),
-                    Auth::user()->name().' accepted a proposed update to change the '.$deal_update->type_formatted.' of this deal.',
+                    Auth::user()->name().' accepted a proposed update to change the '.$deal_update->type_formatted.' of '.$deal->opportunity->name.'.',
                     null
                 ));
 
@@ -98,7 +98,7 @@ class DealController extends Controller
                 event(new CreateOpportunityActivity(
                     $deal->opportunity,
                     Auth::user(),
-                    Auth::user()->name().' rejected a proposed update to change the '.$deal_update->type_formatted.' of this deal.',
+                    Auth::user()->name().' rejected a proposed update to change the '.$deal_update->type_formatted.' of '.$deal->opportunity->name.'.',
                     null
                 ));
 
@@ -145,7 +145,7 @@ class DealController extends Controller
             event(new CreateOpportunityActivity(
                 $deal->opportunity,
                 Auth::user(),
-                Auth::user()->name().' marked this deal as Won.',
+                Auth::user()->name().' marked '.$deal->opportunity->name.' as Won.',
                 null
             ));
 
@@ -175,7 +175,7 @@ class DealController extends Controller
             event(new CreateOpportunityActivity(
                 $deal->opportunity,
                 Auth::user(),
-                Auth::user()->name().' marked this deal as Lost.',
+                Auth::user()->name().' marked '.$deal->opportunity->name.' as Lost.',
                 null
             ));
 
