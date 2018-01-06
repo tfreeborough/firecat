@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Partner;
 
 use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
+use App\Mail\vendor\PartnerSentThreadMessage;
 use App\Models\Opportunity;
 use App\Models\OpportunityConsideration;
 use App\Models\OpportunityProduct;
@@ -19,8 +20,8 @@ use App\Models\OpportunityThreadMessage;
 use App\Models\Organisation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
 
@@ -93,6 +94,12 @@ class OpportunityController extends Controller
             $message->user_id = Auth::user()->id;
             $message->save();
 
+            foreach($message->opportunity_thread->opportunity->assignees as $assignee){
+                Mail::to($assignee->user->email)
+                    ->queue(new PartnerSentThreadMessage($message, $assignee->user));
+            }
+
+            
             return response(200);
         }
         return abort(404);

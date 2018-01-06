@@ -34,7 +34,7 @@ class OpportunityThreadMessage extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function thread()
+    public function opportunity_thread()
     {
         return $this->belongsTo('App\Models\OpportunityThread');
     }

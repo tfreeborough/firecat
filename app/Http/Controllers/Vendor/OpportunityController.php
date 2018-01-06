@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
+use App\Mail\partner\VendorSentThreadMessage;
 use App\Models\Assignee;
 use App\Models\Deal;
 use App\Models\DealStatus;
@@ -20,6 +21,7 @@ use App\Models\OpportunityThread;
 use App\Models\OpportunityThreadMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
 
@@ -72,6 +74,12 @@ class OpportunityController extends Controller
                 $thread->opportunity_id = $uuid;
                 $thread->user_id = Auth::user()->id;
                 $thread->save();
+                
+                event(new CreateOpportunityActivity(
+                    $thread->opportunity,
+                    Auth::user(),
+                    Auth::user()->first_name.' '.Auth::user()->last_name.' created a new thread called \''.$thread->subject.'\'.'
+                ));
 
                 return response(200);
             }
@@ -94,6 +102,10 @@ class OpportunityController extends Controller
                 $message->user_id = Auth::user()->id;
                 $message->save();
 
+                $thread = OpportunityThread::find($request->get('thread'));
+                Mail::to($thread->opportunity->partner->email)
+                    ->queue(new VendorSentThreadMessage($message, $thread->opportunity->partner));
+                
                 return response(200);
             }
         }

@@ -77,6 +77,12 @@
             font-size:0.9rem;
             color:rgba(55,55,55,0.3);
         }
+
+        .block{
+            padding: 1rem;
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>

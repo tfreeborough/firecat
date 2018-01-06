@@ -60,8 +60,8 @@
                                 <p>{{ $message->message }}</p>
                                 <p class="extra">
                                     <small>
-                                        <img class="avatar default-avatar small" src="{{ $thread->creator->getAvatar() }}" />
-                                        {{ $thread->creator->first_name }} {{ $thread->creator->last_name }} <br />
+                                        <img class="avatar default-avatar small" src="{{ $message->user->getAvatar() }}" />
+                                        {{ $message->user->name()  }} <br />
                                         <span class="date">{{ \Carbon\Carbon::parse($message->created_at)->toDayDateTimeString() }}</span>
                                     </small>
                                 </p>
@@ -109,9 +109,9 @@
                                         $(element).prepend('' +
                                                 '<div class="thread_viewer_item_message animated fadeIn">' +
                                                 '<p>'+Autolinker.link(data.message)+'</p>' +
-                                                '<p>' +
+                                                '<p class="extra">' +
                                                 '<small>' +
-                                                '<img class="avatar default-avatar small" src="{{ $thread->creator->getAvatar() }}" />' +
+                                                '<img class="avatar default-avatar small" src="{{ $message->user->getAvatar() }}" />' +
                                                 '{{ $user->first_name }} {{ $user->last_name }}' +
                                                 '</small>' +
                                                 '</p>' +
