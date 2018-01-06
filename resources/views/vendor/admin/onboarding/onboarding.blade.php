@@ -15,18 +15,23 @@
                     </a>
                 </li>
                 <li>
-                    Administration
+                    <a href="{{route('vendor.admin')}}">
+                        Administration
+                    </a>
+                </li>
+                <li>
+                    Onboarding
                 </li>
             </ul>
         </div>
     </div>
     @include('_partials.flash_message')
     <div id="vendor-admin-onboarding">
-        <div id="vendor-admin-pending-invites">
+        <div id="vendor-admin-pending-invites" class="block">
             <h3 class="title">Pending Invites</h3>
             @include('vendor.admin.onboarding.pending_invites')
         </div>
-        <div id="vendor-admin-invite-user">
+        <div id="vendor-admin-invite-user" class="block">
             <h3 class="title">Invite a new user</h3>
             @include('vendor.admin.onboarding.invite_user')
         </div>

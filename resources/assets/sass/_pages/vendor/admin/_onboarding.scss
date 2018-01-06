@@ -2,11 +2,11 @@
 
 #vendor-admin-onboarding{
   display:grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 300px;
   grid-template-rows: 1fr;
   grid-template-areas:
     "pending_invites new_invite";
-  grid-gap:8rem;
+  grid-gap:1rem;
 
   #vendor-admin-pending-invites{
     grid-area: pending_invites;

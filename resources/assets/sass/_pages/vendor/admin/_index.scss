@@ -4,109 +4,123 @@
     #vendor-admin-stats{
       display:grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
+      grid-template-rows: auto 1fr 1fr;
       grid-template-areas:
-        "square1 square2 column1 column2"
-        "square3 square4 column1 column2";
+        "magic magic magic magic"
+        "square1 square2 square5 square6"
+        "square3 square4 square5 square6";
       grid-gap:1rem;
 
-      .statistic{
-        padding:1rem;
-        background:$firecat-light-grey;
-        text-align: center;
-        border-radius:4px;
+      .dashboard-panel{
+        padding:2rem;
+        height:250px;
+        display:table;
+        width:100%;
+        border:1px solid $firecat-light-grey;
 
-        .big{
-          font-size:4rem;
-          line-height: 4rem;
+        .dashboard-panel-wrapper{
+          display:table-cell;
+          vertical-align: middle;
+          padding:2rem;
+        }
+
+        .dashboard-panel-big{
+          text-align: center;
+          font-size:6rem;
+          font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          color:$firecat-primary-dark;
+        }
+
+        .dashboard-panel-small{
+          text-align: center;
           color:$firecat-primary;
+          font-size:2.2rem;
         }
+      }
 
-        .small{
-          font-size:2.5rem;
-          font-weight:300;
+      #magic{
+        grid-area:magic;
+
+        .alert{
+          margin:0;
         }
+      }
 
-        h4{
-          text-align: left;
-        }
+      #square1{
+        grid-area:square1;
+      }
 
-        &.box{
-          min-height: 150px;
-          display:grid;
-          align-items: center;
-        }
+      #square2{
+        grid-area:square2;
+      }
 
-        &#square1{
-          grid-area:square1;
-        }
+      #square3{
+        grid-area:square3;
+      }
 
-        &#square2{
-          grid-area:square2;
-        }
+      #square4{
+        grid-area:square4;
+        display:grid;
+        align-items: center;
+      }
 
-        &#square3{
-          grid-area:square3;
-        }
+      #square5{
+        grid-area:square5;
 
-        &#square4{
-          grid-area:square4;
-          display:grid;
-          align-items: center;
-        }
+        #admin-list {
+          display: grid;
+          align-items: start;
+          grid-gap: 1rem;
 
-        &#column1{
-          grid-area:column1;
-          display:grid;
-          grid-template-rows: auto 1fr;
+          .user {
+            background: rgba($firecat-white, 0.3);
+            border: 1px solid rgba($firecat-dark-grey, 0.1);
+            border-radius: 4px;
+            text-align: left;
+            padding: 6px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: "avatar information";
+            grid-gap: 1rem;
+            align-items: center;
 
-          #admin-list{
-            display:grid;
-            align-items: start;
-            grid-gap:1rem;
+            .avatar {
+              grid-area: avatar;
+              width: 48px;
+            }
 
-            .user{
-              background:rgba($firecat-white,0.3);
-              border:1px solid rgba($firecat-dark-grey,0.1);
-              border-radius:4px;
-              text-align: left;
-              padding:6px;
-              display:grid;
-              grid-template-columns: auto 1fr;
-              grid-template-rows: 1fr;
-              grid-template-areas: "avatar information";
-              grid-gap:1rem;
-              align-items: center;
+            .information {
+              grid-area: information;
 
-              .avatar{
-                grid-area: avatar;
-                width:48px;
-              }
-
-              .information{
-                grid-area: information;
-
-                > div{
-                  line-height: 1.6rem;
-                }
+              > div {
+                line-height: 1.6rem;
               }
             }
           }
         }
+      }
 
-        &#column2{
-          grid-area:column2;
+      #square6{
+        grid-area:square6;
+
+        ul{
+          padding:0;
+          margin:0;
+          list-style-type: none;
         }
+      }
 
-        #action-grid{
 
-          .action{
-            margin:4px 2px;
-            display:inline-block;
 
-            button{
-              margin:0;
-            }
+      #action-grid{
+
+        .action{
+          margin:4px 2px;
+          display:inline-block;
+
+          button{
+            margin:0;
           }
         }
       }

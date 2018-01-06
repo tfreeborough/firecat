@@ -21,66 +21,62 @@
         </div>
     </div>
     <div id="vendor-admin">
-        <div class="row">
-            <div class="col-xs-12">
-                Magic Link: <input type="text" value="{{ route('magic-link',$vendor->id) }}" size="80" />
-            </div>
-        </div>
         <div id="vendor-admin-stats-wrapper">
             <div id="vendor-admin-stats">
-                <div id="square1" class="statistic box">
-                    <div>
-                        <div class="big">{{ number_format($vendor->memberCount()) }}</div>
-                        <div class="small">Users</div>
+                <div id="magic" class="block">
+                    <h3 class="title">Magic Link</h3>
+                    <div class="alert alert-info">
+                        <p>
+                            Your magic link is designed to help funnel more opportunities to you. By directing users to the
+                            magic link, all of your details will be passed into the opportunity automatically, so the user only
+                            needs to worry about the content of the opportunity, not if it is going to the right person.
+                        </p>
+                        <p>
+                            <strong>Your magic link is: </strong><span class="highlight">{{ route('magic-link',$vendor->id) }}</span>
+                        </p>
                     </div>
                 </div>
-                <div id="square2" class="statistic box">
-                    <div>
-                        <div class="big">{{ number_format(count($vendor->opportunities)) }}</div>
-                        <div class="small">Opportunities</div>
-                    </div>
-
-                </div>
-                <div id="square3" class="statistic box">
-                    <div>
-                        <div class="big">{{ number_format(count($vendor->deals)) }}</div>
-                        <div class="small">Deals</div>
-                    </div>
-                </div>
-                <div id="square4" class="statistic box">
-                    <div id="action-grid">
-                        <div class="action">
-
-                            <a href="{{route('vendor.admin.onboarding')}}">
-                                <button class="button action">
-                                    Onboarding
-                                </button>
-                            </a>
+                <div id="square1" class="dashboard-panel">
+                    <div class="dashboard-panel-wrapper">
+                        <div class="dashboard-panel-big">
+                            {{ number_format($vendor->memberCount()) }}
                         </div>
-                        <div class="action">
-                            <a href="{{route('vendor.admin.onboarding')}}">
-                                <button class="button action">
-                                    User Management
-                                </button>
-                            </a>
-                        </div>
-                        <div class="action">
-                            <a href="{{route('vendor.admin.onboarding')}}">
-                                <button class="button action">
-                                    Notices
-                                </button>
-                            </a>
-                        </div>
-                        <div class="action">
-                            <a href="{{route('vendor.admin.onboarding')}}">
-                                <button class="button action">
-                                    Organisation Settings
-                                </button>
-                            </a>
+                        <div class="dashboard-panel-small">
+                            Users
                         </div>
                     </div>
                 </div>
-                <div id="column1" class="statistic">
+                <div id="square2" class="dashboard-panel">
+                    <div class="dashboard-panel-wrapper">
+                        <div class="dashboard-panel-big">
+                            {{ number_format(count($vendor->opportunities)) }}
+                        </div>
+                        <div class="dashboard-panel-small">
+                            Opportunities
+                        </div>
+                    </div>
+                </div>
+                <div id="square3" class="dashboard-panel">
+                    <div class="dashboard-panel-wrapper">
+                        <div class="dashboard-panel-big">
+                            {{ number_format(count($vendor->deals)) }}
+                        </div>
+                        <div class="dashboard-panel-small">
+                            Deals
+                        </div>
+                    </div>
+                </div>
+                <div id="square4" class="dashboard-panel">
+                    <div class="dashboard-panel-wrapper">
+                        <div class="dashboard-panel-big">
+                            <span class="green">{{ number_format($deals_won) }}</span>/<span class="red">{{ number_format($deals_lost) }}</span>
+                        </div>
+                        <div class="dashboard-panel-small">
+                            Deals Won/Lost
+                        </div>
+                    </div>
+                </div>
+                <div id="square5" class="block">
                     <h4 class="title">Administrators</h4>
                     <div id="admin-list">
                         @foreach($vendor->administrators as $administrator)
@@ -96,12 +92,17 @@
                         @endforeach
                     </div>
                 </div>
-                <div id="column2" class="statistic">
-                    <h4 class="title">Notices</h4>
-                    <div id="notice-list">
-                        <p><i>Notices coming soon...</i></p>
-                    </div>
+                <div id="square6" class="block">
+                    <h4 class="title">Administration Tools</h4>
+                    <ul>
+                        <li>
+                            <a href="{{route('vendor.admin.onboarding')}}">
+                                Onboarding
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+
             </div>
         </div>
     </div>
