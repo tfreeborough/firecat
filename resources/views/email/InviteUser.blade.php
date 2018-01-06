@@ -13,7 +13,7 @@
         <h1 class="title">Hey <span class="highlight">{{ $invite->first_name }},</span> <br /><small>you've been invited to Firecat.</small></h1>
         <div>
             <p>
-                Hi {{ $invite->first_Name }}, we're sending you this email because an account has been created for you on <a target="_blank" href="https://firecat.io">Firecat</a>.
+                Hi {{ $invite->first_name }}, we're sending you this email because an account has been created for you on <a target="_blank" href="https://firecat.io">Firecat</a>.
                 Your account is almost set up all we need now is for you to verify your account and create a password.
             </p>
             <p>

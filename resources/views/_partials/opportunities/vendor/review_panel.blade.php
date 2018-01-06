@@ -2,33 +2,47 @@
     <h3 class="title">Considerations</h3>
     <div id="opportunity_review_panel_wrapper">
         <div id="opportunity_review_panel_first">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Considerations</th>
-                    <th>Achieved</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($opportunity->considerations as $consideration)
+            @if(!$user->isAssigned($opportunity->id))
+                <p>
+                    Non assigned members cannot view considerations on this opportunity, assign yourself first.
+                </p>
+            @elseif(!$opportunity->status->in_review)
+                <p>Considerations will become available when this opportunity is in review.</p>
+            @else
+                <table class="table">
+                    <thead>
                     <tr>
-                        <td>{{ $consideration->title }}</td>
-                        <td>
-                            @if($consideration->achieved)
-                                <i class="fa fa-check" aria-hidden="true"></i>
-                            @else
-                                <i class="fa fa-question" aria-hidden="true" title="Click to complete this consideration"></i>
-                            @endif
-                        </td>
+                        <th>Considerations</th>
+                        <th>Achieved</th>
                     </tr>
-                @endforeach
-                @if(count($opportunity->considerations) === 0)
-                    <tr>
-                        <td>No considerations are required for this opportunity</td>
-                    </tr>
-                @endif
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($opportunity->considerations as $consideration)
+                        <tr>
+                            <td>
+                                {{ $consideration->title }}
+                                @if(!$consideration->achieved)
+                                    <br /><small><a href="{{ route('vendor.opportunity.consideration.complete', [$opportunity->id, $consideration->id]) }}">Mark as complete</a></small>
+                                @endif
+                            </td>
+                            <td>
+                                @if($consideration->achieved)
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                @else
+                                    <i class="fa fa-question" aria-hidden="true"></i>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                    @if(count($opportunity->considerations) === 0)
+                        <tr>
+                            <td>No considerations are required for this opportunity</td>
+                        </tr>
+                    @endif
+                    </tbody>
+                </table>
+            @endif
+
             <a class="pull-right" href="{{ route('docs.opportunities.considerations') }}">
                 <small>Learn more about considerations</small>
             </a>
@@ -38,11 +52,11 @@
                 <tbody>
                 <tr>
                     <td>
-                        <h3>{{ $opportunity->getConsiderationsCompleted() }}/{{ count($opportunity->consderations) }}</h3>
+                        <h3>{{ $opportunity->getConsiderationsCompleted() }}/{{ count($opportunity->considerations) }}</h3>
                         <small>Considerations achieved</small>
                     </td>
                     <td>
-                        @if($opportunity->getConsiderationsCompleted() === count($opportunity->consderations))
+                        @if($user->isAssigned($opportunity->id) && $opportunity->getConsiderationsCompleted() === count($opportunity->considerations))
                             @if($opportunity->deal !== null)
                                 <button class="button disabled">Converted to Deal Registration</button>
                             @else

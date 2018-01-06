@@ -111,7 +111,6 @@
                                                 '<p>'+Autolinker.link(data.message)+'</p>' +
                                                 '<p class="extra">' +
                                                 '<small>' +
-                                                '<img class="avatar default-avatar small" src="{{ $message->user->getAvatar() }}" />' +
                                                 '{{ $user->first_name }} {{ $user->last_name }}' +
                                                 '</small>' +
                                                 '</p>' +

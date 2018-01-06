@@ -43,7 +43,7 @@
 
 
     <div class="form-group">
-        <div id="g-recaptcha1" data-sitekey="6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF"></div>
+        <div class="g-recaptcha" data-sitekey="6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF"></div>
     </div>
     <div class="form-group">
         {{ Form::submit('Create an account', array_merge(['class' => 'button action'])) }}

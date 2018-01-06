@@ -16,6 +16,7 @@ use App\Models\Assignee;
 use App\Models\Deal;
 use App\Models\DealStatus;
 use App\Models\Opportunity;
+use App\Models\OpportunityConsideration;
 use App\Models\OpportunityMessage;
 use App\Models\OpportunityThread;
 use App\Models\OpportunityThreadMessage;
@@ -124,6 +125,17 @@ class OpportunityController extends Controller
             if(!Auth::user()->isAssigned($uuid)){
                 $opportunity = Opportunity::find($uuid);
 
+                if(count($opportunity->assignees) === 0){
+                    $opportunity->status->associated = true;
+                    $opportunity->status->save();
+
+                    event(new CreateOpportunityActivity(
+                        $opportunity,
+                        Auth::user(),
+                        Auth::user()->first_name.' '.Auth::user()->last_name.' set '.$opportunity->name.' to \'Associated\'.'
+                    ));
+                }
+
                 $assignee = new Assignee();
                 $assignee->id = Uuid::generate();
                 $assignee->opportunity_id = $uuid;
@@ -135,17 +147,6 @@ class OpportunityController extends Controller
                     Auth::user(),
                     Auth::user()->first_name.' '.Auth::user()->last_name.' assigned themselves to '.$opportunity->name.'.'
                 ));
-
-                if(count($opportunity->assignees) === 0){
-                    $opportunity->status->associated = true;
-                    $opportunity->status->save();
-
-                    event(new CreateOpportunityActivity(
-                        $opportunity,
-                        Auth::user(),
-                        Auth::user()->first_name.' '.Auth::user()->last_name.' set '.$opportunity->name.' to \'Associated\'.'
-                    ));
-                }
 
 
                 return redirect('/vendor/opportunities/'.$uuid);
@@ -279,10 +280,36 @@ class OpportunityController extends Controller
                         ));
                         return response(200);
                     }
-                    return response('This opportunity cannot be converted into a deal until it has gone under review.', 500);
+                    return response('This opportunity cannot be converted into a deal until it has gone under review.', 400);
                 }else{
-                    return response('Not all considerations have been achieved, please attempt to convert this opportunity once they are completed.', 500);
+                    return response('Not all considerations have been achieved, please attempt to convert this opportunity once they are completed.', 400);
                 }
+            }
+        }
+        return abort(404);
+    }
+
+    public function markConsiderationComplete($uuid, $consideration_id)
+    {
+        if(Auth::user()->organisation->hasOpportunity($uuid)){
+            if(Auth::user()->isAssigned($uuid)){
+                $consideration = OpportunityConsideration::find($consideration_id);
+                if($consideration !== null && $consideration->opportunity->id === $uuid){
+                    $consideration->achieved = true;
+                    $consideration->save();
+
+                    event(new CreateOpportunityActivity(
+                        Opportunity::find($uuid),
+                        Auth::user(),
+                        Auth::user()->name().' marked a consideration as complete.',
+                        null
+                    ));
+
+                    return redirect(route('vendor.opportunity',$uuid));
+                }
+                return redirect(route('vendor.opportunity',$uuid))->withErrors([
+                    'The consideration does not belong to this opportunity.'
+                ]);
             }
         }
         return abort(404);

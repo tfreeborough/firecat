@@ -48,7 +48,7 @@
             @include('_partials.opportunities.partner.opportunity_products')
             <div id="opportunity_delete">
                 @if($opportunity->deal === null)
-                    <button onClick="confirmDelete()" class="button pull-right">Delete this Opportunity</button>
+                    <!-- <button onClick="confirmDelete()" class="button pull-right">Delete this Opportunity</button> -->
                 @else
                     <a href="{{ route('partner.deal',$opportunity->deal->id) }}"><button class="button pull-right">View Deal</button></a>
                 @endif

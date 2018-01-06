@@ -95,7 +95,7 @@ class Opportunity extends Model
     public function getConsiderationsCompleted()
     {
         $count = 0;
-        foreach($this->considerations() as $consideration){
+        foreach($this->considerations as $consideration){
             if($consideration->achieved){
                 $count++;
             }
@@ -105,8 +105,8 @@ class Opportunity extends Model
     
     public function getDefaultConsiderations()
     {
-        if(count($this->organisation->defaultConsiderations) > 0){
-            return $this->organisation()->defaultConsiderations;
+        if(count($this->organisation->defaultConsiderations()) > 0){
+            return $this->organisation->defaultConsiderations();
         }else{
             return [
                 [ 'title' => 'Liaised with partner to confirm details of opportunity.' ], 

@@ -47,14 +47,9 @@
                     </div>
                 @endif
             </div>
-            @if($opportunity->status->in_review)
-                @include('_partials.opportunities.status_code_display')
-                @include('_partials.opportunities.vendor.review_panel')
-                @include('_partials.opportunities.vendor.partner_consultation')
-            @else
-                @include('_partials.opportunities.status_code_display')
-            @endif
-
+            @include('_partials.opportunities.status_code_display')
+            @include('_partials.opportunities.vendor.review_panel')
+            @include('_partials.opportunities.vendor.partner_consultation')
             @include('_partials.opportunities.vendor.partner_information')
             @include('_partials.opportunities.vendor.opportunity_information')
             @include('_partials.opportunities.vendor.internal_messaging_panel')

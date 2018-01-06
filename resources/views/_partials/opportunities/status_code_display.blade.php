@@ -1,5 +1,12 @@
 <div class="status-code-display block">
     <h3 class="title">Status</h3>
+    @if($opportunity->status->getStatusCode() < 2)
+        @if(Auth::user()->isVendor() && Auth::user()->isAssigned($opportunity->id))
+            <div class="alert alert-info text-center">
+                <button class="button action" onClick="reviewConfirm()" class="highlight">Review this opportunity</button>
+            </div>
+        @endif
+    @endif
     <table>
         <thead>
             <tr>
@@ -25,11 +32,6 @@
                     @if($opportunity->status->getStatusCode() < 2)
                         <div class="grey">
                             <i class="fa fa-question" aria-hidden="true"></i>
-                            @if(Auth::user()->isVendor() && Auth::user()->isAssigned($opportunity->id))
-                                <div>
-                                    <small><button class="button action" onClick="reviewConfirm()">Review this opportunity</button></small>
-                                </div>
-                            @endif
                         </div>
                     @else
                         <div class="good">

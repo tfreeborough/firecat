@@ -231,6 +231,7 @@
                                     If you are unsure what to write in the justification, here are some things that might help.
                                 </p>
                                 <ul>
+                                    <li>Your Justification Must be at least <strong>128 Characters long.</strong></li>
                                     <li>Why do you need special pricing on this opportunity? Does the end user require pricing per item below a specific amount?</li>
                                     <li>Are there any external factors that require a specific product to be chosen for the end user.</li>
                                     <li>Are there any logistical factors that affect why you have chosen this vendor.</li>
@@ -240,7 +241,7 @@
                         <div class="col-xs-12 col-md-8">
                             <div class="form-group">
                                 {{ Form::label('justification', 'Justification', ['class' => 'control-label required']) }}
-                                {{ Form::textarea('justification', null, array_merge(['placeholder' => 'Please enter a short justification for this opportunity', 'id' => 'justification', 'class' => 'form-control'])) }}
+                                {{ Form::textarea('justification', null, array_merge(['placeholder' => 'Please enter a justification for this opportunity', 'id' => 'justification', 'class' => 'form-control'])) }}
                             </div>
                         </div>
                     </div>
@@ -300,6 +301,7 @@
                     "name",
                 ]
             };
+
             let vendors = '{!! json_encode($vendors_json) !!}';
             vendors = JSON.parse(vendors);
             console.log(vendors);

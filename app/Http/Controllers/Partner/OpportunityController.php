@@ -117,7 +117,8 @@ class OpportunityController extends Controller
             'endUsers' => $endUsersSelect,
             'magic_link' =>  true,
             'vendor' => Organisation::find($uuid),
-            'vendors' => []
+            'vendors' => [],
+            'vendors_json' => [],
         ]);
     }
     
@@ -176,28 +177,29 @@ class OpportunityController extends Controller
         Validator::make($request->all(), $rules)->validate();
 
 
-        $uuid = Uuid::generate();
+        $opportunity = new Opportunity();
+        $opportunity->id = Uuid::generate();
+        $opportunity->name = $request->input('opportunity_name');
+        $opportunity->user_id = Auth::user()->id;
+        $opportunity->organisation_id = $request->input('vendor');
+        $opportunity->deal_id = null;
+        $opportunity->end_user_id = $request->input('end_user');
+        $opportunity->reference = $request->input('opportunity_reference');
+        if($request->input('date_of_award')) {
+            $opportunity->date_of_award = Carbon::createFromFormat('d/m/Y', $request->input('date_of_award'))->toDateTimeString();
+        }
+        if($request->input('implementation_date')){
+            $opportunity->implementation_date = Carbon::createFromFormat('d/m/Y',$request->input('implementation_date'))->toDateTimeString();
+        }
+        $opportunity->estimated_value = (int) preg_replace('|[^0-9]|i', '', $request->input('estimated_value')) * 100;
+        $opportunity->estimated_units = $request->input('estimated_units');
+        $opportunity->purchase_type = $request->input('purchase_type');
+        $opportunity->procurement_type = $request->input('procurement_type');
+        $opportunity->direct_indirect_procurement = $request->input('direct_indirect_procurement');
+        $opportunity->competitors = $request->input('competitors');
+        $opportunity->justification = $request->input('justification');
+        $opportunity->save();
 
-        Opportunity::create([
-            'id' => $uuid,
-            'name' => $request->input('opportunity_name'),
-            'user_id' => Auth::user()->id,
-            'organisation_id' => $request->input('vendor'),
-            'deal_id' => null,
-            'end_user_id' => $request->input('end_user'),
-            'reference' => $request->input('opportunity_reference'),
-            'date_of_award' => Carbon::createFromFormat('d/m/Y',$request->input('date_of_award'))->toDateTimeString(),
-            'implementation_date' => Carbon::createFromFormat('d/m/Y',$request->input('implementation_date'))->toDateTimeString(),
-            'estimated_value' => (int) preg_replace('|[^0-9]|i', '', $request->input('estimated_value')) * 100,
-            'estimated_units' => $request->input('estimated_units'),
-            'purchase_type' => $request->input('purchase_type'),
-            'procurement_type' => $request->input('procurement_type'),
-            'direct_indirect_procurement' => $request->input('direct_indirect_procurement'),
-            'competitors' => $request->input('competitors'),
-            'justification' => $request->input('justification')
-        ]);
-
-        $opportunity = Opportunity::find($uuid);
         event(new CreateOpportunityActivity(
             $opportunity,
             Auth::user(),
@@ -207,18 +209,18 @@ class OpportunityController extends Controller
 
         OpportunityStatus::create([
             'id' => Uuid::generate(),
-            'opportunity_id' => $uuid,
+            'opportunity_id' => $opportunity->id,
             'associated' => false,
             'in_review' => false,
-            'accepted' => null
+            'accepted' => null,
         ]);
         
         foreach($opportunity->getDefaultConsiderations() as $consideration){
             OpportunityConsideration::create([
                 'id' => Uuid::generate(),
-                'opportunity_id' => $uuid,
+                'opportunity_id' => $opportunity->id,
                 'user_id' => Auth::user()->id,
-                'title' => $consideration->title,
+                'title' => $consideration,
                 'achieved' => false
             ]);
         }
@@ -233,7 +235,7 @@ class OpportunityController extends Controller
         {
             OpportunityProduct::create([
                 'id' => Uuid::generate(),
-                'opportunity_id' => $uuid,
+                'opportunity_id' => $opportunity->id,
                 'name' => $product['name'],
                 'description' => $product['description']
             ]);
@@ -246,7 +248,7 @@ class OpportunityController extends Controller
         }
 
 
-        return redirect('/partner/opportunities/'.$uuid);
+        return redirect('/partner/opportunities/'.$opportunity->id);
     }
 
 }

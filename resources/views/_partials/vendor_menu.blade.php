@@ -29,20 +29,6 @@
                     <i class="fa fa-tags" aria-hidden="true"></i> Tags
                 </li>
             </a>
-            <a href="{{route('vendor.activity')}}"
-               class="{{ Helper::isActiveRoute('vendor.activity') }}"
-            >
-                <li>
-                    <i class="fa fa-heartbeat" aria-hidden="true"></i> Activity
-                </li>
-            </a>
-            <a href="{{route('docs')}}"
-               class="{{ Helper::isActiveRoute('docs') }}"
-            >
-                <li>
-                    <i class="fa fa-book" aria-hidden="true"></i> Documentation
-                </li>
-            </a>
             @if(Auth::user()->isVendorAdministrator(Auth::user()->organisation->id))
                 <a href="{{route('vendor.admin')}}"
                    class="{{ Helper::areActiveRoutes([
