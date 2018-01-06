@@ -45,7 +45,7 @@
                 <div class="dashboard-panel">
                     <div class="dashboard-panel-wrapper">
                         <div class="dashboard-panel-big">
-                            {{ (100/count($opportunities))*count($deals) }}%
+                            {{ (100/(count($opportunities) > 0 ? count($opportunities) : 1))*count($deals) }}%
                         </div>
                         <div class="dashboard-panel-small">
                             Deal Conversion Rate

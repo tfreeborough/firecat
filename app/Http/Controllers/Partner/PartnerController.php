@@ -36,7 +36,7 @@ class PartnerController extends Controller
             'opportunities' => Auth::user()->opportunities,
             'deals_won' => $deals_won,
             'deals_lost' => $deals_lost,
-            'win_rate' => (100/count($deals))*$deals_won
+            'win_rate' => (100/(count($deals) > 0 ? count($deals) : 1))*$deals_won
         ]);
     }
 }
