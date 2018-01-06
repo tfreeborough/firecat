@@ -1,0 +1,31 @@
+
+#partner-dashboard{
+  display:grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  grid-gap:1rem;
+  grid-template-areas:
+    "topper"
+    "overview"
+    "main";
+
+  .top-wrap{
+    grid-area:topper;
+
+    .alert{
+      margin:0;
+    }
+  }
+
+  #overview{
+    grid-area:overview;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows:1fr;
+    grid-gap:1rem;
+
+    .dashboard-panel{
+
+    }
+  }
+}

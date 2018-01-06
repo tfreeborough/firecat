@@ -9,5 +9,28 @@
     "activity_panel activity_panel internal_messaging_panel internal_messaging_panel";
   }
 
+  #partner_deal {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas:
+            "deal_actions deal_actions deal_actions deal_actions"
+            "implementation implementation status status"
+            "opportunity_information opportunity_information my_information my_information"
+            "opportunity_information opportunity_information updates updates"
+            "end_user end_user opportunity_products opportunity_products";
+  }
+
+  #opportunity{
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows:auto auto auto auto auto auto auto;
+    grid-template-areas: "converted converted"
+    "status status"
+    "vendor_consultation my_information"
+    "opportunity_information my_information"
+    "opportunity_information end_user"
+    "opportunity_products opportunity_products"
+    "opportunity_delete opportunity_delete";
+  }
+
 }
 

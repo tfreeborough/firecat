@@ -33,6 +33,41 @@
       "assignments_panel";
   }
 
+  #partner_deal {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto auto auto auto;
+    grid-template-areas:
+            "deal_actions"
+            "status"
+            "implementation"
+            "opportunity_information"
+            "opportunity_products"
+            "end_user"
+            "updates"
+            "my_information";
+  }
+
+  #opportunity{
+    grid-template-columns: 1fr;
+    grid-template-rows:auto auto auto auto auto auto auto auto;
+    grid-template-areas:
+            "converted"
+            "status"
+            "opportunity_information"
+            "opportunity_products"
+            "vendor_consultation"
+            "end_user"
+            "my_information"
+            "opportunity_delete";
+  }
+
+  #vendor-admin-onboarding {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: "new_invite" "pending_invites";
+  }
+
+
   #vendor-admin{
     input[type="text"]{
       width:100%;
@@ -94,6 +129,29 @@
 
   #login #login-wrapper{
     width:100%;
+  }
+
+  #partner-dashboard{
+    #overview{
+      grid-area:overview;
+      display:grid;
+      grid-template-columns: 1fr;
+      grid-template-rows:1fr 1fr;
+      grid-gap:1rem;
+
+      .dashboard-panel:nth-child(2),.dashboard-panel:nth-child(4){
+        display:none;
+      }
+    }
+  }
+
+  #vendor-overview {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    margin-bottom: 2rem;
+    grid-template-areas: "title" "acceptance" "opportunities_created" "deal_value" "response_time";
   }
 
 }

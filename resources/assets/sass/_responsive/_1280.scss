@@ -34,14 +34,39 @@
   }
 
   #vendor-admin #vendor-admin-stats-wrapper #vendor-admin-stats{
-    grid-template-rows: auto auto auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr;
     grid-template-areas:
-            "square1 square1 square2 square2"
-            "column1 column1 square3 square3"
-            "square4 square4 column2 column2";
+            "magic magic"
+            "square1 square5"
+            "square2 square6"
+            "square3 square4";
   }
 
   #vendor-admin #vendor-admin-stats-wrapper #vendor-admin-stats .statistic.box{
     min-height: 0;
+  }
+
+  #dashboard .dashboard-panel{
+    height:auto
+  }
+
+  #partner-dashboard{
+    #overview{
+      grid-area:overview;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows:1fr 1fr;
+      grid-gap:1rem;
+    }
+  }
+
+  #vendor-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    grid-gap: 1rem;
+    margin-bottom: 2rem;
+    grid-template-areas: "title title" "acceptance opportunities_created" "deal_value response_time";
   }
 }
