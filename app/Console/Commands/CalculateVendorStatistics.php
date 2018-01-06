@@ -59,7 +59,9 @@ class CalculateVendorStatistics extends Command
 
             foreach($organisation->deals()->where('deals.created_at','>',Carbon::now()->subMonth(1))->get() as $deal)
             {
-                $total_deal_value += $deal->opportunity->estimated_value;
+                if($deal->status->won){
+                    $total_deal_value += $deal->opportunity->estimated_value;
+                }
             }
 
             $total_deal_count > 0
