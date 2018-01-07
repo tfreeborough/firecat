@@ -5,7 +5,7 @@
         <div id="assignments_panel_avatars">
             @foreach($opportunity->assignees as $assignee)
                 <div class="assignment-block">
-                    <img src={{ $assignee->user->extra->avatar_url }} />
+                    <img src="{{ $assignee->user->getAvatar() }}" />
                     <p>{{ $assignee->user->first_name }} {{ $assignee->user->last_name }}</p>
                 </div>
             @endforeach
