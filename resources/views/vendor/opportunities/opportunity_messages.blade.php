@@ -32,79 +32,74 @@
             </div>
         </div>
         <div id="vendor-opportunity-messages">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="col-xs-12 col-sm-9" id="messages-container">
-                        <div id="messages-container-list">
-                            <ul>
-                                @foreach($opportunity->getAllMessages() as $message)
-                                    @if($message->isUser(Auth::user()->id))
-                                        <li class="message me">
-                                            <a name="{{$message->id}}">
-                                                <div class="content">
-                                                    {{ $message->message }}
-                                                </div>
-                                                <div class="info">
-                                                    <ul>
-                                                        <li><span style="background-color:{{$message->generateColorCode()}}" class="square"></span></li>
-                                                        <li> | {{ \Carbon\Carbon::parse($message->created_at)->format('H:ia - j/m/Y') }}</li>
-                                                    </ul>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li class="message">
-                                            <a name="{{$message->id}}">
-                                                <div class="content">
-                                                    {{ $message->message }}
-                                                </div>
-                                                <div class="info">
-                                                    <ul>
-                                                        <li><span style="background-color:{{$message->generateColorCode()}}" class="square"></span></li>
-                                                        <li> | {{ \Carbon\Carbon::parse($message->created_at)->format('H:ia - j/m/Y') }}</li>
-                                                    </ul>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @endif
-                                @endforeach
-                                @if(count($opportunity->getAllMessages()) === 0)
-                                    <li class="message">
+            <div id="messages-container" class="block">
+                <h3 class="title">Conversation</h3>
+                <div id="messages-container-list">
+                    <ul>
+                        @foreach($opportunity->getAllMessages() as $message)
+                            @if($message->isUser(Auth::user()->id))
+                                <li class="message me">
+                                    <a name="{{$message->id}}">
                                         <div class="content">
-                                            Nobody has posted a message yet, perhaps you could help out by being the first?
+                                            {{ $message->message }}
                                         </div>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
-                        <div id="new-message">
-                            <textarea id="new-message-textarea" placeholder="Enter your message here"></textarea>
-                            <i onClick="submitMessage()" class="fa fa-paper-plane" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-3" id="conversation-participants">
-                        <h3>Participants</h3>
-                        <div id="conversation-participants-key">
-                            <ul>
-                                @foreach($opportunity->getParticipants() as $participant)
-                                    <li>
-                                        <span style="background-color:{{ $participant->generateColorCode() }}" class="square"></span>
-                                        <span class="participant">{{ $participant->user->first_name }} {{ $participant->user->last_name }}</span>
-                                        <span class="avatar"><img src="{{ $participant->user->getAvatar() }}" /></span>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-
-                    </div>
+                                        <div class="info">
+                                            <ul>
+                                                <li><span style="background-color:{{$message->generateColorCode()}}" class="square"></span></li>
+                                                <li> | {{ \Carbon\Carbon::parse($message->created_at)->format('H:ia - j/m/Y') }}</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </li>
+                            @else
+                                <li class="message">
+                                    <a name="{{$message->id}}">
+                                        <div class="content">
+                                            {{ $message->message }}
+                                        </div>
+                                        <div class="info">
+                                            <ul>
+                                                <li><span style="background-color:{{$message->generateColorCode()}}" class="square"></span></li>
+                                                <li> | {{ \Carbon\Carbon::parse($message->created_at)->format('H:ia - j/m/Y') }}</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                        @if(count($opportunity->getAllMessages()) === 0)
+                            <li class="message">
+                                <div class="content">
+                                    Nobody has posted a message yet, perhaps you could help out by being the first?
+                                </div>
+                            </li>
+                        @endif
+                    </ul>
+                </div>
+                <div id="new-message">
+                    <textarea id="new-message-textarea" placeholder="Enter your message here"></textarea>
+                    <i onClick="submitMessage()" class="fa fa-paper-plane" aria-hidden="true"></i>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <a href="/vendor/opportunities/{{$opportunity->id}}"><button class="button">Back to Opportunity</button></a>
+            <div id="conversation-participants" class="block">
+                <h3 class="title">Participants</h3>
+                <div id="conversation-participants-key">
+                    <ul>
+                        @foreach($opportunity->getParticipants() as $participant)
+                            <li>
+                                <span style="background-color:{{ $participant->generateColorCode() }}" class="square"></span>
+                                <span class="participant">{{ $participant->user->first_name }} {{ $participant->user->last_name }}</span>
+                                <span class="avatar"><img src="{{ $participant->user->getAvatar() }}" /></span>
+                            </li>
+                        @endforeach
+                    </ul>
+                    @if(count($opportunity->getParticipants()) === 0)
+                        <p>Nobody has contributed to this conversation yet, why not get the party started?</p>
+                    @endif
                 </div>
             </div>
         </div>
+        <a href="/vendor/opportunities/{{$opportunity->id}}"><button class="button">Back to Opportunity</button></a>
     </div>
 @endsection
 @section('scripts')
