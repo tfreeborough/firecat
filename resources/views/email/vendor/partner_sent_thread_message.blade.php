@@ -28,7 +28,7 @@
         <div>
             <p>
                 {{ $thread_message->user->name() }} has sent a message to all members assigned to <strong>{{ $thread->opportunity->name }}</strong>.
-                You may reply to this message any time you like, the full content of the message sent is shown below.
+                Please log in to your Firecat account to reply to the message, the full content of the message sent is shown below.
             </p>
             <div id="thread_message" class="block">
                 <h2>{{ $thread->subject }}</h2>
@@ -38,7 +38,7 @@
             </div>
             <div class="center">
                 <p id="view_thread">
-                    <a class="button" href="{{ route('vendor.opportunity.threads', $thread->opportunity->id) }}">View Message</a>
+                    <a class="button" href="{{ route('vendor.opportunity.threads', $thread->opportunity->id) }}">View Message on Firecat</a>
                 </p>
             </div>
             <p class="small">
