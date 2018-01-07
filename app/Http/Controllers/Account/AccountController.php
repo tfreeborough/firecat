@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use JD\Cloudder\Facades\Cloudder;
 use Mockery\CountValidator\Exception;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -140,6 +141,53 @@ class AccountController extends Controller
 
             $user->extra->save();
             return $this->redirectAccount();
+        }catch(Exception $e){
+            return $this->redirectAccount()->withErrors([
+                $e->getMessage()
+            ]);
+        }
+    }
+
+    public function postEmailUpdate(Request $request)
+    {
+        Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
+        ])->validate();
+
+        try{
+            $user = Auth::user();
+            $user->email = $request->get('email');
+            $user->save();
+
+            return $this->redirectAccount()->with([
+                'alert-success' => 'Your email has been successfully changed to '.$request->get('email').', you will now use this to log in with and all communication will now go to this email.'
+            ]);
+        }catch(Exception $e){
+            return $this->redirectAccount()->withErrors([
+                $e->getMessage()
+            ]);
+        }
+    }
+
+    public function postPasswordUpdate(Request $request)
+    {
+        Validator::make($request->all(), [
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed'
+        ])->validate();
+
+        try{
+            if(Hash::check($request->get('current_password'), Auth::user()->getAuthPassword())){
+                $user = Auth::user();
+                $user->password = Hash::make($request->get('new_password'));
+                $user->save();
+
+                return $this->redirectAccount()->with([
+                    'alert-success' => 'Your password has been successfully changed.'
+                ]);
+            }else{
+                throw new Exception('You entered the wrong password.');
+            }
         }catch(Exception $e){
             return $this->redirectAccount()->withErrors([
                 $e->getMessage()

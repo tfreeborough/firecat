@@ -16,3 +16,47 @@
     padding:2rem;
   }
 }
+
+#account-settings{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-gap:1rem;
+
+  #additional_information{
+  }
+
+  #avatar_update{
+    text-align: center;
+
+    .title{
+      text-align: left;
+    }
+
+    #avatar_update_form{
+      text-align: left;
+
+      .file_upload{
+
+      }
+    }
+  }
+
+  #account_settings{
+    display:grid;
+    grid-template-rows: 1fr;
+    grid-gap:1rem;
+
+    > .title{
+      margin-bottom:0;
+    }
+
+    #account_settings_email{
+
+    }
+
+    #account_settings_password{
+
+    }
+  }
+}

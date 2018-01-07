@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' =>
     Route::get('account', 'Account\AccountController@showAccount')->name('admin.account');
     Route::post('account/avatar', 'Account\AccountController@postAvatar');
     Route::post('account/additional', 'Account\AccountController@postAdditional');
+    Route::post('account/email', 'Account\AccountController@postEmailUpdate')->name('admin.account.email');
+    Route::post('account/password', 'Account\AccountController@postPasswordUpdate')->name('admin.account.password');
 
     Route::group(['prefix' => 'onboarding'], function () {
         Route::get('/', 'Admin\OrganisationController@showOnboarding')->name('admin.onboarding');
@@ -109,6 +111,8 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     Route::get('account', 'Account\AccountController@showAccount')->name('partner.account');
     Route::post('account/avatar', 'Account\AccountController@postAvatar');
     Route::post('account/additional', 'Account\AccountController@postAdditional');
+    Route::post('account/email', 'Account\AccountController@postEmailUpdate')->name('partner.account.email');
+    Route::post('account/password', 'Account\AccountController@postPasswordUpdate')->name('partner.account.password');
 
     /*
      * Deal Routes
@@ -150,6 +154,8 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::get('account', 'Account\AccountController@showAccount')->name('vendor.account');
     Route::post('account/avatar', 'Account\AccountController@postAvatar');
     Route::post('account/additional', 'Account\AccountController@postAdditional');
+    Route::post('account/email', 'Account\AccountController@postEmailUpdate')->name('vendor.account.email');
+    Route::post('account/password', 'Account\AccountController@postPasswordUpdate')->name('vendor.account.password');
 
     Route::get('tags', 'Vendor\TagController@index')->name('vendor.tags');
     Route::get('tags/{tag_id}', 'Vendor\TagController@show')->name('vendor.tags.tag');
