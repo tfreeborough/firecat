@@ -113,9 +113,9 @@
                                     @endif
                                 </td>
                                 @if($assignment->opportunity->deal)
-                                    <td><a href="/vendor/opportunities/{{$assignment->opportunity->id}}">{{ $assignment->opportunity->name }}</a></td>
-                                @else
                                     <td><a href="/vendor/deals/{{$assignment->opportunity->deal->id}}">{{ $assignment->opportunity->name }}</a></td>
+                                @else
+                                    <td><a href="/vendor/opportunities/{{$assignment->opportunity->id}}">{{ $assignment->opportunity->name }}</a></td>
                                 @endif
                                 <td>{{ str_replace('before','ago',$assignment->opportunity->created_at->diffForHumans(Carbon\Carbon::now())) }}</td>
                             </tr>
