@@ -63,12 +63,21 @@ class Helper
             '' => '-- Select an industry --',
             'Accountancy, banking & finance' => 'Accountancy, banking & finance',
             'Business, consulting & management' => 'Business, consulting & management',
-            'Charity work & voluntary work' => 'Charity work & voluntary work',
+            'Charities & Housing' => 'Charities & Housing',
             'Creative arts & design' => 'Creative arts & design',
+            'Education' => 'Education',
             'Energy & utilities' => 'Energy & utilities',
             'Engineering & manufacturing' => 'Engineering & manufacturing',
             'Environment & agriculture' => 'Environment & agriculture',
+
+            'Government (Blue light services)' => 'Government (Blue light services)',
+            'Government (Central)' => 'Government (Central)',
+            'Government (Defence)' => 'Government (Defence)',
+            'Government (Health)' => 'Government (Health)',
+            'Government (Local)' => 'Government (Local)',
+
             'Healthcare' => 'Healthcare',
+            'Higher Education' => 'Higher Education',
             'Hospitality & event management' => 'Hospitality & event management',
             'Information technology' => 'Information technology',
             'Law' => 'Law',
@@ -82,7 +91,7 @@ class Helper
             'Retail' => 'Retail',
             'Sales' => 'Sales',
             'Science & pharmaceuticals' => 'Science & pharmaceuticals',
-            'Education & training' => 'Education & training',
+            'Training' => 'Training',
             'Transport & logistics' => 'Transport & logistics'
         ];
     }
