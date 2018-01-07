@@ -11,10 +11,12 @@ namespace App\Http\Controllers\Partner;
 
 use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
+use App\Mail\vendor\PartnerProposedDealUpdate;
 use App\Models\Deal;
 use App\Models\DealUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class DealController extends Controller
@@ -60,8 +62,10 @@ class DealController extends Controller
             $deal_update->proposal = $request->get('implementation_date');
             $deal_update->save();
 
-            Mail::to($deal->opportunity->partner->email)
-                ->queue(new PartnerProposedDealUpdate($deal, $deal->opportunity->partner, $deal_update));
+            foreach($deal->opportunity->assignees as $assignee){
+                Mail::to($assignee->user->email)
+                    ->queue(new PartnerProposedDealUpdate($deal, $assignee->user, $deal_update));
+            }
             
             event(new CreateOpportunityActivity(
                 $deal->opportunity,

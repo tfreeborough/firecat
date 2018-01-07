@@ -6,7 +6,7 @@
  * Time: 16:31
  */
 
-namespace App\Mail\partner;
+namespace App\Mail\vendor;
 
 
 use App\Models\Deal;
@@ -22,20 +22,20 @@ class PartnerProposedDealUpdate extends Mailable
 
     public $user;
     public $deal;
-    public $dealUpdate;
+    public $deal_update;
 
     /**
      * Create a new message instance.
      *
      * @param Deal $deal
      * @param User $user
-     * @param DealUpdate $dealUpdate
+     * @param DealUpdate $deal_update
      */
-    public function __construct(Deal $deal, User $user, DealUpdate $dealUpdate)
+    public function __construct(Deal $deal, User $user, DealUpdate $deal_update)
     {
         $this->deal = $deal;
         $this->user = $user;
-        $this->dealUpdate = $dealUpdate;
+        $this->deal_update = $deal_update;
     }
 
     /**
