@@ -326,33 +326,39 @@ class OpportunityController extends Controller
         
         if(Auth::user()->organisation->hasOpportunity($uuid)){
             if(Auth::user()->isAssigned($uuid)){
-                $rejection = new OpportunityRejection();
-                $rejection->opportunity_id = $uuid;
-                $rejection->user_id = Auth::user()->id;
-                $rejection->reasoning = $request->get('reason');
-                $rejection->save();
-
                 $opportunity = Opportunity::find($uuid);
-                $opportunity->status->accepted = false;
-                $opportunity->status->save();
+                if($opportunity->status->getStatusCode() === 3){
+                    $rejection = new OpportunityRejection();
+                    $rejection->opportunity_id = $uuid;
+                    $rejection->user_id = Auth::user()->id;
+                    $rejection->reasoning = $request->get('reason');
+                    $rejection->save();
 
-                event(new CreateOpportunityActivity(
-                    Opportunity::find($uuid),
-                    Auth::user(),
-                    Auth::user()->name().' rejected this opportunity.',
-                    null
-                ));
+                    $opportunity = Opportunity::find($uuid);
+                    $opportunity->status->accepted = false;
+                    $opportunity->status->save();
 
-                Mail::to($opportunity->partner->email)
-                    ->queue(new VendorRejectedOpportunity_PARTNER($opportunity, $opportunity->partner));
+                    event(new CreateOpportunityActivity(
+                        Opportunity::find($uuid),
+                        Auth::user(),
+                        Auth::user()->name().' rejected this opportunity.',
+                        null
+                    ));
 
-                foreach($opportunity->assignees as $assignee){
-                    Mail::to($assignee->user->email)
-                        ->queue(new VendorRejectedOpportunity_VENDOR($opportunity, $assignee->user, Auth::user()));
+                    Mail::to($opportunity->partner->email)
+                        ->queue(new VendorRejectedOpportunity_PARTNER($opportunity, $opportunity->partner));
+
+                    foreach($opportunity->assignees as $assignee){
+                        Mail::to($assignee->user->email)
+                            ->queue(new VendorRejectedOpportunity_VENDOR($opportunity, $assignee->user, Auth::user()));
+                    }
+
+                    return redirect(route('vendor.opportunity',$uuid))->with([
+                        'alert-success' => 'This opportunity has been successfully rejected. No more edits may be made to it.'
+                    ]);
                 }
-
-                return redirect(route('vendor.opportunity',$uuid))->with([
-                    'alert-success' => 'This opportunity has been successfully rejected. No more edits may be made to it.'
+                return redirect(route('vendor.opportunity',$uuid))->withErrors([
+                    'This opportunity but be in review to be rejected.'
                 ]);
             }
         }
