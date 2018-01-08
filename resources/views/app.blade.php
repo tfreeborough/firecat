@@ -27,12 +27,14 @@
 
     @include('_partials.authenticated.account_bar')
 
-    @if(Auth::user()->isPartner())
-        @include('_partials.partner_menu')
-    @elseif(Auth::user()->isVendor())
-        @include('_partials.vendor_menu')
-    @elseif(Auth::user()->isAdmin())
-        @include('_partials.admin_menu')
+    @if(Auth::user())
+        @if(Auth::user()->isPartner())
+            @include('_partials.partner_menu')
+        @elseif(Auth::user()->isVendor())
+            @include('_partials.vendor_menu')
+        @elseif(Auth::user()->isAdmin())
+            @include('_partials.admin_menu')
+        @endif
     @endif
 
     @if(Auth::user())
