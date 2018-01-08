@@ -27,6 +27,7 @@
                 </ul>
             </div>
         </div>
+        @include('_partials.flash_message')
         <div id="opportunity">
             <div id="opportunity_converted">
                 @if($opportunity->deal !== null)
@@ -36,6 +37,16 @@
                             <a href="/partner/deals/{{$opportunity->deal->id}}">
                                 View Deal Registration
                             </a>
+                        </p>
+                    </div>
+                @endif
+                @if($opportunity->isRejected())
+                    <div class="alert alert-danger">
+                        <h4>
+                            This opportunity has been rejected
+                        </h4>
+                        <p>
+                            <strong>Reason:</strong> {{ $opportunity->rejectionReasoning() }}
                         </p>
                     </div>
                 @endif

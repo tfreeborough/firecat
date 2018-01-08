@@ -11,6 +11,8 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Events\CreateOpportunityActivity;
 use App\Http\Controllers\Controller;
+use App\Mail\partner\VendorRejectedOpportunity_PARTNER;
+use App\Mail\vendor\VendorRejectedOpportunity_VENDOR;
 use App\Mail\partner\VendorSentThreadMessage;
 use App\Models\Assignee;
 use App\Models\Deal;
@@ -18,6 +20,7 @@ use App\Models\DealStatus;
 use App\Models\Opportunity;
 use App\Models\OpportunityConsideration;
 use App\Models\OpportunityMessage;
+use App\Models\OpportunityRejection;
 use App\Models\OpportunityThread;
 use App\Models\OpportunityThreadMessage;
 use Illuminate\Http\Request;
@@ -313,6 +316,47 @@ class OpportunityController extends Controller
             }
         }
         return abort(404);
+    }
+
+    public function rejectOpportunity($uuid, Request $request)
+    {
+        Validator::make($request->all(), [
+            'reason' => 'required|string',
+        ])->validate();
+        
+        if(Auth::user()->organisation->hasOpportunity($uuid)){
+            if(Auth::user()->isAssigned($uuid)){
+                $rejection = new OpportunityRejection();
+                $rejection->opportunity_id = $uuid;
+                $rejection->user_id = Auth::user()->id;
+                $rejection->reasoning = $request->get('reason');
+                $rejection->save();
+
+                $opportunity = Opportunity::find($uuid);
+                $opportunity->status->accepted = false;
+                $opportunity->status->save();
+
+                event(new CreateOpportunityActivity(
+                    Opportunity::find($uuid),
+                    Auth::user(),
+                    Auth::user()->name().' rejected this opportunity.',
+                    null
+                ));
+
+                Mail::to($opportunity->partner->email)
+                    ->queue(new VendorRejectedOpportunity_PARTNER($opportunity, $opportunity->partner));
+
+                foreach($opportunity->assignees as $assignee){
+                    Mail::to($assignee->user->email)
+                        ->queue(new VendorRejectedOpportunity_VENDOR($opportunity, $assignee->user, Auth::user()));
+                }
+
+                return redirect(route('vendor.opportunity',$uuid))->with([
+                    'alert-success' => 'This opportunity has been successfully rejected. No more edits may be made to it.'
+                ]);
+            }
+        }
+        return abort(404); 
     }
 
 }

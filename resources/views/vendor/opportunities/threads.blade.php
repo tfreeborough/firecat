@@ -117,7 +117,11 @@
                                                 '</div>');
                                     }
                                 });
-                            }
+                            },
+                        }).fail(function(err){
+                            vex.dialog.alert({
+                                message: 'ERROR: '+err.responseText,
+                            });
                         });
                     }
                 }
@@ -165,6 +169,10 @@
                             success: function(result) {
                                 window.location.reload()
                             }
+                        }).fail(function(err){
+                            vex.dialog.alert({
+                                message: 'ERROR: '+err.responseText,
+                            });
                         });
                     }
                 }

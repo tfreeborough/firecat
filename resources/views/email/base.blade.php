@@ -65,7 +65,7 @@
 
         p,li{
             color:rgba(55,55,55,0.7);
-            font-size:1.4rem;
+            font-size:14px;
             text-align: justify;
         }
 
@@ -74,7 +74,7 @@
         }
 
         p.small{
-            font-size:0.9rem;
+            font-size:10px;
             color:rgba(55,55,55,0.3);
         }
 

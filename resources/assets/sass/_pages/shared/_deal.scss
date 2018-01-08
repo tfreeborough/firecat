@@ -426,6 +426,10 @@
 
 #opportunity_converted{
   grid-area: converted;
+
+  .alert{
+    margin-bottom:0;
+  }
 }
 
 #status-code-display{

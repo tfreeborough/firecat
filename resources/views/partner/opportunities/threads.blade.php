@@ -118,6 +118,10 @@
                                     }
                                 });
                             }
+                        }).fail(function(err){
+                            vex.dialog.alert({
+                                message: 'ERROR: '+err.responseText,
+                            });
                         });
                     }
                 }
@@ -157,7 +161,7 @@
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
-                            url: '{{route('vendor.opportunity.threads.create', $opportunity->id)}}',
+                            url: '{{route('partner.opportunity.threads.create', $opportunity->id)}}',
                             type: 'POST',
                             data: {
                                 subject: value
@@ -165,6 +169,10 @@
                             success: function(result) {
                                 window.location.reload()
                             }
+                        }).fail(function(err){
+                            vex.dialog.alert({
+                                message: 'ERROR: '+err.responseText,
+                            });
                         });
                     }
                 }

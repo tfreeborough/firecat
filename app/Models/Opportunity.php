@@ -146,4 +146,19 @@ class Opportunity extends Model
     {
         return OpportunityActivity::where('opportunity_id', '=', $this->id)->orderBy('created_at', 'DESC')->limit(5)->get();
     }
+
+    public function rejections()
+    {
+        return $this->hasMany('App\Models\OpportunityRejection');
+    }
+
+    public function rejectionReasoning()
+    {
+        return $this->rejections[0]->reasoning;
+    }
+
+    public function isRejected()
+    {
+        return count($this->rejections) > 0;
+    }
 }

@@ -42,7 +42,7 @@
                         </thead>
                         <tbody>
                         @foreach($opportunities as $opportunity)
-                            <tr>
+                            <tr @if($opportunity->isRejected())class="rejected"@endif>
                                 <td>
                                     <a href={{ route('partner.opportunity',$opportunity->id) }}>
                                         {{ $opportunity->name }}

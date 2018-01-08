@@ -138,8 +138,8 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     Route::post('opportunities/create', 'Partner\OpportunityController@postCreateOpportunity');
     Route::get('opportunities/{uuid}', 'Partner\OpportunityController@showOpportunity')->name('partner.opportunity');
     Route::get('opportunities/{uuid}/threads', 'Partner\OpportunityController@showThreads')->name('partner.opportunity.threads');
-    Route::post('opportunities/{uuid}/threads/create', 'Partner\OpportunityController@postCreateThread')->name('partner.opportunity.threads.create');
-    Route::post('opportunities/{uuid}/threads/message', 'Partner\OpportunityController@postNewThreadMessage')->name('partner.opportunity.threads.message');
+    Route::post('opportunities/{uuid}/threads/create', 'Partner\OpportunityController@postCreateThread')->name('partner.opportunity.threads.create')->middleware('opportunity.not.rejected');
+    Route::post('opportunities/{uuid}/threads/message', 'Partner\OpportunityController@postNewThreadMessage')->name('partner.opportunity.threads.message')->middleware('opportunity.not.rejected');
 });
 
 Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' => 'vendor'], function () {
@@ -165,15 +165,16 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
     Route::get('opportunities', 'Vendor\VendorController@showOpportunities')->name('vendor.opportunities');
 
     Route::get('opportunities/{uuid}', 'Vendor\OpportunityController@showOpportunity')->name('vendor.opportunity');
-    Route::get('opportunities/{uuid}/assign', 'Vendor\OpportunityController@assignOpportunity')->name('vendor.opportunity.assign');
+    Route::get('opportunities/{uuid}/assign', 'Vendor\OpportunityController@assignOpportunity')->name('vendor.opportunity.assign')->middleware('opportunity.not.rejected');
     Route::get('opportunities/{uuid}/review', 'Vendor\OpportunityController@reviewOpportunity')->name('vendor.opportunity.review');
+    Route::get('opportunities/{uuid}/review/reject', 'Vendor\OpportunityController@rejectOpportunity')->name('vendor.opportunity.reject')->middleware('opportunity.not.rejected');
     Route::get('opportunities/{uuid}/messages', 'Vendor\OpportunityController@showMessages')->name('vendor.opportunity.messages');
-    Route::post('opportunities/{uuid}/messages', 'Vendor\OpportunityController@postMessage')->name('vendor.opportunity.postMessage');
-    Route::post('opportunities/{uuid}/convert', 'Vendor\OpportunityController@postConvert')->name('vendor.opportunity.postConvert');
+    Route::post('opportunities/{uuid}/messages', 'Vendor\OpportunityController@postMessage')->name('vendor.opportunity.postMessage')->middleware('opportunity.not.rejected');
+    Route::post('opportunities/{uuid}/convert', 'Vendor\OpportunityController@postConvert')->name('vendor.opportunity.postConvert')->middleware('opportunity.not.rejected');
     Route::get('opportunities/{uuid}/threads', 'Vendor\OpportunityController@showThreads')->name('vendor.opportunity.threads');
-    Route::post('opportunities/{uuid}/threads/create', 'Vendor\OpportunityController@postCreateThread')->name('vendor.opportunity.threads.create');
-    Route::post('opportunities/{uuid}/threads/message', 'Vendor\OpportunityController@postNewThreadMessage')->name('vendor.opportunity.threads.message');
-    Route::get('opportunities/{uuid}/considerations/{consideration_id}/complete', 'Vendor\OpportunityController@markConsiderationComplete')->name('vendor.opportunity.consideration.complete');
+    Route::post('opportunities/{uuid}/threads/create', 'Vendor\OpportunityController@postCreateThread')->name('vendor.opportunity.threads.create')->middleware('opportunity.not.rejected');;
+    Route::post('opportunities/{uuid}/threads/message', 'Vendor\OpportunityController@postNewThreadMessage')->name('vendor.opportunity.threads.message')->middleware('opportunity.not.rejected');
+    Route::get('opportunities/{uuid}/considerations/{consideration_id}/complete', 'Vendor\OpportunityController@markConsiderationComplete')->name('vendor.opportunity.consideration.complete')->middleware('opportunity.not.rejected');;
     
     Route::get('deals/{uuid}', 'Vendor\DealController@showDeal')->name('vendor.deal');
     Route::get('deals/{uuid}/won', 'Vendor\DealController@postDealWon')->name('vendor.deal.won');

@@ -37,7 +37,7 @@
                         </thead>
                         <tbody>
                         @foreach($organisation->opportunities as $opportunity)
-                            <tr>
+                            <tr @if($opportunity->isRejected())class="rejected"@endif>
                                 <td>
                                     <a href="/vendor/opportunities/{{$opportunity->id}}">
                                         {{ $opportunity->name }}

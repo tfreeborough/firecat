@@ -26,7 +26,7 @@
                 </ul>
             </div>
         </div>
-        @include('_partials.errors')
+        @include('_partials.flash_message')
         <div id="vendor-opportunity">
             <div id="opportunity_converted">
                 @if(!$user->isAssigned($opportunity->id))
@@ -46,6 +46,21 @@
                         </p>
                     </div>
                 @endif
+                @if($opportunity->status->getStatusCode() === 3 && !$opportunity->isRejected())
+                    <div class="text-right">
+                        <button onclick="rejectConfirm()" class="button">Reject Opportunity</button>
+                    </div>
+                @endif
+                @if($opportunity->isRejected())
+                        <div class="alert alert-danger">
+                            <h4>
+                                This opportunity has been rejected
+                            </h4>
+                            <p>
+                                <strong>Reason:</strong> {{ $opportunity->rejectionReasoning() }}
+                            </p>
+                        </div>
+                @endif
             </div>
             @include('_partials.opportunities.status_code_display')
             @include('_partials.opportunities.vendor.review_panel')
@@ -58,6 +73,40 @@
             @include('_partials.opportunities.vendor.opportunity_products')
         </div>
     </div>
+    <script>
+        function rejectConfirm()
+        {
+            vex.dialog.open({
+                message: 'Pick a reason for this rejection:',
+                input: [
+                    '<select name="reason" required />',
+                    '<option value="Known opportunity, Vendor is aware, Deal registration will not be given">Known opportunity, Vendor is aware, Deal registration will not be given</option>',
+                    '<option value="Public Tender , pricing will be issued on a level basis to all partners">Public Tender , pricing will be issued on a level basis to all partners</option>',
+                    '<option value="Below qualifying volumes please use standard pricing">Below qualifying volumes please use standard pricing</option>',
+                    '<option value="Cannot meet the requirements">Cannot meet the requirements</option>',
+                    '<option value="Deal registration given to another partner">Deal registration given to another partner</option>',
+                    '</select />',
+                ].join(''),
+                buttons: [
+                    $.extend({}, vex.dialog.buttons.YES, { text: 'Submit' }),
+                    $.extend({}, vex.dialog.buttons.NO, { text: 'Back' })
+                ],
+                callback: function (data) {
+                    if (data) {
+                        vex.dialog.confirm({
+                            message: 'Are you sure you want to reject this opportunity? You will not longer be able to make changes afterwards',
+                            callback: function (value) {
+                                if (value) {
+                                    window.location.href = '{{ route('vendor.opportunity.reject', $opportunity->id) }}?reason='+data.reason;
+                                }
+                            }
+                        })
+                    }
+                }
+            });
+
+        }
+    </script>
 @endsection
 @section('scripts')
     <script>

@@ -104,7 +104,7 @@
                         </thead>
                         <tbody>
                         @foreach($assignments as $assignment)
-                            <tr>
+                            <tr @if($assignment->opportunity->isRejected())class="rejected"@endif>
                                 <td @if($assignment->opportunity->deal) class="deal" @else class="opportunity" @endif>
                                     @if($assignment->opportunity->deal)
                                         <i class="fa fa-briefcase" aria-hidden="true" title="This opportunity was successfully converted into a Deal Registration"></i>

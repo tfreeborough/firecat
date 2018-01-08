@@ -139,7 +139,7 @@
                     },
                 }).fail(function(err){
                     vex.dialog.alert({
-                        message: 'ERROR: '+err.statusText,
+                        message: 'ERROR: '+err.responseText,
                         callback: function(){
                             $('#new-message-textarea').focus()
                         }
