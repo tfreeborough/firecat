@@ -2,13 +2,17 @@
 
 @section('title', 'A new beta interest has been submitted')
 
-@section('content')
+@section('styling')
     <style>
         #beta_details{
             margin-top:4rem;
             margin-bottom:4rem;
         }
     </style>
+@endsection
+
+@section('content')
+
     <div class="content">
         <h1 class="title"><span class="highlight">Hey there,</span> <br /><small>Some good news for you...</small></h1>
         <div>

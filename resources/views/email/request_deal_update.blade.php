@@ -2,13 +2,17 @@
 
 @section('title', 'An updated has been requested from you.')
 
-@section('content')
+@section('styling')
     <style>
         #update_deal{
             margin-top:4rem;
             margin-bottom:4rem;
         }
     </style>
+@endsection
+
+@section('content')
+
     <div class="content">
         <h1 class="title">Hey <span class="highlight">{{ $user->first_name }},</span> <br /><small>and update has been requested from you.</small></h1>
         <div>

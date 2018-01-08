@@ -2,13 +2,16 @@
 
 @section('title', 'You\'ve been invited to Firecat.')
 
-@section('content')
+@section('styling')
     <style>
         #accept_invite{
             margin-top:4rem;
             margin-bottom:4rem;
         }
     </style>
+@endsection
+
+@section('content')
     <div class="content">
         <h1 class="title">Hey <span class="highlight">{{ $invite->first_name }},</span> <br /><small>you've been invited to Firecat.</small></h1>
         <div>
