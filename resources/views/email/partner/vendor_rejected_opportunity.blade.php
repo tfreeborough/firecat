@@ -2,7 +2,7 @@
 
 @section('title', 'Your opportunity was rejected.')
 
-@section('content')
+@section('styling')
     <style>
         #view_opportunity{
             margin-top:4rem;
@@ -19,6 +19,9 @@
             margin-bottom:0;
         }
     </style>
+@endsection
+
+@section('content')
     <div class="content">
         <h1 class="title"><span class="highlight">{{ $user->first_name }},</span> <br /><small> your opportunity was rejected.</small></h1>
         <div>

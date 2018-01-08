@@ -2,13 +2,16 @@
 
 @section('title', 'Your deal has been Lost')
 
-@section('content')
+@section('styling')
     <style>
         #update_deal{
             margin-top:4rem;
             margin-bottom:4rem;
         }
     </style>
+@endsection
+
+@section('content')
     <div class="content">
         <h1 class="title"><span class="highlight">{{ $user->first_name }},</span> <br /><small> {{ $deal->opportunity->name }} has been marked as Lost.</small></h1>
         <div>

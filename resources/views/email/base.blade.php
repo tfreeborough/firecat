@@ -83,7 +83,31 @@
             border: 1px solid rgba(0,0,0,0.05);
             border-radius: 8px;
         }
+
+        .fire{
+            color: #FFB87F;
+            font-weight: 200;
+        }
+
+        .cat{
+            color: rgba(50,50,50,0.1);
+            font-weight: bold;
+        }
+
+        #banner{
+        }
+
+        #banner .content{
+            border-bottom:1px solid rgba(50,50,50,0.3);
+            text-align: right;
+        }
+
+        #banner_logo{
+            text-transform: uppercase;
+            font-size:2.4rem;
+        }
     </style>
+    @yield('styling')
 </head>
 <body>
 <div>

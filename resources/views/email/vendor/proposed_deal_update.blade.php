@@ -2,7 +2,7 @@
 
 @section('title', 'You have been given a proposed update.')
 
-@section('content')
+@section('styling')
     <style>
         #view_deal{
             margin-top:4rem;
@@ -13,6 +13,9 @@
             margin:5px;
         }
     </style>
+@endsection
+
+@section('content')
     <div class="content">
         <h1 class="title"><span class="highlight">{{ $user->first_name }},</span> <br /><small> a update request has been made.</small></h1>
         <div>

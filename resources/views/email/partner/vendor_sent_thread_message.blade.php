@@ -2,7 +2,7 @@
 
 @section('title', 'You were sent a message from '.$organisation->name)
 
-@section('content')
+@section('styling')
     <style>
         #view_thread{
             margin-top:4rem;
@@ -23,6 +23,10 @@
             margin-bottom:0;
         }
     </style>
+@endsection
+
+@section('content')
+
     <div class="content">
         <h1 class="title"><span class="highlight">{{ $user->first_name }},</span> <br /><small> you've been sent a message.</small></h1>
         <div>
