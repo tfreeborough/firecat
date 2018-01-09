@@ -37,13 +37,9 @@ class OpportunityController extends Controller
     
     public function showOpportunity($uuid)
     {
-        if(Auth::user()->hasOpportunity($uuid)){
-            return view('partner.opportunities.opportunity', [
-                'opportunity' => Opportunity::find($uuid)
-            ]);
-        }
-        return abort(404);
-
+        return view('partner.opportunities.opportunity', [
+            'opportunity' => Opportunity::find($uuid)
+        ]);
     }
 
     /**
@@ -52,57 +48,47 @@ class OpportunityController extends Controller
      */
     public function showThreads($uuid)
     {
-        if(Auth::user()->hasOpportunity($uuid)){
-            return view('partner.opportunities.threads', [
-                'opportunity' => Opportunity::find($uuid),
-                'user' => Auth::user()
-            ]);
-        }
-        return abort(404);
-
+        return view('partner.opportunities.threads', [
+            'opportunity' => Opportunity::find($uuid),
+            'user' => Auth::user()
+        ]);
     }
 
     public function postCreateThread($uuid, Request $request)
     {
-        if(Auth::user()->hasOpportunity($uuid)){
-            Validator::make($request->all(), [
-                'subject' => 'required|string',
-            ])->validate();
+        Validator::make($request->all(), [
+            'subject' => 'required|string',
+        ])->validate();
 
-            $thread = new OpportunityThread();
-            $thread->subject = $request->get('subject');
-            $thread->opportunity_id = $uuid;
-            $thread->user_id = Auth::user()->id;
-            $thread->save();
+        $thread = new OpportunityThread();
+        $thread->subject = $request->get('subject');
+        $thread->opportunity_id = $uuid;
+        $thread->user_id = Auth::user()->id;
+        $thread->save();
 
-            return response(200);
-        }
-        return abort(404);
+        return response(200);
     }
 
     public function postNewThreadMessage($uuid, Request $request)
     {
-        if(Auth::user()->hasOpportunity($uuid)){
-            Validator::make($request->all(), [
-                'message' => 'required|string',
-                'thread' => 'required|string'
-            ])->validate();
-            
-            $message = new OpportunityThreadMessage();
-            $message->message = $request->get('message');
-            $message->opportunity_thread_id = $request->get('thread');
-            $message->user_id = Auth::user()->id;
-            $message->save();
+        Validator::make($request->all(), [
+            'message' => 'required|string',
+            'thread' => 'required|string'
+        ])->validate();
 
-            foreach($message->opportunity_thread->opportunity->assignees as $assignee){
-                Mail::to($assignee->user->email)
-                    ->queue(new PartnerSentThreadMessage($message, $assignee->user));
-            }
+        $message = new OpportunityThreadMessage();
+        $message->message = $request->get('message');
+        $message->opportunity_thread_id = $request->get('thread');
+        $message->user_id = Auth::user()->id;
+        $message->save();
 
-            
-            return response(200);
+        foreach($message->opportunity_thread->opportunity->assignees as $assignee){
+            Mail::to($assignee->user->email)
+                ->queue(new PartnerSentThreadMessage($message, $assignee->user));
         }
-        return abort(404);
+
+
+        return response(200);
     }
     
     public function showMagicLink($uuid)

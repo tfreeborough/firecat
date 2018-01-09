@@ -39,14 +39,10 @@ class OpportunityController extends Controller
      */
     public function showOpportunity($uuid)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            return view('vendor.opportunities.opportunity', [
-                'opportunity' => Opportunity::find($uuid),
-                'user' => Auth::user()
-            ]);
-        }
-        return abort(404);
-
+        return view('vendor.opportunities.opportunity', [
+            'opportunity' => Opportunity::find($uuid),
+            'user' => Auth::user()
+        ]);
     }
 
     /**
@@ -55,65 +51,51 @@ class OpportunityController extends Controller
      */
     public function showThreads($uuid)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            return view('vendor.opportunities.threads', [
-                'opportunity' => Opportunity::find($uuid),
-                'user' => Auth::user()
-            ]);
-        }
-        return abort(404);
-
+        return view('vendor.opportunities.threads', [
+            'opportunity' => Opportunity::find($uuid),
+            'user' => Auth::user()
+        ]);
     }
     
     public function postCreateThread($uuid, Request $request)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(Auth::user()->isAssigned($uuid)){
-                Validator::make($request->all(), [
-                    'subject' => 'required|string',
-                ])->validate();
+        Validator::make($request->all(), [
+            'subject' => 'required|string',
+        ])->validate();
 
-                $thread = new OpportunityThread();
-                $thread->subject = $request->get('subject');
-                $thread->opportunity_id = $uuid;
-                $thread->user_id = Auth::user()->id;
-                $thread->save();
-                
-                event(new CreateOpportunityActivity(
-                    $thread->opportunity,
-                    Auth::user(),
-                    Auth::user()->first_name.' '.Auth::user()->last_name.' created a new thread called \''.$thread->subject.'\'.'
-                ));
+        $thread = new OpportunityThread();
+        $thread->subject = $request->get('subject');
+        $thread->opportunity_id = $uuid;
+        $thread->user_id = Auth::user()->id;
+        $thread->save();
 
-                return response(200);
-            }
-        }
-        return abort(404);
+        event(new CreateOpportunityActivity(
+            $thread->opportunity,
+            Auth::user(),
+            Auth::user()->first_name.' '.Auth::user()->last_name.' created a new thread called \''.$thread->subject.'\'.'
+        ));
+
+        return response(200);
     }
 
     public function postNewThreadMessage($uuid, Request $request)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(Auth::user()->isAssigned($uuid)){
-                Validator::make($request->all(), [
-                    'message' => 'required|string',
-                    'thread' => 'required|string'
-                ])->validate();
+        Validator::make($request->all(), [
+            'message' => 'required|string',
+            'thread' => 'required|string'
+        ])->validate();
 
-                $message = new OpportunityThreadMessage();
-                $message->message = $request->get('message');
-                $message->opportunity_thread_id = $request->get('thread');
-                $message->user_id = Auth::user()->id;
-                $message->save();
+        $message = new OpportunityThreadMessage();
+        $message->message = $request->get('message');
+        $message->opportunity_thread_id = $request->get('thread');
+        $message->user_id = Auth::user()->id;
+        $message->save();
 
-                $thread = OpportunityThread::find($request->get('thread'));
-                Mail::to($thread->opportunity->partner->email)
-                    ->queue(new VendorSentThreadMessage($message, $thread->opportunity->partner));
-                
-                return response(200);
-            }
-        }
-        return abort(404);
+        $thread = OpportunityThread::find($request->get('thread'));
+        Mail::to($thread->opportunity->partner->email)
+            ->queue(new VendorSentThreadMessage($message, $thread->opportunity->partner));
+
+        return response(200);
     }
 
 
@@ -124,42 +106,39 @@ class OpportunityController extends Controller
      */
     public function assignOpportunity($uuid)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(!Auth::user()->isAssigned($uuid)){
-                $opportunity = Opportunity::find($uuid);
+        if(!Auth::user()->isAssigned($uuid)){
+            $opportunity = Opportunity::find($uuid);
 
-                if(count($opportunity->assignees) === 0){
-                    $opportunity->status->associated = true;
-                    $opportunity->status->save();
-
-                    event(new CreateOpportunityActivity(
-                        $opportunity,
-                        Auth::user(),
-                        Auth::user()->first_name.' '.Auth::user()->last_name.' set '.$opportunity->name.' to \'Associated\'.'
-                    ));
-                }
-
-                $assignee = new Assignee();
-                $assignee->id = Uuid::generate();
-                $assignee->opportunity_id = $uuid;
-                $assignee->user_id = Auth::user()->id;
-                $assignee->save();
+            if(count($opportunity->assignees) === 0){
+                $opportunity->status->associated = true;
+                $opportunity->status->save();
 
                 event(new CreateOpportunityActivity(
                     $opportunity,
                     Auth::user(),
-                    Auth::user()->first_name.' '.Auth::user()->last_name.' assigned themselves to '.$opportunity->name.'.'
+                    Auth::user()->first_name.' '.Auth::user()->last_name.' set '.$opportunity->name.' to \'Associated\'.'
                 ));
-
-
-                return redirect('/vendor/opportunities/'.$uuid);
-            }else{
-                return redirect('/vendor/opportunities/'.$uuid)->withErrors([
-                    'You are already assigned to this opportunity'
-                ]);
             }
+
+            $assignee = new Assignee();
+            $assignee->id = Uuid::generate();
+            $assignee->opportunity_id = $uuid;
+            $assignee->user_id = Auth::user()->id;
+            $assignee->save();
+
+            event(new CreateOpportunityActivity(
+                $opportunity,
+                Auth::user(),
+                Auth::user()->first_name.' '.Auth::user()->last_name.' assigned themselves to '.$opportunity->name.'.'
+            ));
+
+
+            return redirect('/vendor/opportunities/'.$uuid);
+        }else{
+            return redirect('/vendor/opportunities/'.$uuid)->withErrors([
+                'You are already assigned to this opportunity'
+            ]);
         }
-        return abort(404);
     }
 
 
@@ -169,28 +148,23 @@ class OpportunityController extends Controller
      */
     public function reviewOpportunity($uuid)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(Auth::user()->isAssigned($uuid)){
-                $opportunity = Opportunity::find($uuid);
-                if(!$opportunity->status->in_review){
-                    $opportunity->status->in_review = true;
-                    $opportunity->status->save();
+        $opportunity = Opportunity::find($uuid);
+        if(!$opportunity->status->in_review){
+            $opportunity->status->in_review = true;
+            $opportunity->status->save();
 
-                    event(new CreateOpportunityActivity(
-                        $opportunity,
-                        Auth::user(),
-                        Auth::user()->first_name.' '.Auth::user()->last_name.' set '.$opportunity->name.' to \'In Review\'.'
-                    ));
+            event(new CreateOpportunityActivity(
+                $opportunity,
+                Auth::user(),
+                Auth::user()->first_name.' '.Auth::user()->last_name.' set '.$opportunity->name.' to \'In Review\'.'
+            ));
 
-                    return redirect('/vendor/opportunities/'.$uuid);
-                }else{
-                    return redirect('/vendor/opportunities/'.$uuid)->withErrors([
-                        'This opportunity is already in review'
-                    ]);
-                }
-            }
+            return redirect('/vendor/opportunities/'.$uuid);
+        }else{
+            return redirect('/vendor/opportunities/'.$uuid)->withErrors([
+                'This opportunity is already in review'
+            ]);
         }
-        return abort(404);
     }
 
     /**
@@ -199,15 +173,10 @@ class OpportunityController extends Controller
      */
     public function showMessages($uuid)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(Auth::user()->isAssigned($uuid)){
-                return view('vendor.opportunities.opportunity_messages', [
-                    'opportunity' => Opportunity::find($uuid),
-                    'user' => Auth::user()
-                ]);
-            }
-        }
-        return abort(404);
+        return view('vendor.opportunities.opportunity_messages', [
+            'opportunity' => Opportunity::find($uuid),
+            'user' => Auth::user()
+        ]);
     }
 
     /**
@@ -218,33 +187,28 @@ class OpportunityController extends Controller
      */
     public function postMessage($uuid, Request $request)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(Auth::user()->isAssigned($uuid)){
-                Validator::make($request->all(), [
-                    'message' => 'required|string',
-                ])->validate();
-                $message = $request->get('message');
+        Validator::make($request->all(), [
+            'message' => 'required|string',
+        ])->validate();
+        $message = $request->get('message');
 
-                $newMessage = new OpportunityMessage();
-                $newMessage->id = Uuid::generate();
-                $newMessage->user_id = Auth::user()->id;
-                $newMessage->opportunity_id = $uuid;
-                $newMessage->message = $message;
-                $newMessage->save();
+        $newMessage = new OpportunityMessage();
+        $newMessage->id = Uuid::generate();
+        $newMessage->user_id = Auth::user()->id;
+        $newMessage->opportunity_id = $uuid;
+        $newMessage->message = $message;
+        $newMessage->save();
 
-                $opportunity = Opportunity::find($uuid);
+        $opportunity = Opportunity::find($uuid);
 
-                event(new CreateOpportunityActivity(
-                    $opportunity,
-                    Auth::user(),
-                    Auth::user()->first_name.' '.Auth::user()->last_name.' sent a message to '.$opportunity->name.'.',
-                    '/vendor/opportunities/'.$opportunity->id.'/messages#'.$newMessage->id
-                ));
+        event(new CreateOpportunityActivity(
+            $opportunity,
+            Auth::user(),
+            Auth::user()->first_name.' '.Auth::user()->last_name.' sent a message to '.$opportunity->name.'.',
+            '/vendor/opportunities/'.$opportunity->id.'/messages#'.$newMessage->id
+        ));
 
-                return response(200);
-            }
-        }
-        return abort(404);
+        return response(200);
     }
 
     /**
@@ -255,67 +219,57 @@ class OpportunityController extends Controller
      */
     public function postConvert($uuid, Request $request)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(Auth::user()->isAssigned($uuid)){
-                $opportunity = Opportunity::find($uuid);
-                if($opportunity->getConsiderationsCompleted() === count($opportunity->considerations)){
-                    if($opportunity->status->in_review){
-                        $deal_id = Uuid::generate();
-                        $deal = new Deal();
-                        $deal->id = $deal_id;
-                        $deal->opportunity_id = $uuid;
-                        $deal->save();
-                        
-                        $opportunity->status->accepted = true;
-                        $opportunity->status->save();
-                        
-                        $deal_status = new DealStatus();
-                        $deal_status->pending = true;
-                        $deal_status->won = false;
-                        $deal_status->deal_id = $deal->id;
-                        $deal_status->save();
+        $opportunity = Opportunity::find($uuid);
+        if($opportunity->getConsiderationsCompleted() === count($opportunity->considerations)){
+            if($opportunity->status->in_review){
+                $deal_id = Uuid::generate();
+                $deal = new Deal();
+                $deal->id = $deal_id;
+                $deal->opportunity_id = $uuid;
+                $deal->save();
 
-                        event(new CreateOpportunityActivity(
-                            $opportunity,
-                            Auth::user(),
-                            Auth::user()->first_name.' '.Auth::user()->last_name.' converted '.$opportunity->name.' into a deal.',
-                            '/vendor/deals/'.$deal_id
-                        ));
-                        return response(200);
-                    }
-                    return response('This opportunity cannot be converted into a deal until it has gone under review.', 400);
-                }else{
-                    return response('Not all considerations have been achieved, please attempt to convert this opportunity once they are completed.', 400);
-                }
+                $opportunity->status->accepted = true;
+                $opportunity->status->save();
+
+                $deal_status = new DealStatus();
+                $deal_status->pending = true;
+                $deal_status->won = false;
+                $deal_status->deal_id = $deal->id;
+                $deal_status->save();
+
+                event(new CreateOpportunityActivity(
+                    $opportunity,
+                    Auth::user(),
+                    Auth::user()->first_name.' '.Auth::user()->last_name.' converted '.$opportunity->name.' into a deal.',
+                    '/vendor/deals/'.$deal_id
+                ));
+                return response(200);
             }
+            return response('This opportunity cannot be converted into a deal until it has gone under review.', 400);
+        }else{
+            return response('Not all considerations have been achieved, please attempt to convert this opportunity once they are completed.', 400);
         }
-        return abort(404);
     }
 
     public function markConsiderationComplete($uuid, $consideration_id)
     {
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(Auth::user()->isAssigned($uuid)){
-                $consideration = OpportunityConsideration::find($consideration_id);
-                if($consideration !== null && $consideration->opportunity->id === $uuid){
-                    $consideration->achieved = true;
-                    $consideration->save();
+        $consideration = OpportunityConsideration::find($consideration_id);
+        if($consideration !== null && $consideration->opportunity->id === $uuid){
+            $consideration->achieved = true;
+            $consideration->save();
 
-                    event(new CreateOpportunityActivity(
-                        Opportunity::find($uuid),
-                        Auth::user(),
-                        Auth::user()->name().' marked a consideration as complete.',
-                        null
-                    ));
+            event(new CreateOpportunityActivity(
+                Opportunity::find($uuid),
+                Auth::user(),
+                Auth::user()->name().' marked a consideration as complete.',
+                null
+            ));
 
-                    return redirect(route('vendor.opportunity',$uuid));
-                }
-                return redirect(route('vendor.opportunity',$uuid))->withErrors([
-                    'The consideration does not belong to this opportunity.'
-                ]);
-            }
+            return redirect(route('vendor.opportunity',$uuid));
         }
-        return abort(404);
+        return redirect(route('vendor.opportunity',$uuid))->withErrors([
+            'The consideration does not belong to this opportunity.'
+        ]);
     }
 
     public function rejectOpportunity($uuid, Request $request)
@@ -323,46 +277,41 @@ class OpportunityController extends Controller
         Validator::make($request->all(), [
             'reason' => 'required|string',
         ])->validate();
-        
-        if(Auth::user()->organisation->hasOpportunity($uuid)){
-            if(Auth::user()->isAssigned($uuid)){
-                $opportunity = Opportunity::find($uuid);
-                if($opportunity->status->getStatusCode() === 3){
-                    $rejection = new OpportunityRejection();
-                    $rejection->opportunity_id = $uuid;
-                    $rejection->user_id = Auth::user()->id;
-                    $rejection->reasoning = $request->get('reason');
-                    $rejection->save();
 
-                    $opportunity = Opportunity::find($uuid);
-                    $opportunity->status->accepted = false;
-                    $opportunity->status->save();
+        $opportunity = Opportunity::find($uuid);
+        if($opportunity->status->getStatusCode() === 3){
+            $rejection = new OpportunityRejection();
+            $rejection->opportunity_id = $uuid;
+            $rejection->user_id = Auth::user()->id;
+            $rejection->reasoning = $request->get('reason');
+            $rejection->save();
 
-                    event(new CreateOpportunityActivity(
-                        Opportunity::find($uuid),
-                        Auth::user(),
-                        Auth::user()->name().' rejected this opportunity.',
-                        null
-                    ));
+            $opportunity = Opportunity::find($uuid);
+            $opportunity->status->accepted = false;
+            $opportunity->status->save();
 
-                    Mail::to($opportunity->partner->email)
-                        ->queue(new VendorRejectedOpportunity_PARTNER($opportunity, $opportunity->partner));
+            event(new CreateOpportunityActivity(
+                Opportunity::find($uuid),
+                Auth::user(),
+                Auth::user()->name().' rejected this opportunity.',
+                null
+            ));
 
-                    foreach($opportunity->assignees as $assignee){
-                        Mail::to($assignee->user->email)
-                            ->queue(new VendorRejectedOpportunity_VENDOR($opportunity, $assignee->user, Auth::user()));
-                    }
+            Mail::to($opportunity->partner->email)
+                ->queue(new VendorRejectedOpportunity_PARTNER($opportunity, $opportunity->partner));
 
-                    return redirect(route('vendor.opportunity',$uuid))->with([
-                        'alert-success' => 'This opportunity has been successfully rejected. No more edits may be made to it.'
-                    ]);
-                }
-                return redirect(route('vendor.opportunity',$uuid))->withErrors([
-                    'This opportunity but be in review to be rejected.'
-                ]);
+            foreach($opportunity->assignees as $assignee){
+                Mail::to($assignee->user->email)
+                    ->queue(new VendorRejectedOpportunity_VENDOR($opportunity, $assignee->user, Auth::user()));
             }
+
+            return redirect(route('vendor.opportunity',$uuid))->with([
+                'alert-success' => 'This opportunity has been successfully rejected. No more edits may be made to it.'
+            ]);
         }
-        return abort(404); 
+        return redirect(route('vendor.opportunity',$uuid))->withErrors([
+            'This opportunity must be in review to be rejected.'
+        ]);
     }
 
 }
