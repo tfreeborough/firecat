@@ -27,6 +27,7 @@
                 </ul>
             </div>
         </div>
+        @include('_partials.flash_message')
         <div id="partner_deal">
             <div id="deal_actions" class="block">
                 <a href="{{route('partner.opportunity',$deal->opportunity->id)}}">
