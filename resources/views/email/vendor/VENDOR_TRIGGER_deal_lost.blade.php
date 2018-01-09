@@ -29,7 +29,7 @@
                 </p>
             </div>
             <p class="small">
-                Having trouble clicking the link? Please use the following url: <br />{{ route('partner.deal', $deal->id) }}
+                Having trouble clicking the link? Please use the following url: <br />{{ route('vendor.deal', $deal->id) }}
             </p>
             <p class="small">
                 If you did not sign up to Firecat or believe you were sent this in error, please contact <span class="link">support@firecat.io</span> to let us know.

@@ -1,6 +1,6 @@
 @extends('email.base')
 
-@section('title', 'Your deal has been Won')
+@section('title', $deal->opportunity->name.' has been Lost')
 
 @section('styling')
     <style>
@@ -13,17 +13,19 @@
 
 @section('content')
     <div class="content">
-        <h1 class="title"><span class="highlight">{{ $user->first_name }},</span> <br /><small> {{ $deal->opportunity->name }} has just been Won!</small></h1>
+        <h1 class="title"><span class="highlight">{{ $user->first_name }},</span> <br /><small> {{ $deal->opportunity->name }} has been marked as Lost.</small></h1>
         <div>
             <p>
-                A member of {{ $deal->opportunity->organisation->name }} has just confirmed that this deal has just been Won.
+                Unfortunately, {{ $deal->opportunity->name }} has been marked as lost, this was marked as lost by {{ $deal->opportunity->partner->name() }} so more than likely
+                means they did not secure business from the end user. If you require any further clarifications with {{ $deal->opportunity->partner->first_name }} you can
+                still contact them via the deal.
             </p>
             <p>
                 Please click the link below to view the Deal registration
             </p>
             <div class="center">
                 <p id="update_deal">
-                    <a class="button" href="{{ route('vendor.deal', $deal->id) }}">View {{ $deal->opportunity->name }}</a>
+                    <a class="button" href="{{ route('vendor.deal', $deal->id) }}">View Deal</a>
                 </p>
             </div>
             <p class="small">
