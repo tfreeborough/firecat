@@ -117,29 +117,42 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     /*
      * Deal Routes
      */
-    Route::get('deals', 'Partner\DealController@showDeals')->name('partner.deals');
-    Route::get('deals/{uuid}', 'Partner\DealController@showDeal')->name('partner.deal');
-    Route::get('deals/{uuid}/won', 'Partner\DealController@postDealWon')->name('partner.deal.won');
-    Route::get('deals/{uuid}/lost', 'Partner\DealController@postDealLost')->name('partner.deal.lost');
-    Route::post('deals/{uuid}/implementation_date_change_request', 'Partner\DealController@postRequestImplementationDateChange')->name('partner.deal.implementation_change_request');
+    Route::group(['prefix' => 'deals'], function () {
+        Route::get('/', 'Partner\DealController@showDeals')->name('partner.deals');
+
+        Route::group(['middleware' => ['auth.partner.has_deal']], function () {
+            Route::get('{uuid}', 'Partner\DealController@showDeal')->name('partner.deal');
+            Route::get('{uuid}/won', 'Partner\DealController@postDealWon')->name('partner.deal.won');
+            Route::get('{uuid}/lost', 'Partner\DealController@postDealLost')->name('partner.deal.lost');
+            Route::post('{uuid}/implementation_date_change_request', 'Partner\DealController@postRequestImplementationDateChange')->name('partner.deal.implementation_change_request');
+        });
+    });
 
     /*
      * End User Routes
      */
-    Route::get('end-users', 'Partner\EndUserController@showEndUsers')->name('partner.endUsers');
-    Route::get('end-users/create', 'Partner\EndUserController@showCreateEndUser')->name('partner.endUsers.create');
-    Route::post('end-users/create', 'Partner\EndUserController@postCreateEndUser');
+    Route::group(['prefix' => 'end-users'], function () {
+        Route::get('/', 'Partner\EndUserController@showEndUsers')->name('partner.endUsers');
+        Route::get('create', 'Partner\EndUserController@showCreateEndUser')->name('partner.endUsers.create');
+        Route::post('create', 'Partner\EndUserController@postCreateEndUser');
+    });
+
 
     /*
      * Opportunity Routes
      */
-    Route::get('opportunities', 'Partner\OpportunityController@showOpportunities')->name('partner.opportunities');
-    Route::get('opportunities/create', 'Partner\OpportunityController@showCreateOpportunity')->name('partner.opportunities.create');
-    Route::post('opportunities/create', 'Partner\OpportunityController@postCreateOpportunity');
-    Route::get('opportunities/{uuid}', 'Partner\OpportunityController@showOpportunity')->name('partner.opportunity');
-    Route::get('opportunities/{uuid}/threads', 'Partner\OpportunityController@showThreads')->name('partner.opportunity.threads');
-    Route::post('opportunities/{uuid}/threads/create', 'Partner\OpportunityController@postCreateThread')->name('partner.opportunity.threads.create')->middleware('opportunity.not.rejected');
-    Route::post('opportunities/{uuid}/threads/message', 'Partner\OpportunityController@postNewThreadMessage')->name('partner.opportunity.threads.message')->middleware('opportunity.not.rejected');
+    Route::group(['prefix' => 'opportunities'], function () {
+        Route::get('/', 'Partner\OpportunityController@showOpportunities')->name('partner.opportunities');
+        Route::get('create', 'Partner\OpportunityController@showCreateOpportunity')->name('partner.opportunities.create');
+        Route::post('create', 'Partner\OpportunityController@postCreateOpportunity');
+
+        Route::group(['middleware' => ['auth.partner.has_opportunity']], function () {
+            Route::get('{uuid}', 'Partner\OpportunityController@showOpportunity')->name('partner.opportunity');
+            Route::get('{uuid}/threads', 'Partner\OpportunityController@showThreads')->name('partner.opportunity.threads');
+            Route::post('{uuid}/threads/create', 'Partner\OpportunityController@postCreateThread')->name('partner.opportunity.threads.create')->middleware('opportunity.not.rejected');
+            Route::post('{uuid}/threads/message', 'Partner\OpportunityController@postNewThreadMessage')->name('partner.opportunity.threads.message')->middleware('opportunity.not.rejected');
+        });
+    });
 });
 
 Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' => 'vendor'], function () {
@@ -147,53 +160,86 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
      * VENDOR ROUTES
      */
     Route::get('/', 'Vendor\VendorController@showDashboard')->name('vendor.dashboard');
-
-    /*
-     * Account Routes
-     */
-    Route::get('account', 'Account\AccountController@showAccount')->name('vendor.account');
-    Route::post('account/avatar', 'Account\AccountController@postAvatar');
-    Route::post('account/additional', 'Account\AccountController@postAdditional');
-    Route::post('account/email', 'Account\AccountController@postEmailUpdate')->name('vendor.account.email');
-    Route::post('account/password', 'Account\AccountController@postPasswordUpdate')->name('vendor.account.password');
-
-    Route::get('tags', 'Vendor\TagController@index')->name('vendor.tags');
-    Route::get('tags/{tag_id}', 'Vendor\TagController@show')->name('vendor.tags.tag');
-
     Route::get('activity', 'Vendor\VendorController@showActivity')->name('vendor.activity');
     Route::get('deals', 'Vendor\VendorController@showDeals')->name('vendor.deals');
     Route::get('opportunities', 'Vendor\VendorController@showOpportunities')->name('vendor.opportunities');
 
-    Route::get('opportunities/{uuid}', 'Vendor\OpportunityController@showOpportunity')->name('vendor.opportunity');
-    Route::get('opportunities/{uuid}/assign', 'Vendor\OpportunityController@assignOpportunity')->name('vendor.opportunity.assign')->middleware('opportunity.not.rejected');
-    Route::get('opportunities/{uuid}/review', 'Vendor\OpportunityController@reviewOpportunity')->name('vendor.opportunity.review');
-    Route::get('opportunities/{uuid}/review/reject', 'Vendor\OpportunityController@rejectOpportunity')->name('vendor.opportunity.reject')->middleware('opportunity.not.rejected');
-    Route::get('opportunities/{uuid}/messages', 'Vendor\OpportunityController@showMessages')->name('vendor.opportunity.messages');
-    Route::post('opportunities/{uuid}/messages', 'Vendor\OpportunityController@postMessage')->name('vendor.opportunity.postMessage')->middleware('opportunity.not.rejected');
-    Route::post('opportunities/{uuid}/convert', 'Vendor\OpportunityController@postConvert')->name('vendor.opportunity.postConvert')->middleware('opportunity.not.rejected');
-    Route::get('opportunities/{uuid}/threads', 'Vendor\OpportunityController@showThreads')->name('vendor.opportunity.threads');
-    Route::post('opportunities/{uuid}/threads/create', 'Vendor\OpportunityController@postCreateThread')->name('vendor.opportunity.threads.create')->middleware('opportunity.not.rejected');;
-    Route::post('opportunities/{uuid}/threads/message', 'Vendor\OpportunityController@postNewThreadMessage')->name('vendor.opportunity.threads.message')->middleware('opportunity.not.rejected');
-    Route::get('opportunities/{uuid}/considerations/{consideration_id}/complete', 'Vendor\OpportunityController@markConsiderationComplete')->name('vendor.opportunity.consideration.complete')->middleware('opportunity.not.rejected');;
-    
-    Route::get('deals/{uuid}', 'Vendor\DealController@showDeal')->name('vendor.deal');
-    Route::get('deals/{uuid}/won', 'Vendor\DealController@postDealWon')->name('vendor.deal.won');
-    Route::get('deals/{uuid}/lost', 'Vendor\DealController@postDealLost')->name('vendor.deal.lost');
-    Route::get('deals/{uuid}/request_update', 'Vendor\DealController@postDealRequestUpdate')->name('vendor.deal.request_update');
-    Route::get('deals/{uuid}/tag', 'Vendor\DealController@showDealTag')->name('vendor.deal.tag');
-    Route::post('deals/{uuid}/tag', 'Vendor\DealController@postDealTag')->name('vendor.deal.tag.post');
-    Route::post('deals/{uuid}/tag/link', 'Vendor\DealController@linkDealTag')->name('vendor.deal.tag.link');
-    Route::post('deals/{uuid}/tag/unlink', 'Vendor\DealController@unlinkDealTag')->name('vendor.deal.tag.unlink');
-    Route::get('deals/{uuid}/update/{update_id}/accept', 'Vendor\DealController@acceptDealUpdate')->name('vendor.deal.update.accept');
-    Route::get('deals/{uuid}/update/{update_id}/reject', 'Vendor\DealController@rejectDealUpdate')->name('vendor.deal.update.reject');
+    Route::group(['prefix' => 'tags'], function () {
+        Route::get('/', 'Vendor\TagController@index')->name('vendor.tags');
+        Route::get('{tag_id}', 'Vendor\TagController@show')->name('vendor.tags.tag');
+    });
 
-    
-    Route::group(['middleware' => ['auth','auth.vendor','auth.verified', 'auth.vendor_admin']], function () {
-        Route::get('administration', 'Vendor\Admin\AdminController@showAdmin')->name('vendor.admin');
-        Route::get('administration/onboarding', 'Vendor\Admin\OnboardingController@showOnboarding')->name('vendor.admin.onboarding');
-        Route::post('administration/onboarding/{uuid}', 'Vendor\Admin\OnboardingController@postInvite')->name('vendor.admin.onboarding.invite');
-        Route::get('administration/onboarding/{uuid}/delete_invite/{invite_id}', 'Vendor\Admin\OnboardingController@deleteInvite')->name('vendor.admin.onboarding.delete_invite');
-        Route::get('administration/onboarding/{uuid}/renew_invite/{invite_id}', 'Vendor\Admin\OnboardingController@renewInvite')->name('vendor.admin.onboarding.renew_invite');
+    Route::group(['prefix' => 'account'], function () {
+        Route::get('/', 'Account\AccountController@showAccount')->name('vendor.account');
+        Route::post('avatar', 'Account\AccountController@postAvatar');
+        Route::post('additional', 'Account\AccountController@postAdditional');
+        Route::post('email', 'Account\AccountController@postEmailUpdate')->name('vendor.account.email');
+        Route::post('password', 'Account\AccountController@postPasswordUpdate')->name('vendor.account.password');
+    });
+
+    /**
+     * Check to see if Opportunity ID belongs to the same organisation as User
+     */
+    Route::group(['middleware' => ['auth.vendor.owns_opportunity'], 'prefix' => 'opportunities'], function () {
+
+        Route::get('{uuid}', 'Vendor\OpportunityController@showOpportunity')->name('vendor.opportunity');
+        Route::get('{uuid}/assign', 'Vendor\OpportunityController@assignOpportunity')->name('vendor.opportunity.assign')->middleware('opportunity.not.rejected');
+
+        /**
+         * Check the user is assigned to the opportunity in question
+         */
+        Route::group(['middleware' => ['auth.vendor.assigned_opportunity']], function () {
+            Route::get('{uuid}/review', 'Vendor\OpportunityController@reviewOpportunity')->name('vendor.opportunity.review');
+            Route::get('{uuid}/threads', 'Vendor\OpportunityController@showThreads')->name('vendor.opportunity.threads');
+            Route::get('{uuid}/messages', 'Vendor\OpportunityController@showMessages')->name('vendor.opportunity.messages');
+
+            /**
+             * Check the opportunity has not been rejected
+             */
+            Route::group(['middleware' => ['opportunity.not.rejected']], function () {
+                Route::get('{uuid}/review/reject', 'Vendor\OpportunityController@rejectOpportunity')->name('vendor.opportunity.reject');
+                Route::post('{uuid}/messages', 'Vendor\OpportunityController@postMessage')->name('vendor.opportunity.postMessage');
+                Route::post('{uuid}/convert', 'Vendor\OpportunityController@postConvert')->name('vendor.opportunity.postConvert');
+                Route::post('{uuid}/threads/create', 'Vendor\OpportunityController@postCreateThread')->name('vendor.opportunity.threads.create');
+                Route::post('{uuid}/threads/message', 'Vendor\OpportunityController@postNewThreadMessage')->name('vendor.opportunity.threads.message');
+                Route::get('{uuid}/considerations/{consideration_id}/complete', 'Vendor\OpportunityController@markConsiderationComplete')->name('vendor.opportunity.consideration.complete');
+            });
+        });
+    });
+
+    /**
+     * Check to make sure the Deal ID belongs to the same organisation as User
+     */
+    Route::group(['middleware' => ['auth.vendor.owns_deal','auth.vendor.assigned_deal'], 'prefix' => 'deals'], function () {
+        Route::get('{uuid}', 'Vendor\DealController@showDeal')->name('vendor.deal');
+        Route::get('{uuid}/won', 'Vendor\DealController@postDealWon')->name('vendor.deal.won');
+        Route::get('{uuid}/lost', 'Vendor\DealController@postDealLost')->name('vendor.deal.lost');
+        Route::get('{uuid}/request_update', 'Vendor\DealController@postDealRequestUpdate')->name('vendor.deal.request_update');
+        Route::get('{uuid}/tag', 'Vendor\DealController@showDealTag')->name('vendor.deal.tag');
+        Route::post('{uuid}/tag', 'Vendor\DealController@postDealTag')->name('vendor.deal.tag.post');
+        Route::post('{uuid}/tag/link', 'Vendor\DealController@linkDealTag')->name('vendor.deal.tag.link');
+        Route::post('{uuid}/tag/unlink', 'Vendor\DealController@unlinkDealTag')->name('vendor.deal.tag.unlink');
+        Route::get('{uuid}/update/{update_id}/accept', 'Vendor\DealController@acceptDealUpdate')->name('vendor.deal.update.accept');
+        Route::get('{uuid}/update/{update_id}/reject', 'Vendor\DealController@rejectDealUpdate')->name('vendor.deal.update.reject');
+    });
+
+    /**
+     * CHeck to make sure that the user is the administrator of this organisation
+     */
+    Route::group(['middleware' => ['auth.vendor_admin'], 'prefix' => 'administration'], function () {
+        Route::get('/', 'Vendor\Admin\AdminController@showAdmin')->name('vendor.admin');
+
+        Route::group(['prefix' => 'onboarding'], function () {
+            Route::get('/', 'Vendor\Admin\OnboardingController@showOnboarding')->name('vendor.admin.onboarding');
+            Route::post('/', 'Vendor\Admin\OnboardingController@postInvite')->name('vendor.admin.onboarding.invite');
+            Route::get('/delete_invite/{invite_id}', 'Vendor\Admin\OnboardingController@deleteInvite')->name('vendor.admin.onboarding.delete_invite');
+            Route::get('/renew_invite/{invite_id}', 'Vendor\Admin\OnboardingController@renewInvite')->name('vendor.admin.onboarding.renew_invite');
+        });
+
+        Route::group(['prefix' => 'tags'], function () {
+            Route::get('/', 'Vendor\Admin\TagController@showTags')->name('vendor.admin.tags');
+        });
+
     });
     
 });
