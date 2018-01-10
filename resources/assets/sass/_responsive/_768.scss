@@ -154,4 +154,14 @@
     grid-template-areas: "title" "acceptance" "opportunities_created" "deal_value" "response_time";
   }
 
+  #vendor-admin-tag{
+    #vendor-admin-tag-options{
+      #vendor-admin-tag-options-wrap{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-areas: "color" "background" "rename" "delete";
+      }
+    }
+  }
+
 }
