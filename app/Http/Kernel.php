@@ -55,6 +55,7 @@ class Kernel extends HttpKernel
         'auth.vendor' => \App\Http\Middleware\VendorAuth::class,
         'auth.vendor.owns_deal' => \App\Http\Middleware\OrganisationOwnsDeal::class,
         'auth.vendor.owns_opportunity' => \App\Http\Middleware\OrganisationOwnsOpportunity::class,
+        'auth.vendor.owns_tag' => \App\Http\Middleware\OrganisationOwnsTag::class,
         'auth.vendor.assigned_opportunity' => \App\Http\Middleware\UserAssignedOpportunity::class,
         'auth.vendor.assigned_deal' => \App\Http\Middleware\UserAssignedDeal::class,
         'auth.partner' => \App\Http\Middleware\PartnerAuth::class,
