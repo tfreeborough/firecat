@@ -33,7 +33,9 @@
                 <a href="{{route('vendor.admin')}}"
                    class="{{ Helper::areActiveRoutes([
                     'vendor.admin',
-                    'vendor.admin.onboarding'
+                    'vendor.admin.onboarding',
+                    'vendor.admin.tags',
+                    'vendor.admin.tags.tag'
                    ]) }}"
                 >
                     <li>

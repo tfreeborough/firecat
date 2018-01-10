@@ -1,0 +1,119 @@
+
+#vendor-admin-tags{
+  #vendor-admin-tags-table{
+    .tag{
+      padding: 2px 5px;
+      background: #ECECEC;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 2px;
+      margin-bottom: 2px;
+
+      &:hover{
+        opacity:0.7;
+      }
+    }
+  }
+}
+
+#vendor-admin-tag{
+  display:grid;
+  grid-gap:1rem;
+
+  #vendor-admin-tag-options{
+    display:grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: "title title title title""options options options options";
+    grid-gap:1rem;
+
+    .title{
+      grid-area:title;
+    }
+
+    #vendor-admin-tag-options-wrap{
+      grid-area:options;
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-areas: "color background rename delete";
+      grid-gap:1rem;
+
+      .block{
+        display:grid;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "title""form";
+
+        .title{
+          grid-area:title;
+        }
+
+        form,.form{
+          display:grid;
+          grid-area:form;
+          grid-template-rows: auto 1fr;
+          grid-gap:1rem;
+          align-items: end;
+
+          .element{
+            margin-top:2rem;
+          }
+
+          .submit{
+            text-align: right;
+          }
+        }
+      }
+
+      #tag-color-change{
+        grid-area:color;
+      }
+
+      #tag-background-change{
+        grid-area:background;
+      }
+
+      #tag-rename{
+        grid-area:rename;
+      }
+
+      #tag-delete{
+        grid-area:delete;
+      }
+    }
+  }
+
+  #vendor-admin-tag-deals-table{
+    td{
+      vertical-align: middle;
+    }
+
+    .pending{
+      background:rgba(yellow,0.1);
+    }
+
+    .won{
+      background:rgba(green,0.1);
+    }
+
+    .lost{
+      background:rgba(red,0.1);
+    }
+
+    ul{
+      list-style-type: none;
+      padding:0;
+      margin:0;
+
+      li{
+        display:inline-block;
+
+        img{
+          width:32px;
+          height:32px;
+          border-radius:4px;
+        }
+      }
+    }
+  }
+}

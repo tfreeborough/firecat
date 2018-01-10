@@ -100,6 +100,11 @@
                                 Onboarding
                             </a>
                         </li>
+                        <li>
+                            <a href="{{route('vendor.admin.tags')}}">
+                                Organisation Tags
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

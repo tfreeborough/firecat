@@ -238,6 +238,15 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
 
         Route::group(['prefix' => 'tags'], function () {
             Route::get('/', 'Vendor\Admin\TagController@showTags')->name('vendor.admin.tags');
+
+            Route::group(['middleware' => 'auth.vendor.owns_tag'], function () {
+                Route::get('{tag_id}', 'Vendor\Admin\TagController@showTagPage')->name('vendor.admin.tags.tag');
+                Route::post('{tag_id}/text_color', 'Vendor\Admin\TagController@updateTagTextColor')->name('vendor.admin.tag.text_color');
+                Route::post('{tag_id}/background_color', 'Vendor\Admin\TagController@updateTagBackgroundColor')->name('vendor.admin.tag.background_color');
+                Route::post('{tag_id}/rename', 'Vendor\Admin\TagController@updateTagName')->name('vendor.admin.tag.rename');
+                Route::post('{tag_id}/delete', 'Vendor\Admin\TagController@deleteTag')->name('vendor.admin.tag.delete');
+            });
+
         });
 
     });

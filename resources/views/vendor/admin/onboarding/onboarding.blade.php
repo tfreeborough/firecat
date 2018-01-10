@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Organisation Administration')
+@section('title', 'Organisation Onboarding')
 
 @section('content')
     <div id="page-topper">

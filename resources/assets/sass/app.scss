@@ -42,6 +42,7 @@
   @import "_pages/vendor/tags";
     @import "_pages/vendor/admin/index";
     @import "_pages/vendor/admin/onboarding";
+    @import "_pages/vendor/admin/tags";
 
 @import "_pages/partner/dashboard";
   @import "_pages/partner/opportunities";
@@ -213,6 +214,14 @@ p.small{
   text-decoration: line-through;
 }
 
+.tag{
+  padding:2px 5px;
+  background:$firecat-light-grey;
+  border-radius:4px;
+  display:inline-block;
+  margin-top:2px;
+  margin-bottom:2px;
+}
 
 
 

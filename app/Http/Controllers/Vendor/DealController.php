@@ -181,7 +181,10 @@ class DealController extends Controller
             'text_color' => 'required|string',
         ])->validate();
 
-        if(OrganisationTag::where('name','=',$request->get('tag_name'))->first() === null){
+        if(OrganisationTag::where([
+                    ['name','=',$request->get('tag_name')],
+                    ['organisation_id', '=', Auth::user()->organisation->id]
+                ])->first() === null){
             $organisation_tag = new OrganisationTag();
             $organisation_tag->name = $request->get('tag_name');
             $organisation_tag->color = $request->get('tag_background_color');
