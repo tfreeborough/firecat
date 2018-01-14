@@ -136,6 +136,10 @@ class User extends Authenticatable
                 return true;
             }
         }
+
+        if($this->isVendorAdministrator($opportunity->organisation->id)){
+            return true;
+        }
         return false;
     }
 

@@ -10,9 +10,13 @@ class UserAssignedOpportunity
 {
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->isAssigned($request->uuid)){
-            return $next($request);
+        $opportunity = Opportunity::find($request->uuid);
+        if($opportunity){
+            if(Auth::user()->isAssigned($opportunity)){
+                return $next($request);
+            }
         }
+
 
         return back()->withErrors([
             'You cannot perform that action as you are not assigned to the opportunity.'
