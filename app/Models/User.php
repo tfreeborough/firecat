@@ -157,9 +157,9 @@ class User extends Authenticatable
     public function getAvatar()
     {
         return ($this->extra->avatar_id ? Cloudder::show($this->extra->avatar_id, [
-            'width' => 108,
+            'width' => 128,
             'height' => 128,
-            'crop' => 'fill', 
+            'crop' => 'fill',
             'gravity' => 'face'
         ]) : '/images/avatar.png');
     }
