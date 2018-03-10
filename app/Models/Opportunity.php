@@ -109,9 +109,9 @@ class Opportunity extends Model
             return $this->organisation->defaultConsiderations();
         }else{
             return [
-                [ 'title' => 'Liaised with partner to confirm details of opportunity.' ], 
-                [ 'title' => 'Checked for duplicate opportunities that may pre-date this one' ],
-                [ 'title' => 'Confirm "Green Light" to go ahead with deal registration.' ]
+                'Has the partner been contacted to acknowledge this opportunity?',
+                'Has the partner brought a new opportunity or is introducing us to a new customer?',
+                'Are all specifications of this opportunity able to be fulfilled?'
             ];
         }
     }

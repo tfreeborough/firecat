@@ -80,7 +80,7 @@ class Organisation extends Model
     {
         return [
             'Has the partner been contacted to acknowledge this opportunity?',
-            'Has a final price been agreed with the partner?',
+            'Has the partner brought a new opportunity or is introducing us to a new customer?',
             'Are all specifications of this opportunity able to be fulfilled?'
         ];
     }
