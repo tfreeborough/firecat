@@ -156,7 +156,12 @@ class User extends Authenticatable
 
     public function getAvatar()
     {
-        return ($this->extra->avatar_id ? Cloudder::show($this->extra->avatar_id) : '/images/avatar.png');
+        return ($this->extra->avatar_id ? Cloudder::show($this->extra->avatar_id, [
+            'width' => 108,
+            'height' => 128,
+            'crop' => 'fill', 
+            'gravity' => 'face'
+        ]) : '/images/avatar.png');
     }
 
 
