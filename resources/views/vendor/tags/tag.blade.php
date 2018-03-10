@@ -70,7 +70,7 @@
                             <ul>
                                 @foreach($deal_tag->deal->opportunity->assignees as $assignee)
                                     <li>
-                                        <img title="{{ $assignee->user->first_name }} {{ $assignee->user->last_name }}" src="{{ $assignee->user->extra->avatar_url }}" />
+                                        <img title="{{ $assignee->user->first_name }} {{ $assignee->user->last_name }}" src="{{ $assignee->user->getAvatar() }}" />
                                     </li>
                                 @endforeach
                                 @if(count($deal_tag->deal->opportunity->assignees) === 0)
