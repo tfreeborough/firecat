@@ -43,7 +43,11 @@
                     <td>{{ $user->name() }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ \Carbon\Carbon::parse($user->created_at)->toDayDateTimeString() }}</td>
-                    <td>{{ \Carbon\Carbon::parse($user->last_login)->toDayDateTimeString() }}</td>
+                    @if($user->last_login !== null)
+                        <td>{{ \Carbon\Carbon::parse($user->last_login)->toDayDateTimeString() }}</td>
+                    @else
+                        <td>Not logged in yet.</td>
+                    @endif
                     <td>&nbsp;</td>
                 </tr>
             @endforeach
