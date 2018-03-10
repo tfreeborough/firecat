@@ -105,6 +105,11 @@
                                 Organisation Tags
                             </a>
                         </li>
+                        <li>
+                            <a href="{{route('vendor.admin.users')}}">
+                                Users
+                            </a>
+                        </li>
                     </ul>
                 </div>
 

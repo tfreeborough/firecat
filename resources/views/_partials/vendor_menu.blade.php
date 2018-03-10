@@ -35,7 +35,8 @@
                     'vendor.admin',
                     'vendor.admin.onboarding',
                     'vendor.admin.tags',
-                    'vendor.admin.tags.tag'
+                    'vendor.admin.tags.tag',
+                    'vendor.admin.users'
                    ]) }}"
                 >
                     <li>

@@ -236,6 +236,10 @@ Route::group(['middleware' => ['auth','auth.vendor','auth.verified'], 'prefix' =
             Route::get('/renew_invite/{invite_id}', 'Vendor\Admin\OnboardingController@renewInvite')->name('vendor.admin.onboarding.renew_invite');
         });
 
+        Route::group(['prefix' => 'users'], function () {
+           Route::get('/', 'Vendor\Admin\UserController@showUsers')->name('vendor.admin.users');
+        });
+
         Route::group(['prefix' => 'tags'], function () {
             Route::get('/', 'Vendor\Admin\TagController@showTags')->name('vendor.admin.tags');
 
