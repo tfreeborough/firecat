@@ -65,7 +65,7 @@
                 <div class="dashboard-panel">
                     <div class="dashboard-panel-wrapper">
                         <div class="dashboard-panel-big">
-                            {{ $win_rate }}%
+                            {{ number_format($win_rate,2) }}%
                         </div>
                         <div class="dashboard-panel-small">
                             Win Rate
