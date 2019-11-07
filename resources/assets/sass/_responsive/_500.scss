@@ -1,7 +1,23 @@
 @media screen and (max-width:500px){
 
-  #account-bar #menu-links ul li .account{
-    display:none;
+  #account-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    #menu-logo{
+      font-size: 2rem;
+    }
+
+    #menu-links{
+      ul{
+        padding-left:0;
+      }
+    }
+
+    #menu-links ul li .account{
+      display:none;
+    }
   }
 
   #vendor-overview{
