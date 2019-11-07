@@ -1,52 +1,49 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Firecat
+This is the main firecat repository for **firecat.io**
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+### Good To knows
+- `master` branch for live site
+- release/\<version> for Releases i.e **release/2.0.0**
+    - Big number indicates which milestone, middle number is per feature
+    release and small number is for bug fixes
+- feature/\<feature name> for features i.e **feature/set-up-docker-compose**
+- bugfix/\<bug name> for bug fixes i.e **bugfix/fix-docker-compose-files**
 
-## About Laravel
+## Set up with Docker
+To set up with docker you will need to perform the following steps.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+* Firstly make sure your docker machine is running
+* run `docker-compose up` if this is the first time building the containers.
+* after the build command has run, you may cancel out and run `docker-compose start` to start up
+the containers.
+* To enter the container you will need to use one of the following commands:
+    * `winpty docker exec -it firecat-php-fpm bash` (Windows)(Use Git Bash)
+    * `docker exec -it firecat-php-fpm bash` (Mac/Linux)
+* Once you are in you will want to run `composer install` and `cp .env.example .env`.
+* You will also want to run `php artisan key:generate`.
+* Run `apt-get update` and `apt-get install npm`.
+* Next depends on if you are on Linux/Mac or Windows
+    * (WINDOWS) `npm install --no-bin-links` && `npm install -g cross-env`
+    * (MAC/LINUX) `npm install`
+* Navigate to http://192.168.99.100:8080 to access the site.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+_To run the scss watcher you will want to run `npm run watch-poll`._
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
 
-## Learning Laravel
+## Subsequent Starts
+Once you have already set up the repo, getting back into it is really simple
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+* Firstly make sure your docker machine is running.
+* Next navigate to your repository and type `docker-compose start`
+* Next use either of the following commands:
+    * `winpty docker exec -it firecat-php-fpm bash` (Windows)(Use Git Bash)
+    * `docker exec -it firecat-php-fpm bash` (Mac/Linux)
+* Done!
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+_To run the scss watcher you will want to run `npm run watch-poll`._
 
-## Laravel Sponsors
+## Useful commands
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
-
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- **[Codecourse](https://www.codecourse.com)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+1. `php artisan make:migration <migration_name>` - Creates a new migration file
+2. `php artisan migrate` - Migrates any outstanding migration files
+3. `php artisan make:model <model_name>` - Creates a new model file

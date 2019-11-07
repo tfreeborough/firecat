@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="form-group">
-            <div id="g-recaptcha2" data-sitekey="6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF"></div>
+            @include('_partials.recaptcha')
         </div>
         <div class="form-group">
             {{ Form::submit('Register your interest', array_merge(['class' => 'button action'])) }}

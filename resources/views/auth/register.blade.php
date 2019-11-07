@@ -16,6 +16,7 @@
             <div class="row">
                 <h2 class="title">Create a partner account</h2>
                 @include('_partials.flash_message')
+                @include('_partials.email_verified')
                 {!! Form::open(['url' => '/register']) !!}
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
@@ -56,7 +57,7 @@
 
 
                 <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF"></div>
+                    @include('_partials.recaptcha')
                 </div>
                 <div class="form-group">
                     {{ Form::submit('Create an account', array_merge(['class' => 'button action'])) }}
@@ -68,4 +69,13 @@
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', {action: 'signup'}).then(function(token) {
+                $('.recaptcha').val(token);
+            });
+        });
+    </script>
 @endsection

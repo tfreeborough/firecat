@@ -16,7 +16,6 @@
     <meta name="keywords" content="@yield('keywords')">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
 </head>

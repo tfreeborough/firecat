@@ -1,6 +1,6 @@
 
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,600);
 
 // Variables
 @import "variables";
@@ -20,6 +20,7 @@
 @import "_partials/structure";
 @import "_partials/status_code_display.scss";
 @import "_partials/404";
+@import "_partials/flash_message";
 
 // Pages
 @import "_pages/register";
@@ -62,6 +63,11 @@ body{
     > .full-height{
       z-index: 1;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 100vh;
     }
 
     color:$firecat-light-grey;
@@ -103,6 +109,10 @@ body{
 #app{
   padding-top:$menu-height;
 
+  &:not(.authenticated){
+    width:100%;
+  }
+
   &.authenticated{
     position: absolute;
     top:$menu-height;
@@ -118,6 +128,10 @@ body{
 
 .container{
   background:$centerpiece;
+}
+
+.grecaptcha-badge{
+  display:none;
 }
 
 .avatar{

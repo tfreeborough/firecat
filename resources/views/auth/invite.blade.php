@@ -55,9 +55,18 @@
                 <div class="form-group">
                     {{ Form::submit('Create Account', array_merge(['class' => 'button action'])) }}
                 </div>
-
+                @include('_partials.recaptcha')
                 {!! Form::close() !!}
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', {action: 'signup'}).then(function(token) {
+                $('.recaptcha').val(token);
+            });
+        });
+    </script>
 @endsection

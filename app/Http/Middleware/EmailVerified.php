@@ -18,11 +18,8 @@ class EmailVerified
             return $next($request);
         }
 
-        $loginController = new LoginController();
-        $loginController->logout($request);
-
-        return redirect('login')->withErrors([
-            'Sorry, but you have not yet verified your account. Please do so before logging in. If you need to resend your code you can do so <a href="'.route('resend-verification').'">here.</a>'
+        return back()->withErrors([
+            'Sorry, but you cannot perform that action until you verify your email. If you need to resend your code you can do so <a href="'.route('resend-verification').'">here.</a>'
         ]);
     }
 }

@@ -27,27 +27,15 @@
             </div>
         </div>
         <div id="create-opportunity">
+            @include('_partials.email_verified')
+
             {!! Form::open(['url' => '/partner/opportunities/create']) !!}
             <div id="vendor" class="row">
                 <div class="col-xs-12">
                     <h3 class="title">Vendor</h3>
                 </div>
                 <div class="col-xs-12">
-                    @if (count($errors) > 0)
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div id="create-end-user-errors" class="text-left">
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{!! $error !!}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+                    @include('_partials.flash_message')
                 </div>
                 @if($magic_link)
                     {{ Form::hidden('vendor', $vendor->id, null) }}
@@ -67,7 +55,7 @@
                     <div class="col-xs-12 col-sm-4">
                         <div class="form-group">
                             {{ Form::label('vendor', 'Vendor', ['class' => 'control-label required']) }}
-                            {{ Form::select('vendor', $vendors, 0, array_merge(['class' => 'form-control', 'id' => 'vendor-select'])) }}
+                            {{ Form::select('vendor', array_merge(['' => '---Select a vendor ---'],$vendors), 0, array_merge(['class' => 'form-control', 'id' => 'vendor-select'])) }}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-4">

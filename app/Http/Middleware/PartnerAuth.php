@@ -9,10 +9,12 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
+
 class PartnerAuth
 {
 
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         if(auth()->check() && auth()->user()->isPartner()){
             return $next($request);

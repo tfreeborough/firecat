@@ -38,7 +38,7 @@ Route::post('beta/interest', 'Marketing\BetaController@postInterestSubmission')-
 
 Route::get('dashboard', 'Account\AccountController@directToDashboard')->name('dashboard');
 
-Route::group(['middleware' => ['auth','auth.verified'], 'prefix' => 'docs'], function () {
+Route::group(['middleware' => ['auth'], 'prefix' => 'docs'], function () {
     Route::get('/', 'Docs\DocsController@index')->name('docs');
 
     Route::group(['prefix' => 'opportunities'], function () {
@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth','auth.admin','auth.verified'], 'prefix' =>
 
 });
 
-Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' => 'partner'], function () {
+Route::group(['middleware' => ['auth','auth.partner'], 'prefix' => 'partner'], function () {
     /*
      * PARTNER ROUTES
      */
@@ -144,9 +144,9 @@ Route::group(['middleware' => ['auth','auth.partner','auth.verified'], 'prefix' 
     Route::group(['prefix' => 'opportunities'], function () {
         Route::get('/', 'Partner\OpportunityController@showOpportunities')->name('partner.opportunities');
         Route::get('create', 'Partner\OpportunityController@showCreateOpportunity')->name('partner.opportunities.create');
-        Route::post('create', 'Partner\OpportunityController@postCreateOpportunity');
+        Route::post('create', 'Partner\OpportunityController@postCreateOpportunity')->middleware('auth.verified');
 
-        Route::group(['middleware' => ['auth.partner.has_opportunity']], function () {
+        Route::group(['middleware' => ['auth.partner.has_opportunity','auth.verified']], function () {
             Route::get('{uuid}', 'Partner\OpportunityController@showOpportunity')->name('partner.opportunity');
             Route::get('{uuid}/threads', 'Partner\OpportunityController@showThreads')->name('partner.opportunity.threads');
             Route::post('{uuid}/threads/create', 'Partner\OpportunityController@postCreateThread')->name('partner.opportunity.threads.create')->middleware('opportunity.not.rejected');

@@ -80,7 +80,7 @@
                     <div class="dashboard-panel-wrapper">
                         <div class="dashboard-panel-big">
                             @if($statistics !== null)
-                                {{ number_format($statistics->average_assignment_wait/60/60/24, 2) }}
+                                {{ gmdate('H:i:s', $statistics->average_assignment_wait)}}
                             @else
                                 N/A
                             @endif

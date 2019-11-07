@@ -53,10 +53,12 @@
         }
     </script>
 
-    <script type="text/javascript">
-        var CaptchaCallback = function() {
-            grecaptcha.render('g-recaptcha1', {'sitekey' : '6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF'});
-            grecaptcha.render('g-recaptcha2', {'sitekey' : '6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF'});
-        };
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', {action: 'signup'}).then(function(token) {
+                $('#vendor .recaptcha').val(token);
+                $('#partner .recaptcha').val(token);
+            });
+        });
     </script>
 @endsection

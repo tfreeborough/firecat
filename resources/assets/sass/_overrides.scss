@@ -2,11 +2,11 @@
 
 body{
   background:$background;
+  font-size:18px;
 }
 
 a{
   color:$firecat-link;
-
   &:hover{
     text-decoration: none;
   }

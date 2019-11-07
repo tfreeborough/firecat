@@ -6,7 +6,9 @@ use App\Mail\Verify;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Models\UserExtra;
+use App\Rules\Recaptcha;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -60,7 +62,7 @@ class RegisterController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'g-recaptcha-response' => 'required'
+            'g-recaptcha-response' => ['required', 'string', new Recaptcha()],
         ]);
     }
 
@@ -97,26 +99,14 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        $client = new Client();
-        $res = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
-            'form_params' => [
-                'secret' => env('RECAPTCHA_SECRET'),
-                'response' => $request->get('g-recaptcha-response')
-            ]
-        ]);
-        $json = json_decode($res->getBody()->getContents());
-        if($json->success){
-            event(new Registered($user = $this->create($request->all())));
+        event(new Registered($user = $this->create($request->all())));
 
-            return $this->registered($request, $user)
-                ?: redirect($this->redirectPath())->with([
-                    'alert-success' => 'Thanks for registering, please check your email for a verification link.'
-                ]);
-        }else{
-            return redirect(route('register'))->withErrors([
-                'alert-error' => 'We could not verify that you aren\'t a robot, you haven\'t augmented yourself recently have you?'
+        Auth::login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect()->intended($this->redirectPath())->with([
+                'alert-success' => 'Thanks for registering, please check your email for a verification link.'
             ]);
-        }
 
     }
 
