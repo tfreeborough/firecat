@@ -50,7 +50,7 @@
                     {{ Form::password('password_confirmation', array_merge(['class' => 'form-control'])) }}
                 </div>
                 <div class="form-group">
-                    <div class="g-recaptcha" data-sitekey="6Le_sjgUAAAAACTbuusWiVJooy5L_TPKC210wGZF"></div>
+                    @include('_partials.recaptcha')
                 </div>
                 <div class="form-group">
                     {{ Form::submit('Create Account', array_merge(['class' => 'button action'])) }}
