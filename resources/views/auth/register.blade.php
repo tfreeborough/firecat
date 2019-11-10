@@ -54,8 +54,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div class="form-group">
                     @include('_partials.recaptcha')
                 </div>

@@ -8,6 +8,7 @@ use App\Models\Invite;
 use App\Models\OrganisationAdministrator;
 use App\Models\User;
 use App\Models\UserExtra;
+use App\Rules\Recaptcha;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,7 @@ class InviteController extends Controller
     {
         return Validator::make($data, [
             'password' => 'required|string|min:8|confirmed',
-            'g-recaptcha-response' => 'required'
+            'g-recaptcha-response' => ['required', 'string', new Recaptcha()],
         ]);
     }
 
