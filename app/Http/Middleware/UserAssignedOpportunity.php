@@ -12,7 +12,7 @@ class UserAssignedOpportunity
     {
         $opportunity = Opportunity::find($request->uuid);
         if($opportunity){
-            if(Auth::user()->isAssigned($opportunity)){
+            if(Auth::user()->isAssigned($opportunity->id)){
                 return $next($request);
             }
         }
