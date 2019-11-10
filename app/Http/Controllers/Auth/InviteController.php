@@ -46,23 +46,6 @@ class InviteController extends Controller
         ]);
     }
 
-    public function verifyCaptcha($request)
-    {
-        $client = new Client();
-        $res = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
-            'form_params' => [
-                'secret' => env('RECAPTCHA_SECRET'),
-                'response' => $request->get('g-recaptcha-response')
-            ]
-        ]);
-        $json = json_decode($res->getBody()->getContents());
-        if($json->success){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     public function buildUser($request, $uuid)
     {
         $invite = Invite::where('token','=',$uuid)->first();
@@ -116,20 +99,14 @@ class InviteController extends Controller
     public function verifyInvite(Request $request, $uuid)
     {
         $this->validator($request->all())->validate();
-        if($this->verifyCaptcha($request)){
-            if($user = $this->buildUser($request, $uuid)){
-                Auth::login($user);
-                return redirect(route('dashboard'))->with([
-                    'alert-success' => 'You have successfully created your account, enjoy!'
-                ]);
-            }else{
-                return view('auth.invite_error')->withErrors([
-                    'alert-danger' => 'Your invite has expired, please contact whoever invited you to request another invite to the system.'
-                ]);
-            }
+        if($user = $this->buildUser($request, $uuid)){
+            Auth::login($user);
+            return redirect(route('dashboard'))->with([
+                'alert-success' => 'You have successfully created your account, enjoy!'
+            ]);
         }else{
-            return redirect(route('invite', $uuid))->withErrors([
-                'alert-error' => 'We could not verify that you aren\'t a robot, you haven\'t augmented yourself recently have you?'
+            return view('auth.invite_error')->withErrors([
+                'alert-danger' => 'Your invite has expired, please contact whoever invited you to request another invite to the system.'
             ]);
         }
     }
