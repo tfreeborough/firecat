@@ -130,7 +130,7 @@ class User extends Authenticatable
     public function isAssigned($id)
     {
         $opportunity = Opportunity::find($id);
-        
+
         foreach($opportunity->assignees as $assignee){
             if($assignee->user->id === $this->id){
                 return true;

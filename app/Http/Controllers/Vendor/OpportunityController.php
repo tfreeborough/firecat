@@ -106,7 +106,7 @@ class OpportunityController extends Controller
      */
     public function assignOpportunity($uuid)
     {
-        if(!Auth::user()->isAssigned($uuid)){
+        if(Auth::user()->isAssigned($uuid)){
             $opportunity = Opportunity::find($uuid);
 
             if(count($opportunity->assignees) === 0){
@@ -131,8 +131,6 @@ class OpportunityController extends Controller
                 Auth::user(),
                 Auth::user()->first_name.' '.Auth::user()->last_name.' assigned themselves to '.$opportunity->name.'.'
             ));
-
-
             return redirect('/vendor/opportunities/'.$uuid);
         }else{
             return redirect('/vendor/opportunities/'.$uuid)->withErrors([
@@ -150,6 +148,22 @@ class OpportunityController extends Controller
     {
         $opportunity = Opportunity::find($uuid);
         if(!$opportunity->status->in_review){
+            if(
+                count($opportunity->assignees) === 0
+                && Auth::user()->isVendorAdministrator(Auth::user()->organisation->id)
+            ){
+                $assignee = new Assignee();
+                $assignee->id = Uuid::generate();
+                $assignee->opportunity_id = $uuid;
+                $assignee->user_id = Auth::user()->id;
+                $assignee->save();
+
+                event(new CreateOpportunityActivity(
+                    $opportunity,
+                    Auth::user(),
+                    Auth::user()->first_name.' '.Auth::user()->last_name.' assigned themselves to '.$opportunity->name.'.'
+                ));
+            }
             $opportunity->status->in_review = true;
             $opportunity->status->save();
 

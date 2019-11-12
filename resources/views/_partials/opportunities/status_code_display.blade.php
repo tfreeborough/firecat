@@ -1,7 +1,9 @@
 <div class="status-code-display block">
     <h3 class="title">Status</h3>
     @if($opportunity->status->getStatusCode() < 2)
-        @if(Auth::user()->isVendor() && Auth::user()->isAssigned($opportunity->id))
+        @if(
+        Auth::user()->isVendor() &&
+        Auth::user()->isAssigned($opportunity->id))
             <div class="alert alert-info text-center">
                 <button class="button action" onClick="reviewConfirm()" class="highlight">Review this opportunity</button>
             </div>

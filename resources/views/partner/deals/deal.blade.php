@@ -33,9 +33,6 @@
                 <a href="{{route('partner.opportunity',$deal->opportunity->id)}}">
                     <i class="fa fa-file-text" aria-hidden="true" title="View Opportunity"></i>
                 </a>
-                <a href="{{route('partner.opportunity',$deal->opportunity->id)}}">
-                    <i class="fa fa-envelope-o" aria-hidden="true" title="Email to me"></i>
-                </a>
             </div>
             @include('_partials.deals.partner.deal_status')
             @include('_partials.deals.partner.deal_implementation')
