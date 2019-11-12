@@ -85,7 +85,7 @@
                         </td>
                         <td>
                             <a href="/vendor/deals/{{$deal_tag->deal->id}}">
-                                <i class="fa fa-chain-broken" aria-hidden="true"></i>
+                                <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
                         </td>
                     </tr>
