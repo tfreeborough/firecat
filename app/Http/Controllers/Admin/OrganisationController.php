@@ -178,7 +178,6 @@ class OrganisationController
         $user->organisation()->dissociate()->save();
         $user->vendor = false;
         $user->partner = false;
-        $user->admin = false;
         $user->save();
         $user->delete();
         return redirect('/admin/onboarding/' . $uuid)->with([
