@@ -16,6 +16,7 @@ use App\Models\Opportunity;
 use App\Models\OpportunityConsideration;
 use App\Models\OpportunityProduct;
 use App\Models\OpportunityStatus;
+use App\Models\OpportunityThread;
 use App\Models\OpportunityThreadMessage;
 use App\Models\Organisation;
 use Carbon\Carbon;
